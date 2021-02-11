@@ -6,18 +6,18 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 13:19:20 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/15 12:06:45 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:48:28 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
-# include "./libft/libft.h"
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+# include "../libft/libft.h"
 
 typedef struct	s_flags
 {

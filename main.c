@@ -6,12 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/02/09 14:23:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:59:37 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "minishell.h"
 
 int main (int argv, char **argc, char **envp)
 {
@@ -22,9 +21,11 @@ int main (int argv, char **argc, char **envp)
 	{
 		write(1, "Nacho", 5);
 		write(1, "> ", 2);
-		chdir("../cub3d");
-		printf("%s\n", getcwd(NULL, 0));
+	//	ft_printf("%d\n", ft_strlen("hola"));
+		//ft_printf("pwd: %s\n", getcwd(NULL, 0));
+		//chdir("../cub3d");
 		read(0, str, 1023);
+		ft_printf("%s\n", str);
 	}
 	return (0);
 }

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 13:35:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/02/10 15:59:43 by jtrancos         ###   ########.fr       */
+/*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
+/*   Updated: 2021/02/11 12:26:04 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-# include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include "printf/libftprintf.h"
 # include <stdio.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "../libft/libft.h"
+# include <unistd.h>
 
-int		get_next_line(int fd, char **line);
 #endif
