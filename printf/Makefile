@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/15 11:40:04 by jtrancos          #+#    #+#              #
-#    Updated: 2021/02/10 15:54:14 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/02/13 13:19:07 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CFLAGS	= -g -fsanitize=address -Wall -Werror -Wextra
 				${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:		${OBJS}
-				${MAKE} -C ../libft/
+				make -C ../libft/
 				cp ../libft/libft.a ${NAME}
 				ar rc ${NAME} ${OBJS}
 				ranlib ${NAME}
@@ -40,7 +40,7 @@ all:			${NAME}
 
 clean:			
 				${RM} ${OBJS}
-				${MAKE} clean -C ../libft/
+				make clean -C ../libft/
 
 fclean:			clean
 				${RM} ${NAME} libft.a

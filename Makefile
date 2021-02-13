@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/02/11 12:37:49 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/02/13 13:19:53 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,14 @@ RM			= rm -f
 			${CC} -g -c $< -o ${<:.c=.o} ${CFLAGS}
 
 ${NAME}:	${OBJS}
-			${MAKE} -C ./printf
+			make -C ./printf
 			$(CC) -L printf/ -lftprintf $^ -o ${NAME}
 		
 all:		${NAME}
 
 clean:
 			${RM} ${OBJS}
-			${MAKE} clean -C ./printf
+			make clean -C ./printf
 
 fclean : 	clean
 			${RM} ${NAME} libftprintf.a libft.a
