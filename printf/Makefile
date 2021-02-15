@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/15 11:40:04 by jtrancos          #+#    #+#              #
-#    Updated: 2021/02/13 13:19:07 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/02/15 11:06:00 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS	= ${SRCS:.c=.o}
 NAME	= libftprintf.a
 CC		= cc
 RM		= rm -f
-CFLAGS	= -g -fsanitize=address -Wall -Werror -Wextra
+#CFLAGS	= -g -fsanitize=address -Wall -Werror -Wextra
 .c.o:
 				${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
