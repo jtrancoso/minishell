@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 12:02:12 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/13 14:27:43 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:52:05 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_format(const char *s, int *i, va_list args, t_flags *flags)
 		*i += 1;
 }
 
-int		ft_printf(const char *s, ...)
+int	ft_printf(const char *s, ...)
 {
 	int			i;
 	va_list		args;

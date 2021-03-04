@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:43:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/01/20 17:44:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:36:47 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_strcpy(char *dst, const char *src)
+static char	*ft_strcpy(char *dst, const char *src)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ static char		*ft_strcpy(char *dst, const char *src)
 	return (dst);
 }
 
-char			*ft_strmapi(const char *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
 	char			*str;
 	unsigned int	i;

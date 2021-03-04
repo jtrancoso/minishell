@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:59:13 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/01/26 16:10:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:36:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	unsigned int counter;
-	unsigned int result;
+	unsigned int	counter;
+	unsigned int	result;
 
 	if (!dst && !src)
 		return (0);

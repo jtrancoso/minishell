@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_filling.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 12:46:13 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/13 14:05:12 by marvin           ###   ########.fr       */
+/*   Updated: 2021/03/04 12:44:05 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_filling(int width, int zero)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (zero == -1)

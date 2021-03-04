@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 21:07:01 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/01/23 21:52:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:30:19 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	while (lst->next)
 	{
 		lst = lst->next;
-		if (!(map->next = ft_lstnew(f(lst->content))))
+		map->next = ft_lstnew(f(lst->content));
+		if (!(map->next))
 		{
 			ft_lstclear(&map, del);
 			return (NULL);

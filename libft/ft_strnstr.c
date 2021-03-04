@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 14:27:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/01/13 14:35:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:39:11 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	*str;
-	size_t	i;
-	size_t	k;
+	char		*str;
+	size_t		i;
+	size_t		k;
+	const char	*aux;
 
-	str = (char *)haystack;
+	aux = haystack;
+	str = (char *)aux;
 	i = 0;
 	if (needle[0] == '\0')
 		return (str);
@@ -28,8 +30,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	while (str[i] != '\0' && i < len)
 	{
 		k = 0;
-		while (str[i + k] == needle[k] && haystack[i + k] != '\0' &&
-				i + k < len)
+		while (str[i + k] == needle[k] && aux[i + k] != '\0' && i + k < len)
 		{
 			if (needle[k + 1] == '\0')
 				return (&str[i]);

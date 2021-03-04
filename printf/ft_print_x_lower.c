@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:16:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/15 12:24:18 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:51:49 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_hexnum_lower(unsigned int *n, int hex_len, t_flags *flags)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < (flags->precision - hex_len))

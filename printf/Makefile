@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/15 11:40:04 by jtrancos          #+#    #+#              #
-#    Updated: 2021/02/15 11:06:00 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/03/04 17:37:36 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS	=	ft_printf.c\
 			ft_print_c.c\
 			ft_print_s.c\
 			ft_print_id.c\
+			ft_print_id_utils.c\
 			ft_print_x_lower.c\
 			ft_print_x_upper.c\
 			ft_print_u.c\

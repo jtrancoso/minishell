@@ -6,16 +6,16 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 09:58:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/09/30 13:27:59 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:51:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		unsigned_len(unsigned int *n, t_flags *flags)
+int	unsigned_len(unsigned int *n, t_flags *flags)
 {
-	int len;
-	int aux;
+	int	len;
+	int	aux;
 
 	if (*n == 0 && flags->precision == 0)
 		len = 0;
@@ -44,7 +44,7 @@ void	ft_putunsigned(unsigned int n, t_flags *flags)
 
 void	ft_print_unsigned(unsigned int *n, int num_len, t_flags *flags)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < (flags->precision - num_len))
@@ -63,7 +63,7 @@ void	ft_print_u(va_list args, t_flags *flags)
 
 	n = va_arg(args, unsigned int);
 	len = unsigned_len(&n, flags);
-	true_len = (flags->precision > len) ? flags->precision : len;
+	true_len = find_truelen(flags, len);
 	if (flags->width != -1)
 	{
 		if (flags->minus == 1)

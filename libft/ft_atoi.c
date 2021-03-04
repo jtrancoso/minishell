@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:31:44 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/01/22 22:20:33 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:16:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *s)
 {
 	int		neg;
 	long	num;
 
 	num = 0;
 	neg = 1;
-	while (*str == ' ' || *str == '\n' || *str == '\r' ||
-				*str == '\t' || *str == '\v' || *str == '\f')
-		str++;
-	if (*str == '-' || *str == '+')
+	while (*s == '\n' || *s == 32 || *s == 13
+		|| *s == 9 || *s == 11 || *s == 12)
+		s++;
+	if (*s == '-' || *s == '+')
 	{
-		if (*str == '-')
+		if (*s == '-')
 			neg = neg * -1;
-		str++;
+		s++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (*s >= '0' && *s <= '9')
 	{
-		num = (10 * num) + (*str - '0');
-		str++;
+		num = (10 * num) + (*s - '0');
+		s++;
 		if ((neg * num) > 2147483647)
 			return (-1);
 		else if ((neg * num) < -2147483648)

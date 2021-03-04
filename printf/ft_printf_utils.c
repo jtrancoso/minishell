@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 12:33:22 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/06 12:09:43 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:52:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_flags(t_flags *flags)
 	flags->minus = -1;
 }
 
-int		find_hex_len(unsigned int *n, t_flags *flags)
+int	find_hex_len(unsigned int *n, t_flags *flags)
 {
 	int				hex_len;
 	unsigned int	aux;

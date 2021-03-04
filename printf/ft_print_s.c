@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 13:23:10 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/08 11:06:30 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:50:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	find_string(char **s, int *len, va_list args, t_flags *flags)
 {
-	char *tmp;
+	char	*tmp;
 
 	*s = ft_strdup(va_arg(args, char *));
 	if (*s == NULL)

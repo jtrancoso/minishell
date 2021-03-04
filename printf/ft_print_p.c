@@ -6,13 +6,13 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 13:08:43 by jtrancos          #+#    #+#             */
-/*   Updated: 2020/10/14 13:11:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:51:28 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_ptr_len(size_t *address, t_flags *flags)
+int	ft_ptr_len(size_t *address, t_flags *flags)
 {
 	int		len;
 	size_t	aux;
@@ -32,7 +32,7 @@ int		ft_ptr_len(size_t *address, t_flags *flags)
 
 void	ft_print_ptr(size_t *address, int len, t_flags *flags)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	flags->count += write(1, "0x", 2);
@@ -54,7 +54,7 @@ void	ft_print_p(va_list args, t_flags *flags)
 	ptr = va_arg(args, void *);
 	address = (size_t)ptr;
 	len = ft_ptr_len(&address, flags);
-	truelen = (flags->precision > len) ? flags->precision : len;
+	truelen = find_truelen(flags, len);
 	if (flags->width != -1)
 	{
 		if (flags->minus == 1)
