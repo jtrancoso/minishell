@@ -6,18 +6,18 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/04 17:53:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/15 13:40:23 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_isspace(int c)
+int	ft_isspace(int c)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (c == 32 || c == '\n' || c == '\r'
+	if (c == ' ' || c == '\n' || c == '\r'
 		|| c == '\t' || c == '\v' || c == '\f')
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:47:36 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/04 12:36:22 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/13 12:37:55 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*ft_strdup(const char *s1)
 	int		size;
 
 	size = 0;
-	if (!s1)
-		return (NULL);
 	while (s1[size])
 		size++;
 	str = malloc(sizeof(char) * (size + 1));

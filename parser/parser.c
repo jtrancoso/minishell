@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/04 17:53:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/15 13:39:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_parseline(t_comm *comm, char *line)
 {
-	int i;
-	char builtin[BUFFERSIZE];
-	int j;
+	int		i;
+	char	builtin[BUFFERSIZE];
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -34,6 +34,6 @@ int	ft_parseline(t_comm *comm, char *line)
 	while (ft_isspace(line[i]))
 		i++;
 	if (ft_strncmp(builtin, "echo", 4) == 0 && ft_strlen(builtin) == 4)
-		return(ft_echo(comm, line + i));
+		return (ft_echo(comm, line + i));
 	return (0);
 }
