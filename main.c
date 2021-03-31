@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/15 13:35:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:46:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int main (int argv, char **argc, char **envp)
 	{
 		ft_bzero(line, BUFFERSIZE - 1);
 		write(1, "\033[1;36m", 7);
-		printf("%s> \n", user);
+		write(1, user , ft_strlen(user));
+		write(1, "> ", 2);
 		//write(1, user, ft_strlen(user));
 		//write(1, "> \n", 2);
 		write(1, "\033[0m", 4);
@@ -79,5 +80,5 @@ int main (int argv, char **argc, char **envp)
 		//ret = ft_ft();
 		//ft_bzero(line, BUFFERSIZE - 1);
 	}
-	return (0);
+	return (-1);
 }

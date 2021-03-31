@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 15:43:43 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/15 13:28:06 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:22:52 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ft_echo(t_comm *comm, char *line)
 		while (ft_isspace(line[i]))
 			i++;
 	}
-	printf("%s", line + i);
+	//printf("hola\n");
+	printf("%s\n", line);
 	/*if (comm->echo.flag_n == 0)
 		ft_printf("\n");*/
 	return (0);
