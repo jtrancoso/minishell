@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/15 13:38:16 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:51:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_comm
 }				t_comm;
 
 int		ft_parseline(t_comm *comm, char *line);
-int		ft_isspace(int c);
 int		ft_echo(t_comm *comm, char *line);
 void	ft_init(t_comm *comm);
 

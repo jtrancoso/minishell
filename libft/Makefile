@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/13 13:41:25 by jtrancos          #+#    #+#              #
-#    Updated: 2021/02/15 11:06:05 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/04/07 13:50:38 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		= libft.a
 SRCS		=	ft_isalnum.c\
 				ft_isalpha.c\
 				ft_isdigit.c\
+				ft_isspace.c\
 				ft_isprint.c\
 				ft_isascii.c\
 				ft_toupper.c\

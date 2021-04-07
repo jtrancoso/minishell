@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 18:58:05 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/13 12:43:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:50:19 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**ft_split(char const *s, char c)
 		{
 			tab[i] = malloc_word(s, c);
 			if (!(tab[i]))
-				return ((char**)malloc_free(tab));
+				return ((char **)malloc_free(tab));
 			while (*s && *s != c)
 				s++;
 			i++;

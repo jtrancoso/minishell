@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/31 12:46:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:10:59 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ int main (int argv, char **argc, char **envp)
 		//ret = ft_ft();
 		//ft_bzero(line, BUFFERSIZE - 1);
 	}
-	return (-1);
+	return (11);
 }

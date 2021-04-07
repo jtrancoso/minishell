@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/03/31 12:22:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/07 11:56:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_parseline(t_comm *comm, char *line)
 		j++;
 	}
 	builtin[j] = '\0';
-	printf("%s\n", builtin);
 	while (ft_isspace(line[i]))
 		i++;
 	//printf("iii\n");
