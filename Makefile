@@ -6,13 +6,14 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/03/15 13:14:05 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/04/09 18:54:51 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	main.c\
-				./parser/parser.c\
-				./parser/parser_utils.c\
+SRCS		=	main.c \
+				ft_error.c \
+				./parser/parser.c \
+				./parser/parser_utils.c \
 				echo.c
 
 
@@ -27,7 +28,8 @@ RM			= rm -f
 
 ${NAME}:	${OBJS}
 			make -C ./libft
-			$(CC) -L libft/ -lft -fsanitize=address ${OBJS} -o ${NAME}
+			$(CC) -L libft/ -lft  ${OBJS} -o ${NAME}
+			#-fsanitize=address
 		
 all:		${NAME}
 

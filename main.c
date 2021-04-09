@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/07 12:10:59 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/09 19:04:08 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ int main (int argv, char **argc, char **envp)
 	t_list *head;
 	t_list *list;
 	t_list *new;
+	//TODO: all
+	//FIXME: onnqwif
+
 	
 	typedef struct	s_env
 	{
 		char		*id;
-		char		*value;
+		char		*value; 
 	}				t_env;
 	int ret;
 	t_env *env;
@@ -54,6 +57,7 @@ int main (int argv, char **argc, char **envp)
 	}
 	list = head;
 	char *user;
+	char *pwd;
 	while (list)
 	{
 		if (ft_strncmp(((t_env*)list->content)->id, "USER", 4) == 0)
@@ -76,9 +80,13 @@ int main (int argv, char **argc, char **envp)
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break;
 		if (ft_strncmp(line, "pwd", 3) == 0)
-			printf("%s\n", getcwd(NULL, 0));
+		{
+			pwd = getcwd(NULL, 0);
+			printf("%s\n", pwd);
+			free(pwd);
+		}
 		//ret = ft_ft();
 		//ft_bzero(line, BUFFERSIZE - 1);
 	}
-	return (11);
+	return (0);
 }

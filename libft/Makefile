@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/13 13:41:25 by jtrancos          #+#    #+#              #
-#    Updated: 2021/04/07 13:50:38 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/04/07 17:11:00 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,12 +55,12 @@ SRCS		=	ft_isalnum.c\
 				ft_lstdelone.c\
 				ft_lstclear.c\
 				ft_lstiter.c\
-				ft_lstmap.c\
+				ft_lstmap.c
 
 OBJS		= $(SRCS:.c=.o)
 CC			= cc
 RM			= rm -f
-#CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra
 
 .c.o:
 	$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
