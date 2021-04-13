@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_splitshell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 18:58:05 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/13 12:50:56 by jtrancos         ###   ########.fr       */
+/*   Created: 2021/04/13 12:49:17 by jtrancos          #+#    #+#             */
+/*   Updated: 2021/04/13 12:58:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static	char	*malloc_word(const char *str, char c)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_splitshell(t_split *split, char const *s, char c)
 {
 	int		i;
 	char	**tab;
@@ -93,4 +93,19 @@ char	**ft_split(char const *s, char c)
 	}
 	tab[i] = NULL;
 	return (tab);
+}
+
+int main ()
+{
+	char **tab;
+	int i = 0;
+
+	tab = ft_splitshell("hola,adios,jeje", ',');
+	while (tab[i])
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
+	
+	return (0);
 }

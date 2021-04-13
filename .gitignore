@@ -4,3 +4,5 @@ minishell.dSYM/Contents
 *.o
 *.out
 minishell
+*.a
+libft/libft.a
