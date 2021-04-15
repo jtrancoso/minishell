@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:11:21 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/13 12:57:30 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/15 12:46:00 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@
 # include <unistd.h>
 # include <stdio.h>
 
-typedef	struct	s_split
-{
-	int f_simple;
-	int f_double;
-}				t_split;
+
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
@@ -58,7 +55,6 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(const char *s1, const char *set);
 char	**ft_split(char const *s, char c);
-char	**ft_splitshell(t_split *split, char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void	ft_putchar_fd(char c, int fd);

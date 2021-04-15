@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/13 12:57:00 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:04:32 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,25 @@ typedef struct s_echo
 	int	flag_n;
 }				t_echo;
 
+typedef	struct	s_split
+{
+	int f_simple;
+	int f_double;
+}				t_split;
+
 typedef struct s_comm
 {
 	char	*command;
 	char	*arg;
 	char	*flag;
+	char	**splitshell;
 	t_echo	echo;
 }				t_comm;
 
-int		ft_parseline(t_comm *comm, char *line);
+int		ft_parseline(t_comm *comm, t_split *split, char *line);
 int		ft_echo(t_comm *comm, char *line);
 void	ft_init(t_comm *comm);
 void	ft_error(int error);
+char	**ft_splitshell(t_split *split, char const *s, char c);
 
 #endif

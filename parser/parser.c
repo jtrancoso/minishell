@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/13 13:37:05 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:04:37 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	int		i;
 	char	aux[BUFFERSIZE];
 	int		j;
+	t_list *head;
+	t_list *list;
+	t_list *new;
 
 	i = 0;
 	j = 0;
-	ft_bzero(aux, BUFFERSIZE - 1);
+	new = malloc(sizeof(t_list));
+		ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
 		i++;
 	ft_parse_quote(comm, line + i);
@@ -53,7 +57,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	}
 	aux[j] = '\0';
 	printf("%s\n", aux);
-	ft_splitshell(split, aux, ';');
+	comm->splitshell = ft_splitshell(split, aux, ';');
 
 
 

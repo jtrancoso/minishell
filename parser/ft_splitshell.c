@@ -6,11 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:49:17 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/13 12:58:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:03:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 static	char	*malloc_free(char **str)
 {
@@ -69,25 +69,33 @@ static	char	*malloc_word(const char *str, char c)
 char	**ft_splitshell(t_split *split, char const *s, char c)
 {
 	int		i;
+	int j;
 	char	**tab;
 
 	i = 0;
+	j = 0;
+
 	if (!s)
 		return (NULL);
 	tab = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!tab)
 		return (NULL);
-	while (*s)
+	while (s[j])
 	{
-		while (*s && *s == c)
-			s++;
-		if (*s && *s != c)
+		if (s[0] == c || (s[j] == c && s[j + 1] == c))
 		{
-			tab[i] = malloc_word(s, c);
+			ft_error(2);
+			return (NULL);
+		}
+		if (s[j] == c && j != 0)
+			j++;
+		if (s[j] && s[j] != c)
+		{
+			tab[i] = malloc_word(s + j, c);
 			if (!(tab[i]))
 				return ((char **)malloc_free(tab));
-			while (*s && *s != c)
-				s++;
+			while (s[j] && s[j] != c)
+				j++;
 			i++;
 		}
 	}
@@ -95,17 +103,20 @@ char	**ft_splitshell(t_split *split, char const *s, char c)
 	return (tab);
 }
 
+
 int main ()
 {
 	char **tab;
 	int i = 0;
+	t_split split;
 
-	tab = ft_splitshell("hola,adios,jeje", ',');
+	tab = ft_splitshell(&split, "hola;hola;adios", ';');
+	if (!tab)
+		return (0);
 	while (tab[i])
 	{
 		printf("%s\n", tab[i]);
 		i++;
 	}
-	
 	return (0);
 }
