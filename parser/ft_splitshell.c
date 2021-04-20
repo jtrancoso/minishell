@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitshell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:49:17 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/15 14:03:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/19 10:14:30 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static	int	count_words(const char *str, char c)
 			while (str[i] && str[i] != c)
 				i++;
 		}
+	printf("Count_words:%d", i);
 	}
 	return (i);
 }
@@ -69,7 +70,7 @@ static	char	*malloc_word(const char *str, char c)
 char	**ft_splitshell(t_split *split, char const *s, char c)
 {
 	int		i;
-	int j;
+	int 	j;
 	char	**tab;
 
 	i = 0;
