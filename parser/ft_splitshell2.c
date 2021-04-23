@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 10:09:14 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/04/19 13:07:32 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:30:32 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static  void    check_quote(t_split *split, const char *c)
 			//printf("estoy aqui");
 		split->f_simple = 0;
 		}
-	printf("%c-%i\n", c[0], (int)c[0]);
-	printf("qd%d\n", split->f_double);
-	printf("sd%d\n", split->f_simple);   
+	//printf("%c-%i\n", c[0], (int)c[0]);
+	//printf("qd%d\n", split->f_double);
+	//printf("sd%d\n", split->f_simple);   
 }
 
 static int		ft_words(t_split *split, char const *s1, char c)
@@ -50,6 +50,8 @@ static int		ft_words(t_split *split, char const *s1, char c)
 			a = 1;
 			b++;
 		}
+		split->f_double = 0;
+		split->f_simple = 0;
 		s1++;
 	}
 	printf("words:%d", b);
@@ -61,13 +63,16 @@ static int		ft_letters(t_split *split, char const *s2, char c, int a)
 	int	len;
 
 	len = 0;
-	//check_quote(split, &s2[a]);
-	while ((s2[a] != c && s2[a] != '\0') || (s2[a] == c && split->f_double == 0 && split->f_simple == 0))
+	split->f_double = 0;
+	split->f_simple = 0;
+	check_quote(split, &s2[a]);
+	while ((s2[a] != c && s2[a] != '\0') || (s2[a] == c && (split->f_double != 0 || split->f_simple != 0)))
 	{
 		len++;
 		a++;
-		//check_quote(split, &s2[a]);
+		check_quote(split, &s2[a]);
 	}
+	printf("len%d", len);
 	return (len);
 }
 
@@ -90,20 +95,26 @@ static char		**ft_divide(t_split *split, char const *s, char **str, char c, int 
 
 	a = 0;
 	b = 0;
+	split->f_double = 0;
+	split->f_simple = 0;
+	check_quote(split, &s[a]);
 	while (s[a] != '\0' && b < n)
 	{
-		check_quote(split, &s[a]);
 		d = 0;
-		while (s[a] == c)
-			a++;
+		while (s[a] == c || (s[a] == c && (split->f_double != 0 || split->f_simple != 0)))
+			{
+				a++;
+				check_quote(split, &s[a]);
+			}
 		str[b] = (char *)malloc(sizeof(char) * ft_letters(split, s, c, a) + 1);
 		if (str[b] == NULL)
 			return (ft_clean((char const **)str, b));
-		while (s[a] != '\0' && s[a] != c)
+		while ((s[a] != '\0' && s[a] != c) || (s[a] == c && (split->f_double != 0 || split->f_simple != 0)))
 		{
 			str[b][d] = s[a];
 			a++;
 			d++;
+			check_quote(split, &s[a]);
 		}
 		str[b][d] = '\0';
 		b++;
@@ -134,7 +145,7 @@ int main ()
 	int i = 0;
 	t_split split;
 
-	tab = ft_splitshell(&split, "hola;adios", ';');
+	tab = ft_splitshell(&split, "hola;adios;'pepe'     ;a", ';');
 	if (!tab)
 		return (0);
 	while (tab[i])
