@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/15 14:04:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/26 14:17:02 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_parse_quote(t_comm *comm, char *line)
 	d_quote = 0;
 	while (line[i])
 	{
-		if (line[i] == '"')
+		if (line[i] == '"' && s_quote % 2 == 0 && (i != 0 && line[i - 1] != '\\'))
 			d_quote++;
-		if (line[i] == '\'')
+		if (line[i] == '\'' && d_quote % 2 == 0 && (i != 0 && line[i - 1] != '\\'))
 			s_quote++;
 		i++;
 	}
@@ -44,6 +44,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 
 	i = 0;
 	j = 0;
+	line[ft_strlen(line) - 1] = '\0';
 	new = malloc(sizeof(t_list));
 		ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
@@ -56,9 +57,14 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j++;
 	}
 	aux[j] = '\0';
-	printf("%s\n", aux);
+	//printf("%s\n", aux);
 	comm->splitshell = ft_splitshell(split, aux, ';');
-
+	int h = 0;
+	while (comm->splitshell[h])
+	{
+		printf("%s\n", comm->splitshell[h]);
+		h++;
+	}
 
 
 

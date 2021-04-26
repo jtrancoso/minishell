@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/09 19:04:08 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/26 13:05:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,25 @@ int main (int argv, char **argc, char **envp)
 	int ret;
 	t_env *env;
 	t_comm comm;
+	t_split split;
 	char line[BUFFERSIZE];
 	write(1, "\033[1;33m", 7);
 	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");
 	write(1, "\033[0m", 4);
 	ft_init(&comm);
-	char **split;
+	char **split_env;
 	head = NULL;
 	int i = 0;
 	while (envp[i])
 	{
 		new = malloc(sizeof(t_list));
 		env = malloc(sizeof(t_env));
-		split = ft_split(envp[i], '=');
+		split_env = ft_split(envp[i], '=');
 		new->content = env;
-		((t_env*)new->content)->id = split[0];
-		((t_env*)new->content)->value = split[1];
+		((t_env*)new->content)->id = split_env[0];
+		((t_env*)new->content)->value = split_env[1];
 		ft_lstadd_back(&head, new);
-		free (split);
+		free (split_env);
 		i++;
 	}
 	list = head;
@@ -76,7 +77,7 @@ int main (int argv, char **argc, char **envp)
 		write(1, "\033[0m", 4);
 		//chdir("../cub3d");
 		read(0, line, BUFFERSIZE - 1);
-		ft_parseline(&comm, line);
+		ft_parseline(&comm, &split, line);
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break;
 		if (ft_strncmp(line, "pwd", 3) == 0)
