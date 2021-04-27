@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 10:09:14 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/04/26 14:26:04 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/27 13:26:50 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,34 @@
 
 //TODO: gestion de errores
 //TODO: check '\' en el checkquotes y mirar si podemosa cambiar lo que le pasamos a un array y una i
-//TODO: mirar si se puede hacer un barraflag y pasarlo por ahi
+//TODO: mirar si se pueden usar static cosas
 
 
 static  void    check_quote(t_split *split, const char *c)
 {
-    printf("%s", c);
+	//printf("%s\n", c);
 	if ((int)c[0] == '\"' && split->f_double == 0 && split->f_simple == 0)
-        split->f_double = 1;
-    else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 0)
-        split->f_simple = 1;
-    else if ((int)c[0] == '\"' && split->f_double == 1 && split->f_simple == 0)
-        split->f_double = 0;
-    else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 1)
-        {
-			//printf("estoy aqui");
+		split->f_double = 1;
+	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 0)
+		split->f_simple = 1;
+	else if ((int)c[0] == '\"' && split->f_double == 1 && split->f_simple == 0)
+		split->f_double = 0;
+	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 1)
 		split->f_simple = 0;
-		}
 	//printf("%c-%i", c[0], (int)c[0]);
 	//printf("flag: d%d\n", split->f_double);
-	printf("letra: %c flag_s: %d flag_d: %d\n", c[0],  split->f_simple, split->f_double);   
+	//printf("letra: %c flag_s: %d flag_d: %d\n", c[0],  split->f_simple, split->f_double);   
 }
 
+static int check_inverted_var(const char *c)
+{
+	printf("2--      c: %c\n",c[0]);
+	if ((int)c[0] == '\\' && (int)c[0] != '\0' && ((int)c[1] == '\"' || (int)c[1] == '\''))
+		return (1);
+	return (0);
+}
+
+//TODO: estamos aqui viendo los \" parece que funciona
 static int		ft_words(t_split *split, char const *s1, char c)
 {
 	int	a;
@@ -50,6 +56,9 @@ static int		ft_words(t_split *split, char const *s1, char c)
 	//printf("check_words\n");
 	while (s1[i])
 	{
+		if (check_inverted_var(&s1[i]) == 1)
+			i += 2;
+		printf("1-- i: %d c: %c\n", i, s1[i]);
 		check_quote(split, &s1[i]);
 		if (i != 0 && (s1[i] == c && s1[i - 1] != '\\' && split->f_simple == 0 && split->f_double == 0))
 			a = 0;
