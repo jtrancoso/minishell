@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/26 14:17:02 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:19:33 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ void	ft_parse_quote(t_comm *comm, char *line)
 	d_quote = 0;
 	while (line[i])
 	{
-		if (line[i] == '"' && s_quote % 2 == 0 && (i != 0 && line[i - 1] != '\\'))
+		if (line[i] == '\\' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+			i += 2;
+		if (line[i] == '\"' && s_quote % 2 == 0)
 			d_quote++;
-		if (line[i] == '\'' && d_quote % 2 == 0 && (i != 0 && line[i - 1] != '\\'))
+		if (line[i] == '\'' && d_quote % 2 == 0)
 			s_quote++;
 		i++;
 	}
@@ -65,10 +67,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		printf("%s\n", comm->splitshell[h]);
 		h++;
 	}
-
-
-
-
 	/*if (ft_strncmp(aux, "echo", 4) == 0)
 	{
 		//printf("1123\n");
