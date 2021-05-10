@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/30 13:07:28 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/10 13:32:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_comm
 	char	*arg;
 	char	*flag;
 	char	**splitshell;
+	char	**splitpipe;
 	t_echo	echo;
 }				t_comm;
 

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/30 13:11:06 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/10 13:55:06 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,29 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		i++;
 		j++;
 	}
-	printf("line: %s\n aux: %s\n", line, aux);
+	//printf("line: %s\naux: %s\n", line, aux);
 	aux[j] = '\0';
 	//printf("%s\n", aux);
 	comm->splitshell = ft_splitshell(split, aux, ';');
 	int h = 0;
-	/*while (comm->splitshell[h])
+	while (comm->splitshell[h])
 	{
-		printf("%s\n", comm->splitshell[h]);
+		comm->splitpipe = ft_splitshell(split, comm->splitshell[h], '|');
+		
 		h++;
-	}*/
+	}
+	h = 0;
+	while (comm->splitshell[h])
+	{
+		printf("splitshell%d %s\n", h, comm->splitshell[h]);
+		h++;
+	}
+	h = 0;
+	while (comm->splitpipe[h])
+	{
+		printf("splitpipe%d %s\n", h, comm->splitpipe[h]);
+		h++;
+	}
 	/*if (ft_strncmp(aux, "echo", 4) == 0)
 	{
 		//printf("1123\n");
