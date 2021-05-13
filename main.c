@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/04/26 13:05:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/13 13:30:13 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,18 @@
 int main (int argv, char **argc, char **envp)
 {
 
-	/*typedef struct	s_list
-	{
-	void			*content;
-	struct s_list	*next;
-	}				t_list;*/
 	t_list *head;
 	t_list *list;
 	t_list *new;
 	//TODO: all
-	//FIXME: onnqwif
-
 	
 	typedef struct	s_env
 	{
 		char		*id;
 		char		*value; 
 	}				t_env;
-	int ret;
 	t_env *env;
-	t_comm comm;
+	t_comm comm; //FIXME: lo mismo hay que alorcarla donde se use
 	t_split split;
 	char line[BUFFERSIZE];
 	write(1, "\033[1;33m", 7);

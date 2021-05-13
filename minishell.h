@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/10 13:32:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/13 13:16:17 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ typedef	struct	s_split
 
 typedef struct s_comm
 {
-	char	*command;
-	char	*arg;
-	char	*flag;
+	char	*t_command;
+	char	*t_word;
+	int		t_pipe;
+	int		t_semi;
+	int		t_gt;
+	int		t_gtgt;
+	int		t_lt;
 	char	**splitshell;
 	char	**splitpipe;
 	t_echo	echo;

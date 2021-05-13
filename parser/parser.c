@@ -6,11 +6,13 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/10 13:55:06 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/13 14:20:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//TODO: sacar los splits del comm y jugar con la estructura
 
 int	ft_parse_quote(t_comm *comm, char *line)
 {
@@ -44,11 +46,12 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	t_list *head;
 	t_list *list;
 	t_list *new;
-
+	t_comm *otro;
+	
 	i = 0;
 	j = 0;
+	head = NULL;
 	line[ft_strlen(line) - 1] = '\0';
-	new = malloc(sizeof(t_list));
 	ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
 		i++;
@@ -62,16 +65,39 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	}
 	//printf("line: %s\naux: %s\n", line, aux);
 	aux[j] = '\0';
+	i = 0;
+	j = 0;
 	//printf("%s\n", aux);
 	comm->splitshell = ft_splitshell(split, aux, ';');
-	int h = 0;
-	while (comm->splitshell[h])
+	while (comm->splitshell[i])
+		i++;	
+	printf("holaa\n");
+	while (j < i)
 	{
-		comm->splitpipe = ft_splitshell(split, comm->splitshell[h], '|');
-		
-		h++;
+		printf("ana\n");
+		new = malloc(sizeof(t_list));
+		otro = malloc(sizeof(t_comm));
+		new->content = otro;
+		printf("%s\n", comm->splitshell[j]);
+		printf("ana3\n");
+		((t_comm*)new->content)->t_word = comm->splitshell[j];
+		printf("ana2\n");
+		if (j + 1 == i)
+			break;
+		if (j % 2 != 0)
+			((t_comm*)new->content)->t_semi = 1;
+		ft_lstadd_back(&head, new);
+		j++;
 	}
-	h = 0;
+	list = head;
+	printf("hola\n");
+	while (list) 
+	{
+		printf("%s %d\n", ((t_comm*)new->content)->t_word, ((t_comm*)new->content)->t_semi);
+		list = list->next;
+	}
+
+	/*h = 0;
 	while (comm->splitshell[h])
 	{
 		printf("splitshell%d %s\n", h, comm->splitshell[h]);
@@ -82,7 +108,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	{
 		printf("splitpipe%d %s\n", h, comm->splitpipe[h]);
 		h++;
-	}
+	}*/
 	/*if (ft_strncmp(aux, "echo", 4) == 0)
 	{
 		//printf("1123\n");
