@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/13 14:20:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/14 13:14:42 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	t_list *list;
 	t_list *new;
 	t_comm *otro;
+	char **splitshell;
+	char **splitpipe;
 	
 	i = 0;
 	j = 0;
@@ -68,32 +70,35 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	i = 0;
 	j = 0;
 	//printf("%s\n", aux);
-	comm->splitshell = ft_splitshell(split, aux, ';');
-	while (comm->splitshell[i])
-		i++;	
-	printf("holaa\n");
-	while (j < i)
+	splitshell = ft_splitshell(split, aux, ';');
+	while (splitshell[i])
+		i++;
+	int h = 0;
+	while (j < i * 2 - 1)
 	{
-		printf("ana\n");
 		new = malloc(sizeof(t_list));
 		otro = malloc(sizeof(t_comm));
 		new->content = otro;
-		printf("%s\n", comm->splitshell[j]);
-		printf("ana3\n");
-		((t_comm*)new->content)->t_word = comm->splitshell[j];
-		printf("ana2\n");
-		if (j + 1 == i)
-			break;
+		ft_init(otro);
+		if (j == 0 || j % 2 == 0)
+		{
+			printf("j: %d", j);
+			((t_comm*)new->content)->t_word = splitshell[h];
+			printf("%s\n", ((t_comm*)new->content)->t_word);
+			h++;
+		}
 		if (j % 2 != 0)
+		{
 			((t_comm*)new->content)->t_semi = 1;
+			printf("%d\n", ((t_comm*)new->content)->t_semi);
+		}
 		ft_lstadd_back(&head, new);
 		j++;
 	}
 	list = head;
-	printf("hola\n");
-	while (list) 
+	while (list)
 	{
-		printf("%s %d\n", ((t_comm*)new->content)->t_word, ((t_comm*)new->content)->t_semi);
+		printf("a: %s %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_semi);
 		list = list->next;
 	}
 
