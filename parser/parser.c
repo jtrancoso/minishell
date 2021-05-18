@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/14 13:14:42 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/18 13:28:43 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	//printf("%s\n", aux);
 	splitshell = ft_splitshell(split, aux, ';');
 	while (splitshell[i])
+	{
+		//printf("%s\n", splitshell[i]);
 		i++;
+	}
+
 	int h = 0;
 	while (j < i * 2 - 1)
 	{
@@ -98,9 +102,28 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	list = head;
 	while (list)
 	{
-		printf("a: %s %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_semi);
+		i = 0;
+		if (((t_comm*)new->content)->t_word)
+		{
+			splitpipe = ft_splitshell(split, aux, '|');
+			while (splitpipe[i])
+				i++;
+			h = 0;
+			if (i > 1)
+			{
+				while (h < i * 2 - 1)
+				{
+					
+				}
+			}
+			
+
+			
+		}
+
 		list = list->next;
 	}
+
 
 	/*h = 0;
 	while (comm->splitshell[h])
