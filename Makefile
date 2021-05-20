@@ -6,12 +6,13 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/05/14 13:15:39 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/05/20 12:39:37 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	main.c \
 				ft_error.c \
+				test_list.c \
 				./parser/parser.c \
 				./parser/parser_utils.c \
 				./parser/ft_splitshell.c \
