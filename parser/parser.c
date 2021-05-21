@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/20 16:30:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/21 12:06:52 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				{
 					if (j == 0)
 					{
+						free(((t_comm*)list->content)->t_word);
 						((t_comm*)list->content)->t_word = ft_strdup(splitpipe[h]);
 						//free(splitpipe[h]);
 						h++;
