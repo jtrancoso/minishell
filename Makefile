@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/05/20 12:39:37 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/05/21 13:29:33 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,8 @@ RM			= rm -f
 
 ${NAME}:	${OBJS}
 			make -C ./libft
-			$(CC) -L libft/ -lft  ${OBJS} -o ${NAME}
-			#-fsanitize=address
-		
+			$(CC) -fsanitize=address -L libft/ -lft  ${OBJS} -o ${NAME}
+
 all:		${NAME}
 
 clean:
@@ -43,6 +42,10 @@ fclean : 	clean
 			make fclean -C ./libft
 			${RM} ${NAME} libft.a
 
+leaks:		${OBJS}
+			make -C ./libft
+			$(CC) -L libft/ -lft  ${OBJS} -o ${NAME}
+
 re:			fclean all
 
-.PHONY:		re all clean fclean
+.PHONY:		re all clean fclean leaks

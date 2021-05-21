@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/21 12:06:52 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:25:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_malloc_free(char **str)
 
 	i = 0;
 	while (str[i])
-	{
+	{	
+		printf("%s\n", str[i]);
 		free(str[i]);
 		i++;
 	}
@@ -62,6 +63,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	t_comm *otro;
 	char **splitsemi;
 	char **splitpipe;
+	int freed = 0;
 	
 	i = 0;
 	j = 0;
@@ -108,9 +110,14 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm*)list->content)->t_word)
 		{
+			printf("original word: %s\n", ((t_comm*)list->content)->t_word);
 			splitpipe = ft_splitshell(split, ((t_comm*)list->content)->t_word, '|');
+			//printf("original pipe: %s\n", splitpipe[i + 1]);
 			while (splitpipe[i])
+			{
+				printf("pipe[%d]: %s\n", i, splitpipe[i]);
 				i++;
+			}
 			h = 0;
 			if (i > 1)
 			{
@@ -119,6 +126,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					if (j == 0)
 					{
 						free(((t_comm*)list->content)->t_word);
+						((t_comm*)list->content)->t_word = NULL;
 						((t_comm*)list->content)->t_word = ft_strdup(splitpipe[h]);
 						//free(splitpipe[h]);
 						h++;
@@ -143,11 +151,26 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					j++;
 				}
 			}
+			else
+			{
+				printf("freepipe: %s\n", splitpipe[0]);
+				free(splitpipe[0]);
+				freed = 1;
+				splitpipe[0] = NULL;
+			}
+		}
+		else
+		{
+			printf("wordperdido: %s\n", ((t_comm*)list->content)->t_word);
+			free(((t_comm*)list->content)->t_word);
 		}
 		//printf("word: %s pipe: %d semi: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi);
 		list = list->next;
 	}
-	ft_malloc_free(splitpipe);
+	if (freed == 1)
+		free(splitpipe);
+	else
+		ft_malloc_free(splitpipe);
 	list = comm->parse_head;
 	/*while (list)
 	{

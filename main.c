@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/20 16:57:32 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:17:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main (int argv, char **argc, char **envp)
 			printf("%s\n", pwd);
 			free(pwd);
 		}
-		clear_list(list, &comm); //TODO: Mirar leaks con los frees de la lista
+		ft_lstclear(&comm.parse_head, &free_list); //TODO: Mirar leaks con los frees de la lista
 		//ret = ft_ft();
 		//ft_bzero(line, BUFFERSIZE - 1);
 	}

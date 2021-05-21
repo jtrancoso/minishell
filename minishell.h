@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/20 13:32:55 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:16:51 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_comm
 	int		t_gt;
 	int		t_gtgt;
 	int		t_lt;
+	int		freed;
 	t_echo	echo;
 	t_list	*env_head;
 	t_list	*parse_head;
@@ -63,5 +64,6 @@ int		ft_error(int error);
 char	**ft_splitshell(t_split *split, char const *s, char c);
 void test_list(t_list *list, t_comm *comm);
 void clear_list(t_list *list, t_comm *comm);
+void free_list(void *cont);
 
 #endif
