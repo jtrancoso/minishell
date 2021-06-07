@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/05/21 13:29:33 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/06/07 11:44:53 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ RM			= rm -f
 
 ${NAME}:	${OBJS}
 			make -C ./libft
-			$(CC) -fsanitize=address -L libft/ -lft  ${OBJS} -o ${NAME}
+			$(CC) -fsanitize=address -g -L libft/ -lft  ${OBJS} -o ${NAME}
 
 all:		${NAME}
 

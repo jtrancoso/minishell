@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/21 14:25:31 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/07 13:12:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 //TODO: sacar los splits del comm y jugar con la estructura
 
-void	ft_malloc_free(char **str)
+void	ft_malloc_free(t_comm *comm, char **str)
 {
 	int	i;
 
 	i = 0;
+	//printf("free: %i\n", comm->freed);
 	while (str[i])
-	{	
-		printf("%s\n", str[i]);
+	{
+		printf("q: %s\n", str[i]);
 		free(str[i]);
 		i++;
 	}
-	free(str);
+	free (str[i]);
+	free (str);
 }
 
 
@@ -63,8 +65,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	t_comm *otro;
 	char **splitsemi;
 	char **splitpipe;
-	int freed = 0;
-	
+
+	comm->freed = 0;
 	i = 0;
 	j = 0;
 	line[ft_strlen(line) - 1] = '\0';
@@ -102,7 +104,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		ft_lstadd_back(&comm->parse_head, new);
 		j++;
 	}
-	ft_malloc_free(splitsemi);
+	ft_malloc_free(comm, splitsemi);
 	list = comm->parse_head;
 	while (list)
 	{
@@ -110,12 +112,13 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm*)list->content)->t_word)
 		{
-			printf("original word: %s\n", ((t_comm*)list->content)->t_word);
+			//printf("original word: %s\n", ((t_comm*)list->content)->t_word);
 			splitpipe = ft_splitshell(split, ((t_comm*)list->content)->t_word, '|');
+			system ("leaks minishell");
 			//printf("original pipe: %s\n", splitpipe[i + 1]);
 			while (splitpipe[i])
 			{
-				printf("pipe[%d]: %s\n", i, splitpipe[i]);
+				//printf("pipe[%d]: %s\n", i, splitpipe[i]);
 				i++;
 			}
 			h = 0;
@@ -133,7 +136,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new 
+						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
 						otro = malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
@@ -153,11 +156,12 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			}
 			else
 			{
-				printf("freepipe: %s\n", splitpipe[0]);
+				//printf("freepipe: %s\n", splitpipe[0]);
 				free(splitpipe[0]);
-				freed = 1;
+				comm->freed = 1;
 				splitpipe[0] = NULL;
 			}
+			ft_malloc_free(comm, splitpipe);
 		}
 		else
 		{
@@ -167,10 +171,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		//printf("word: %s pipe: %d semi: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi);
 		list = list->next;
 	}
-	if (freed == 1)
+	/*if (comm->freed == 1)
 		free(splitpipe);
-	else
-		ft_malloc_free(splitpipe);
+	else									//este else se carga el enter
+		ft_malloc_free(comm, splitpipe);*/
 	list = comm->parse_head;
 	/*while (list)
 	{
