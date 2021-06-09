@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/07 13:12:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/09 13:55:51 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	i = 0;
 	j = 0;
 	splitsemi = ft_splitshell(split, aux, ';');
+	if (line[0] == ';')
+		printf("error\n");
 	while (splitsemi[i])
 		i++;
 	int h = 0;
@@ -114,7 +116,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		{
 			//printf("original word: %s\n", ((t_comm*)list->content)->t_word);
 			splitpipe = ft_splitshell(split, ((t_comm*)list->content)->t_word, '|');
-			system ("leaks minishell");
+			//system ("leaks minishell");
 			//printf("original pipe: %s\n", splitpipe[i + 1]);
 			while (splitpipe[i])
 			{
@@ -171,36 +173,16 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		//printf("word: %s pipe: %d semi: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi);
 		list = list->next;
 	}
-	/*if (comm->freed == 1)
-		free(splitpipe);
-	else									//este else se carga el enter
-		ft_malloc_free(comm, splitpipe);*/
 	list = comm->parse_head;
-	/*while (list)
+	while (list)
 	{
-		printf("word: %s pipe: %d semi: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi);
-		list = list->next;
-	}*/
-	//printf("7\n");
+		i = 0;
+		j = 0;
+		if (((t_comm*)list->content)->t_word)
+		{
+			
+		}
 
-
-	/*h = 0;
-	while (comm->splitshell[h])
-	{
-		printf("splitshell%d %s\n", h, comm->splitshell[h]);
-		h++;
 	}
-	h = 0;
-	while (comm->splitpipe[h])
-	{
-		printf("splitpipe%d %s\n", h, comm->splitpipe[h]);
-		h++;
-	}*/
-	/*if (ft_strncmp(aux, "echo", 4) == 0)
-	{
-		//printf("1123\n");
-		printf("%s\n", line + i);
-		return (ft_echo(comm, line + i));
-	}*/
 	return (0);
 }
