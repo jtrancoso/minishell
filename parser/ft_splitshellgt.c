@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 12:51:54 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/09 13:55:38 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/10 12:42:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int		ft_words(t_split *split, char const *s1, char c)
 		}
 		i++;
 	}
-	printf("words:%d\n", b);
+	//printf("words:%d\n", b);
 	return (b);
 }
 
@@ -162,8 +162,7 @@ char			**ft_splitshellgt(t_split *split, char const *s, char c)
 	return (ft_divide(split, s, str, c, n));
 }
 
-
-int main ()
+/*int main ()
 {
 	char **tab;
 	int i = 0;
@@ -178,4 +177,4 @@ int main ()
 		i++;
 	}
 	return (0);
-}
+}*/

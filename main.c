@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/07 12:44:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/10 13:55:24 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int main (int argv, char **argc, char **envp)
 			user = ft_strdup(((t_env*)list->content)->value);
 		list = list->next;
 	}
-
 	while (1)
 	{
 		comm.parse_head = NULL;
@@ -66,7 +65,7 @@ int main (int argv, char **argc, char **envp)
 		//chdir("../cub3d");
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
-		test_list(list, &comm);
+		//test_list(list, &comm);
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break;
 		if (ft_strncmp(line, "pwd", 3) == 0)

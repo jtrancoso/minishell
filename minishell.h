@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/21 14:16:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/10 13:55:22 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int		ft_echo(t_comm *comm, char *line);
 void	ft_init(t_comm *comm);
 int		ft_error(int error);
 char	**ft_splitshell(t_split *split, char const *s, char c);
+char	**ft_splitshellgt(t_split *split, char const *s, char c);
+char	*ft_parsedollar(t_list *list, t_comm *comm, char *line);
 void test_list(t_list *list, t_comm *comm);
 void clear_list(t_list *list, t_comm *comm);
 void free_list(void *cont);

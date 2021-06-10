@@ -6,23 +6,23 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/09 13:55:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/10 13:57:40 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //TODO: sacar los splits del comm y jugar con la estructura
+//TODO: check errors before
 
 void	ft_malloc_free(t_comm *comm, char **str)
 {
 	int	i;
 
 	i = 0;
-	//printf("free: %i\n", comm->freed);
 	while (str[i])
 	{
-		printf("q: %s\n", str[i]);
+		//printf("q: %s\n", str[i]);
 		free(str[i]);
 		i++;
 	}
@@ -65,8 +65,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	t_comm *otro;
 	char **splitsemi;
 	char **splitpipe;
+	char **splitgtgt;
+	char **splitgt;
+	char **splitlt;
 
-	comm->freed = 0;
 	i = 0;
 	j = 0;
 	line[ft_strlen(line) - 1] = '\0';
@@ -114,15 +116,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm*)list->content)->t_word)
 		{
-			//printf("original word: %s\n", ((t_comm*)list->content)->t_word);
 			splitpipe = ft_splitshell(split, ((t_comm*)list->content)->t_word, '|');
 			//system ("leaks minishell");
-			//printf("original pipe: %s\n", splitpipe[i + 1]);
 			while (splitpipe[i])
-			{
-				//printf("pipe[%d]: %s\n", i, splitpipe[i]);
 				i++;
-			}
 			h = 0;
 			if (i > 1)
 			{
@@ -133,7 +130,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						free(((t_comm*)list->content)->t_word);
 						((t_comm*)list->content)->t_word = NULL;
 						((t_comm*)list->content)->t_word = ft_strdup(splitpipe[h]);
-						//free(splitpipe[h]);
 						h++;
 					}
 					else
@@ -145,7 +141,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitpipe[h]);
-							//free(splitpipe[h]);
 							h++;
 						}
 						else if (j % 2 != 0)
@@ -158,19 +153,13 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			}
 			else
 			{
-				//printf("freepipe: %s\n", splitpipe[0]);
 				free(splitpipe[0]);
-				comm->freed = 1;
 				splitpipe[0] = NULL;
 			}
 			ft_malloc_free(comm, splitpipe);
 		}
 		else
-		{
-			printf("wordperdido: %s\n", ((t_comm*)list->content)->t_word);
 			free(((t_comm*)list->content)->t_word);
-		}
-		//printf("word: %s pipe: %d semi: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi);
 		list = list->next;
 	}
 	list = comm->parse_head;
@@ -180,9 +169,164 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm*)list->content)->t_word)
 		{
-			
+			splitgtgt = ft_splitshellgt(split, ((t_comm*)list->content)->t_word, '>');
+			while (splitgtgt[i])
+				i++;
+			h = 0;
+			if (i > 1)
+			{
+				while (j < i * 2 - 1 && list)
+				{
+					if (j == 0)
+					{
+						free(((t_comm*)list->content)->t_word);
+						((t_comm*)list->content)->t_word = NULL;
+						((t_comm*)list->content)->t_word = ft_strdup(splitgtgt[h]);
+						h++;
+					}
+					else
+					{
+						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						otro = malloc(sizeof(t_comm));
+						new->content = otro;
+						ft_init(otro);
+						if (j % 2 == 0 && j != 0)
+						{
+							((t_comm*)new->content)->t_word = ft_strdup(splitgtgt[h]);
+							h++;
+						}
+						else if (j % 2 != 0)
+							((t_comm*)new->content)->t_gtgt = 1;
+						ft_lstadd_middle(&list, &new);
+						list = list->next;
+					}
+					j++;
+				}
+			}
+			else
+			{
+				free(splitgtgt[0]);
+				splitgtgt[0] = NULL;
+			}
+			ft_malloc_free(comm, splitgtgt);
 		}
-
+		else
+			free(((t_comm*)list->content)->t_word);
+		list = list->next;
 	}
+	list = comm->parse_head;
+	while (list)
+	{
+		i = 0;
+		j = 0;
+		if (((t_comm*)list->content)->t_word)
+		{
+			splitgt = ft_splitshell(split, ((t_comm*)list->content)->t_word, '>');
+			while (splitgt[i])
+				i++;
+			h = 0;
+			if (i > 1)
+			{
+				while (j < i * 2 - 1 && list)
+				{
+					if (j == 0)
+					{
+						free(((t_comm*)list->content)->t_word);
+						((t_comm*)list->content)->t_word = NULL;
+						((t_comm*)list->content)->t_word = ft_strdup(splitgt[h]);
+						h++;
+					}
+					else
+					{
+						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						otro = malloc(sizeof(t_comm));
+						new->content = otro;
+						ft_init(otro);
+						if (j % 2 == 0 && j != 0)
+						{
+							((t_comm*)new->content)->t_word = ft_strdup(splitgt[h]);
+							h++;
+						}
+						else if (j % 2 != 0)
+							((t_comm*)new->content)->t_gt = 1;
+						ft_lstadd_middle(&list, &new);
+						list = list->next;
+					}
+					j++;
+				}
+			}
+			else
+			{
+				free(splitgt[0]);
+				splitgt[0] = NULL;
+			}
+			ft_malloc_free(comm, splitgt);
+		}
+		else
+			free(((t_comm*)list->content)->t_word);
+		list = list->next;
+	}
+	list = comm->parse_head;
+	while (list)
+	{
+		i = 0;
+		j = 0;
+		if (((t_comm*)list->content)->t_word)
+		{
+			splitlt = ft_splitshell(split, ((t_comm*)list->content)->t_word, '<');
+			while (splitlt[i])
+				i++;
+			h = 0;
+			if (i > 1)
+			{
+				while (j < i * 2 - 1 && list)
+				{
+					if (j == 0)
+					{
+						free(((t_comm*)list->content)->t_word);
+						((t_comm*)list->content)->t_word = NULL;
+						((t_comm*)list->content)->t_word = ft_strdup(splitlt[h]);
+						h++;
+					}
+					else
+					{
+						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						otro = malloc(sizeof(t_comm));
+						new->content = otro;
+						ft_init(otro);
+						if (j % 2 == 0 && j != 0)
+						{
+							((t_comm*)new->content)->t_word = ft_strdup(splitlt[h]);
+							h++;
+						}
+						else if (j % 2 != 0)
+							((t_comm*)new->content)->t_lt = 1;
+						ft_lstadd_middle(&list, &new);
+						list = list->next;
+					}
+					j++;
+				}
+			}
+			else
+			{
+				free(splitlt[0]);
+				splitlt[0] = NULL;
+			}
+			ft_malloc_free(comm, splitlt);
+		}
+		else
+			free(((t_comm*)list->content)->t_word);
+		list = list->next;
+	}
+	list = comm->parse_head;
+	if (list)
+	{
+		char *hola;
+		i = 0;
+		j = 0;
+		if (ft_strchr(((t_comm*)list->content)->t_word, '$'))
+			hola = ft_parsedollar(list, comm,((t_comm*)list->content)->t_word);
+	}
+
 	return (0);
 }
