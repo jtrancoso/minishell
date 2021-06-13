@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/10 13:55:24 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/11 08:33:44 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int main (int argv, char **argc, char **envp)
 		//chdir("../cub3d");
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
-		//test_list(list, &comm);
+		test_list(list, &comm);
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break;
 		if (ft_strncmp(line, "pwd", 3) == 0)
