@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 10:09:14 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/05/20 15:56:47 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/17 13:45:32 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 //TODO: gestion de errores
 //TODO: check '\' en el checkquotes y mirar si podemosa cambiar lo que le pasamos a un array y una i
 //TODO: mirar si se pueden usar static cosas
-
-
-static  void    check_quote(t_split *split, const char *c)
-{
-	//printf("%s\n", c);
-	if ((int)c[0] == '\"' && split->f_double == 0 && split->f_simple == 0)
-		split->f_double = 1;
-	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 0)
-		split->f_simple = 1;
-	else if ((int)c[0] == '\"' && split->f_double == 1 && split->f_simple == 0)
-		split->f_double = 0;
-	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 1)
-		split->f_simple = 0;
-	//printf("%c-%i", c[0], (int)c[0]);
-	//printf("flag: d%d\n", split->f_double);
-	//printf("letra: %c flag_s: %d flag_d: %d\n", c[0],  split->f_simple, split->f_double);   
-}
 
 static int check_inverted_var(const char *c)
 {

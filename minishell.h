@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/10 13:55:22 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/17 13:56:27 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ typedef struct s_comm
 	t_list	*parse_head;
 }				t_comm;
 
-int		ft_parseline(t_comm *comm, t_split *split, char *line);
-int		ft_echo(t_comm *comm, char *line);
-void	ft_init(t_comm *comm);
-int		ft_error(int error);
-char	**ft_splitshell(t_split *split, char const *s, char c);
-char	**ft_splitshellgt(t_split *split, char const *s, char c);
-char	*ft_parsedollar(t_list *list, t_comm *comm, char *line);
-void test_list(t_list *list, t_comm *comm);
-void clear_list(t_list *list, t_comm *comm);
-void free_list(void *cont);
+int				ft_parseline(t_comm *comm, t_split *split, char *line);
+int				ft_echo(t_comm *comm, char *line);
+void			ft_init(t_comm *comm);
+int				ft_error(int error);
+char			**ft_splitshell(t_split *split, char const *s, char c);
+char			**ft_splitshellgt(t_split *split, char const *s, char c);
+char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line);
+void			check_quote(t_split *split, const char *c);
+void 			test_list(t_list *list, t_comm *comm);
+void 			clear_list(t_list *list, t_comm *comm);
+void 			free_list(void *cont);
 
 #endif
