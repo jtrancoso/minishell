@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/18 14:45:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/22 14:09:05 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char *expand_dollar(t_comm *comm, char *aux_id) //TODO: gestionar $?
 	t_list *list;
 	int i;
 	char *content;
-	char *aux;
 
 	list = comm->env_head;
 	i = 0;
@@ -58,6 +57,16 @@ char *expand_dollar(t_comm *comm, char *aux_id) //TODO: gestionar $?
 	}
 	printf("content: %s\n", content);
 	return (content);
+}
+
+char *ft_askdollar(t_comm *comm, t_split *split, char *aux_id)
+{
+	char *value;
+
+	value = malloc(sizeof()) //TODO: TRAER EL CODIGO
+	value = ft_itoa(split->errorcode);
+	return (value);
+
 }
 
 char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
@@ -108,7 +117,12 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 			i++;
 			q = 0;
 			printf("a: %c\n", line[i]);
-			while (line[i] != ' ' && line[i] != '\0')
+			if (line[i] == '?')
+			{
+				ft_askdollar(comm, split, aux_id);
+
+			}
+			while (line[i] != ' ' && line[i] != '\0' && line[i] != '\"' && line[i] != '\'')
 			{
 				printf("dentro: %c\n", line[i]);
 				aux_id[q] = line[i];

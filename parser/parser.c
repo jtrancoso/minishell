@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/18 14:34:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/22 13:57:45 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_malloc_free(t_comm *comm, char **str)
 }
 
 
-int	ft_parse_quote(t_comm *comm, char *line)
+int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 {
 	int s_quote;
 	int d_quote;
@@ -51,7 +51,7 @@ int	ft_parse_quote(t_comm *comm, char *line)
 		i++;
 	}
 	if (s_quote % 2 != 0 || d_quote % 2 != 0)
-		return (ft_error(1));
+		return (ft_error(split, 1));
 	return (1);
 }
 
@@ -71,11 +71,12 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 
 	i = 0;
 	j = 0;
+	split->errorcode = 0;
 	line[ft_strlen(line) - 1] = '\0';
 	ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
 		i++;
-	if (!ft_parse_quote(comm, line + i))
+	if (!ft_parse_quote(comm, split, line + i))
 		return (0);
 	while (ft_isascii(line[i]))      //TODO: ft_strcpy al libft
 	{
