@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/14 13:02:42 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:09:27 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main (int argv, char **argc, char **envp)
 			user = ft_strdup(((t_env*)list->content)->value);
 		list = list->next;
 	}
+	split.errorcode = 0; //TODO: ya vemos como ponerlo bien y como resetearlo y tal
 	while (1)
 	{
 		comm.parse_head = NULL;
@@ -66,6 +67,7 @@ int main (int argv, char **argc, char **envp)
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
 		test_list(list, &comm);
+		//parse_command(list, &comm, &split);
 		if (ft_strncmp(line, "exit", 4) == 0)
 			break;
 		if (ft_strncmp(line, "pwd", 3) == 0)

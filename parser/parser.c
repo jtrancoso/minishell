@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/22 13:57:45 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:23:04 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 
 	i = 0;
 	j = 0;
-	split->errorcode = 0;
 	line[ft_strlen(line) - 1] = '\0';
 	ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
@@ -331,7 +330,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			if (ft_strchr(((t_comm*)list->content)->t_word, '$'))
 			{
 				dollar_id = ft_parsedollar(list, comm, split, ((t_comm*)list->content)->t_word);
-				printf("dollarid: %s\n", dollar_id);
 				free(((t_comm*)list->content)->t_word);
 				((t_comm*)list->content)->t_word = ft_strdup(dollar_id);
 				free(dollar_id);

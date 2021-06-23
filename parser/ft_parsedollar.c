@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/22 14:09:05 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:23:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int check_inverted_var(const char *c)
 {
-	//printf("2--      c: %c\n",c[0]);
 	if ((int)c[0] == '\\' && (int)c[0] != '\0' && ((int)c[1] == '$'))
 		return (1);
 	return (0);
@@ -55,7 +54,6 @@ char *expand_dollar(t_comm *comm, char *aux_id) //TODO: gestionar $?
 		}
 		list = list->next;
 	}
-	printf("content: %s\n", content);
 	return (content);
 }
 
@@ -63,15 +61,14 @@ char *ft_askdollar(t_comm *comm, t_split *split, char *aux_id)
 {
 	char *value;
 
-	value = malloc(sizeof()) //TODO: TRAER EL CODIGO
 	value = ft_itoa(split->errorcode);
 	return (value);
-
 }
 
 char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 {
 	char *aux;
+	char *aux2;
 	char *aux_id;
 	char *final_aux;
 	int	lmax;
@@ -103,7 +100,6 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	split->f_double = 0;
 	while (line[i])
 	{
-		printf("c: %c\n", line[i]);
 		if (check_inverted_var(&line[i]) == 1)
 			i += 2;
 		check_quote(split, &line[i]);
@@ -116,40 +112,49 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 		{
 			i++;
 			q = 0;
-			printf("a: %c\n", line[i]);
-			if (line[i] == '?')
-			{
-				ft_askdollar(comm, split, aux_id);
-
-			}
 			while (line[i] != ' ' && line[i] != '\0' && line[i] != '\"' && line[i] != '\'')
 			{
-				printf("dentro: %c\n", line[i]);
 				aux_id[q] = line[i];
 				q++;
 				i++;
 			}
 			aux_id[q] = '\0';
-			printf("aux_id: %s\n", aux_id);
-			content = expand_dollar(comm, aux_id); //TODO: que hacer si falla malloc, return(NULL)??
+			if (aux_id[0] == '?')
+				content = ft_askdollar(comm, split, aux_id);
+			else 
+				content = expand_dollar(comm, aux_id); //TODO: que hacer si falla malloc, return(NULL)??
 			//printf("content despues: %s\n", content);
 			q = 0;
 			if (content)
 			{
-				while (content[q])
+				if (aux_id[0] == '?' && ft_strlen(aux_id) > 1)
 				{
-					aux[j] = content[q];
-					q++;
-					j++;
+					aux2 = ft_strjoin(content, aux_id + 1);
+					free(content);
+					while (aux2[q])
+					{
+						aux[j] = aux2[q];
+						q++;
+						j++;
+					}
+					free (aux2);
 				}
-				free (content);
+				else														//FIXME: a ver el lio de las lineas y los mallocs
+				{
+					while (content[q])
+					{
+						aux[j] = content[q];
+						q++;
+						j++;
+					}
+					free (content);
+				}
 			}
 			i--;
 		}
 		i++;
 	}
 	aux[j] = '\0';
-	printf("aux: %s\n", aux);
 	free (aux_id);
 	return (aux);
 

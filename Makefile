@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/06/10 13:46:37 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/06/23 14:06:19 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS		=	main.c \
 				./parser/ft_splitshell.c \
 				./parser/ft_splitshellgt.c \
 				./parser/ft_parsedollar.c \
+				./command/parse_command.c \
 				echo.c
 
 

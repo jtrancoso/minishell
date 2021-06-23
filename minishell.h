@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/22 13:56:13 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:08:07 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void			check_quote(t_split *split, const char *c);
 void 			test_list(t_list *list, t_comm *comm);
 void 			clear_list(t_list *list, t_comm *comm);
 void 			free_list(void *cont);
+void			parse_command(t_list *list, t_comm *comm, t_split *split);
 
 #endif
