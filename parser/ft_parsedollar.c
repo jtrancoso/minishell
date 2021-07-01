@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/23 14:23:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/07/01 13:42:52 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,13 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	while (list)
 	{
 		//printf("id: %s\nvalue: %s \n", (((t_env*)list->content)->id),(((t_env*)list->content)->value));
-		if (ft_strlen(((t_env*)list->content)->value) > lmax)
-			lmax = ft_strlen(((t_env*)list->content)->value);
+		
+		if (((t_env*)list->content)->value)
+		{
+			printf("%ld %s\n", ft_strlen(((t_env*)list->content)->value), (((t_env*)list->content)->value));
+			if (ft_strlen(((t_env*)list->content)->value) > lmax)
+				lmax = ft_strlen(((t_env*)list->content)->value);
+		}
 		list = list->next;
 	}
 	aux = malloc(sizeof(char *) * (lmax * j) + 1);
