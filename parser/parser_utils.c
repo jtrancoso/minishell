@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/22 13:55:10 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/08 12:20:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ void free_list(void *cont)
 	if (((t_comm *)cont)->t_word)
 		free(((t_comm *)cont)->t_word);
 	free((t_comm *)cont);
-}
-
-void clear_list(t_list *list, t_comm *comm)
-{
-	list = comm->parse_head;
-	ft_lstclear(&list, free_list);
 }
 
 void check_quote(t_split *split, const char *c)
