@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/23 14:23:04 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:56:00 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,6 @@
 
 //TODO: sacar los splits del comm y jugar con la estructura
 //TODO: check errors before
-
-void	ft_malloc_free(t_comm *comm, char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		//printf("q: %s\n", str[i]);
-		free(str[i]);
-		i++;
-	}
-	free (str[i]);
-	free (str);
-}
-
 
 int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 {
@@ -169,10 +153,21 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm*)list->content)->t_word)
 		{
-			splitgtgt = ft_splitshellgt(split, ((t_comm*)list->content)->t_word, '>');
+			printf("word: %s\n", ((t_comm*)list->content)->t_word);
+			//TODO: CREAR FUNCION DE CAMBIO DE >> a ; con todas las condiciones de escape y comillas
+			while (((t_comm*)list->content)->t_word[j])
+			{
+				if (((t_comm*)list->content)->t_word[j] == '>')
+			}
+			splitgtgt = ft_splitshell(split, ((t_comm*)list->content)->t_word, ';'); //FIXME: MOVIDA AQUI
 			while (splitgtgt[i])
+			{
+				//printf("split: %s\n", splitgtgt[0]);
 				i++;
+			}
+
 			h = 0;
+			//printf("i: %d\n", i);
 			if (i > 1)
 			{
 				while (j < i * 2 - 1 && list)
@@ -182,6 +177,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						free(((t_comm*)list->content)->t_word);
 						((t_comm*)list->content)->t_word = NULL;
 						((t_comm*)list->content)->t_word = ft_strdup(splitgtgt[h]);
+						printf("wordgt: %s\n", ((t_comm*)list->content)->t_word);
 						h++;
 					}
 					else
@@ -193,6 +189,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitgtgt[h]);
+							printf("wordgt2: %s\n", ((t_comm*)list->content)->t_word);
 							h++;
 						}
 						else if (j % 2 != 0)
@@ -223,10 +220,14 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		{
 			splitgt = ft_splitshell(split, ((t_comm*)list->content)->t_word, '>');
 			while (splitgt[i])
+			{
+				printf("split: %s\n", splitgt[i]);
 				i++;
+			}
 			h = 0;
 			if (i > 1)
 			{
+				printf("llega a gt\n");
 				while (j < i * 2 - 1 && list)
 				{
 					if (j == 0)
