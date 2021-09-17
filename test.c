@@ -26,8 +26,8 @@ static	int		count_words(const char *str, char c)
 		if (str[i] && str[i] != c)
 		{
 			i++;
-			while (str[i] && str[i] != c)
-				i++;
+			//while (str[i] && str[i] != c) // TODO: Validar con Jesús esta línea no necesaria
+			//	i++; // TODO: Validar con Jesús esta línea no necesaria
 		}
 	}
 	return (i);
@@ -39,6 +39,7 @@ static	char	*malloc_word(const char *str, char c)
 	int		i;
 
 	i = 0;
+	printf("he llegado aqui: %s\n", str);
 	while (str[i] && str[i] != c)
 		i++;
 	word = malloc(sizeof(char) * (i + 1));
@@ -71,6 +72,7 @@ char			**ft_split(char const *s, char c)
 	{
 		while (*s && *s == c)
 			s++;
+		printf("Count\n");
 		if (*s && *s != c)
 		{
 			if (!(tab[i++] = malloc_word(s, c)))
@@ -86,8 +88,13 @@ char			**ft_split(char const *s, char c)
 int main ()
 {
 	char **dest;
-	char str[110] = "echo hola; echo adios; pwd";
+	char str[110] = ";;;;HOLA2;2ADIOS";
 	dest = (ft_split(str, ';'));
-	printf("0 %s\n 1 %s\n 2%s \n", dest[0], dest[1], dest[2]);
+	int i = 0;
+	while (dest[i])
+	{
+		printf("%d %s\n", i, dest[i]);
+		i++;
+	}
 	return (0);
 }
