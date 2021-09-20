@@ -6,25 +6,19 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 12:51:54 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/06/17 14:00:50 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:48:48 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//TODO: gestion de errores
-//TODO: check '\' en el checkquotes y mirar si podemosa cambiar lo que le pasamos a un array y una i
-//TODO: mirar si se pueden usar static cosas
-
 static int check_inverted_var(const char *c)
 {
-	//printf("2--      c: %c\n",c[0]);
 	if ((int)c[0] == '\\' && (int)c[0] != '\0' && ((int)c[1] == '\"' || (int)c[1] == '\''))
 		return (1);
 	return (0);
 }
 
-//TODO: estamos aqui viendo los \" parece que funciona
 static int		ft_words(t_split *split, char const *s1, char c)
 {
 	int	a;
@@ -36,12 +30,10 @@ static int		ft_words(t_split *split, char const *s1, char c)
 	i = 0;
 	if (s1[i] == '\0')
 		return (0);
-	//printf("check_words\n");
 	while (s1[i])
 	{
 		if (check_inverted_var(&s1[i]) == 1)
 			i += 2;
-		//printf("1-- i: %d c: %c\n", i, s1[i]);
 		check_quote(split, &s1[i]);
 		if (i != 0 && (s1[i] == c && s1[i + 1] == c && s1[i - 1] != '\\' && split->f_simple == 0 && split->f_double == 0))
 			a = 0;
@@ -54,7 +46,6 @@ static int		ft_words(t_split *split, char const *s1, char c)
 		}
 		i++;
 	}
-	//printf("words:%d\n", b);
 	return (b);
 }
 
@@ -65,22 +56,18 @@ static int		ft_letters(t_split *split, char const *s2, char c, int a)
 	len = 0;
 	split->f_double = 0;
 	split->f_simple = 0;
-	//printf("1\n");
-	//printf("letra1: %c\n", s2[a]);
 	check_quote(split, &s2[a]);
-	//a+1 null?
-	while ((s2[a] != c && s2[a + 1] != c && s2[a] != '\0') || (s2[a] == c && (split->f_double != 0 || split->f_simple != 0)))
+	while ((s2[a] != c && s2[a] != '\0') || (s2[a] == c && s2[a + 1] == c && (split->f_double != 0 || split->f_simple != 0)) || (s2[a] == c && s2[a + 1] != c))
 	{
 		len++;
 		a++;
-		//check_quote(split, &s2[a]); //TODO: mirar si es necesario
+		check_quote(split, &s2[a]);
 	}
 	if (s2[a] == '\0')
 	{
 		split->f_double = 0;
 		split->f_simple = 0;
 	}
-	//printf("len%d", len);
 	return (len);
 }
 
@@ -105,7 +92,7 @@ static char		**ft_divide(t_split *split, char const *s, char **str, char c, int 
 	b = 0;
 	split->f_double = 0;
 	split->f_simple = 0;
-	while (s[a] != '\0' && b < n)
+	while (s[a] != '\0' && b < n && n > 1)
 	{
 		d = 0;
 		while (s[a] == c || (s[a] == c && (split->f_double != 0 || split->f_simple != 0)) || (s[a] == c && s[a - 1] == '\\'))
@@ -126,7 +113,7 @@ static char		**ft_divide(t_split *split, char const *s, char **str, char c, int 
 		str[b][d] = '\0';
 		b++;
 	}
-	str[b] = 0;
+	str[b] = NULL;
 	return (str);
 }
 
@@ -144,20 +131,3 @@ char			**ft_splitshellgt(t_split *split, char const *s, char c)
 		return (NULL);
 	return (ft_divide(split, s, str, c, n));
 }
-
-/*int main ()
-{
-	char **tab;
-	int i = 0;
-	t_split split;
-
-	tab = ft_splitshellgt(&split, ">>hola > nacho >> adios >> pepe > jose>>", '>');
-	if (!tab)
-		return (0);
-	while (tab[i])
-	{
-		printf("%s\n", tab[i]);
-		i++;
-	}
-	return (0);
-}*/

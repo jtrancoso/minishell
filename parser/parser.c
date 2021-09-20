@@ -6,14 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/10 14:56:00 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:09:18 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//TODO: sacar los splits del comm y jugar con la estructura
-//TODO: check errors before
 
 int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 {
@@ -61,7 +58,9 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		i++;
 	if (!ft_parse_quote(comm, split, line + i))
 		return (0);
-	while (ft_isascii(line[i]))      //TODO: ft_strcpy al libft
+	if (parser_error(comm, split, line, "syntax") != 0)
+		return(0);
+	while (ft_isascii(line[i]))
 	{
 		aux[j] = line[i];
 		i++;
@@ -71,8 +70,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	i = 0;
 	j = 0;
 	splitsemi = ft_splitshell(split, aux, ';');
-	if (line[0] == ';')
-		printf("error\n");
 	while (splitsemi[i])
 		i++;
 	int h = 0;
@@ -101,7 +98,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		if (((t_comm*)list->content)->t_word)
 		{
 			splitpipe = ft_splitshell(split, ((t_comm*)list->content)->t_word, '|');
-			//system ("leaks minishell");
 			while (splitpipe[i])
 				i++;
 			h = 0;
@@ -118,7 +114,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						new = malloc(sizeof(t_list));
 						otro = malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
@@ -153,21 +149,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm*)list->content)->t_word)
 		{
-			printf("word: %s\n", ((t_comm*)list->content)->t_word);
-			//TODO: CREAR FUNCION DE CAMBIO DE >> a ; con todas las condiciones de escape y comillas
-			while (((t_comm*)list->content)->t_word[j])
-			{
-				if (((t_comm*)list->content)->t_word[j] == '>')
-			}
-			splitgtgt = ft_splitshell(split, ((t_comm*)list->content)->t_word, ';'); //FIXME: MOVIDA AQUI
+			splitgtgt = ft_splitshellgt(split, ((t_comm*)list->content)->t_word, '>');
 			while (splitgtgt[i])
-			{
-				//printf("split: %s\n", splitgtgt[0]);
 				i++;
-			}
-
 			h = 0;
-			//printf("i: %d\n", i);
 			if (i > 1)
 			{
 				while (j < i * 2 - 1 && list)
@@ -177,19 +162,17 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						free(((t_comm*)list->content)->t_word);
 						((t_comm*)list->content)->t_word = NULL;
 						((t_comm*)list->content)->t_word = ft_strdup(splitgtgt[h]);
-						printf("wordgt: %s\n", ((t_comm*)list->content)->t_word);
 						h++;
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						new = malloc(sizeof(t_list));
 						otro = malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitgtgt[h]);
-							printf("wordgt2: %s\n", ((t_comm*)list->content)->t_word);
 							h++;
 						}
 						else if (j % 2 != 0)
@@ -220,14 +203,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		{
 			splitgt = ft_splitshell(split, ((t_comm*)list->content)->t_word, '>');
 			while (splitgt[i])
-			{
-				printf("split: %s\n", splitgt[i]);
 				i++;
-			}
 			h = 0;
 			if (i > 1)
 			{
-				printf("llega a gt\n");
 				while (j < i * 2 - 1 && list)
 				{
 					if (j == 0)
@@ -239,7 +218,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						new = malloc(sizeof(t_list));
 						otro = malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
@@ -291,7 +270,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));   //TODO: mirar ahorrar lineas list_new
+						new = malloc(sizeof(t_list));
 						otro = malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
@@ -338,6 +317,5 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		}
 		list = list->next;
 	}
-
 	return (0);
 }

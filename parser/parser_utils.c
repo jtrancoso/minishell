@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/10 11:59:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:20:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_malloc_free(t_comm *comm, char **str)
 	i = 0;
 	while (str[i])
 	{
-		//printf("q: %s\n", str[i]);
 		free(str[i]);
 		i++;
 	}
@@ -57,7 +56,6 @@ void free_env(void *cont)
 
 void check_quote(t_split *split, const char *c)
 {
-	//printf("%s\n", c);
 	if ((int)c[0] == '\"' && split->f_double == 0 && split->f_simple == 0)
 		split->f_double = 1;
 	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 0)
@@ -66,7 +64,4 @@ void check_quote(t_split *split, const char *c)
 		split->f_double = 0;
 	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 1)
 		split->f_simple = 0;
-	//printf("%c-%i", c[0], (int)c[0]);
-	//printf("flag: d%d\n", split->f_double);
-	//printf("letra: %c flag_s: %d flag_d: %d\n", c[0],  split->f_simple, split->f_double);   
 }

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/07/01 13:42:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:20:06 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char *ft_strcpy(char *str)
 	return (aux);
 }
 
-char *expand_dollar(t_comm *comm, char *aux_id) //TODO: gestionar $?
+char *expand_dollar(t_comm *comm, char *aux_id)
 {
 	t_list *list;
 	int i;
@@ -87,11 +87,8 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	}
 	while (list)
 	{
-		//printf("id: %s\nvalue: %s \n", (((t_env*)list->content)->id),(((t_env*)list->content)->value));
-		
 		if (((t_env*)list->content)->value)
 		{
-			printf("%ld %s\n", ft_strlen(((t_env*)list->content)->value), (((t_env*)list->content)->value));
 			if (ft_strlen(((t_env*)list->content)->value) > lmax)
 				lmax = ft_strlen(((t_env*)list->content)->value);
 		}
@@ -101,7 +98,7 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	aux_id = malloc(sizeof(char *) * (ft_strlen(line)));
 	i = 0;
 	j = 0;
-	split->f_simple = 0; //TODO: arreglar comilla doble en "$USER" "'$USER"
+	split->f_simple = 0;
 	split->f_double = 0;
 	while (line[i])
 	{
@@ -127,8 +124,7 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 			if (aux_id[0] == '?')
 				content = ft_askdollar(comm, split, aux_id);
 			else 
-				content = expand_dollar(comm, aux_id); //TODO: que hacer si falla malloc, return(NULL)??
-			//printf("content despues: %s\n", content);
+				content = expand_dollar(comm, aux_id); 
 			q = 0;
 			if (content)
 			{

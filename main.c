@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/10 13:38:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:19:37 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main (int argv, char **argc, char **envp)
 	t_list *list;
 	t_list *new;
 	t_env *env;
-	t_comm comm; //FIXME: lo mismo hay que alorcarla donde se use
+	t_comm comm;
 	t_split split;
 
 	//atexit(miraleaks);
@@ -69,7 +69,7 @@ int main (int argv, char **argc, char **envp)
 			user = ft_strdup(((t_env*)list->content)->value);
 		list = list->next;
 	}
-	split.errorcode = 0; //TODO: ya vemos como ponerlo bien y como resetearlo y tal
+	split.errorcode = 0; //esto sirve para el $? en principio
 	while (1)
 	{
 		comm.parse_head = NULL;
@@ -80,7 +80,7 @@ int main (int argv, char **argc, char **envp)
 		write(1, "\033[0m", 4);
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
-		test_list(list, &comm);
+		test_list(list, &comm); //para comprobar los dolares
 		//parse_command(list, &comm, &split);
 		if (ft_strncmp(line, "exit", 4) == 0)
 		{
