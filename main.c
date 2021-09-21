@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/20 18:19:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/21 17:59:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int main (int argv, char **argc, char **envp)
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
 		test_list(list, &comm); //para comprobar los dolares
-		//parse_command(list, &comm, &split);
 		if (ft_strncmp(line, "exit", 4) == 0)
 		{
 			ft_lstclear(&comm.env_head, &free_env);
@@ -89,6 +88,7 @@ int main (int argv, char **argc, char **envp)
 			free(user);
 			break;
 		}
+		parse_command(list, &comm, &split);
 		if (ft_strncmp(line, "pwd", 3) == 0)
 		{
 			pwd = getcwd(NULL, 0);

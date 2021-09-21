@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/20 15:58:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/21 17:15:18 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
+# include <sys/types.h>
 
 typedef struct	s_env
 {
@@ -53,6 +54,7 @@ typedef struct s_comm
 	int		t_gtgt;
 	int		t_lt;
 	int		freed;
+	int		pid;
 
 	t_echo	echo;
 	t_list	*env_head;
@@ -71,7 +73,7 @@ void 			test_list(t_list *list, t_comm *comm);
 void 			clear_list(t_list *list, t_comm *comm);
 void 			free_list(void *cont);
 void			free_env(void *cont);
-void			parse_command(t_list *list, t_comm *comm, t_split *split);
+int				parse_command(t_list *list, t_comm *comm, t_split *split);
 void			ft_malloc_free(t_comm *comm, char **str);
 int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
 
