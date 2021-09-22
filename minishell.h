@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/21 17:15:18 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/22 13:54:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 
 typedef struct	s_env
 {
