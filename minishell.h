@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/22 13:54:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:31:43 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void 			clear_list(t_list *list, t_comm *comm);
 void 			free_list(void *cont);
 void			free_env(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
-void			ft_malloc_free(t_comm *comm, char **str);
+void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
 
 #endif

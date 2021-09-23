@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/22 14:26:59 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:25:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,24 @@ char **ft_superglue(t_list *list, t_comm *comm)
 	return(str);
 }
 
+char *create_realpath(char *path, char *cmd)
+{
+	char *aux;
+
+	if (!path)
+		return (NULL);
+	aux = path;
+	path = ft_strjoin(path, cmd);
+	free (aux);
+	return (path);
+}
+
 char *get_path(t_list *list, t_comm *comm, char *cmd)
 {
 	char *aux;
 	char *aux_cmd;
 	char **paths;
-	char **aux_paths;
+	char *real_path;
 	int i;
 	struct stat	t_stat;
 	int is_stat;
@@ -58,27 +70,24 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 	paths = ft_split(aux, ':');
 	free(aux);
 	aux_cmd = ft_strjoin("/", cmd);
+	i = 0;
 	while (paths[i])
 	{
-		aux_paths[i] = ft_strjoin(paths[i], aux_cmd);
-		i++;
-	}
-	free(aux_cmd);
-	//ft_malloc_free(comm, paths);  //TODO: HAY LEAKS Y DOBLES FREES POR AQUI!!
-	i = 0;
-	while (aux_paths[i])
-	{
-		is_stat = lstat(aux_paths[i], &t_stat);
+		real_path = create_realpath(paths[i], aux_cmd);
+		is_stat = lstat(real_path, &t_stat);
 		if (is_stat == 0)
 		{
-			printf("%s\n", aux_paths[i]);
-			aux = ft_strdup(aux_paths[i]);
-			//ft_malloc_free(comm, aux_paths); 
+			aux = ft_strdup(real_path);
+			free(real_path);
+			free(aux_cmd);
+			ft_malloc_free(comm, paths, i + 1);
 			return(aux);
 		}
+		free(real_path);
 		i++;
 	}
-	ft_malloc_free(comm, aux_paths);
+	free(paths);
+	free(aux_cmd);
 	return (NULL);
 }
 
@@ -91,7 +100,6 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	char *path;
 	char **env_array;
 
-	//list = comm->parse_head;
 	cmd = ft_split(((t_comm*)list->content)->t_word, ' ');
 	env_array = ft_superglue(list, comm);
 	path = get_path(list, comm, cmd[0]);
@@ -106,12 +114,9 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 		exit(0);
 	}
 	else
-	{
 		wait(&status);
-		printf("%d Hello from Parent!\n", comm->pid);
-	}
 	free(path);
-	ft_malloc_free(comm, cmd);
-	ft_malloc_free(comm, env_array);
+	ft_malloc_free(comm, cmd, 0);
+	ft_malloc_free(comm, env_array, 0);
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/20 18:20:38 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:31:03 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ void	ft_init(t_comm *comm)
 	comm->freed = 0;
 }
 
-void	ft_malloc_free(t_comm *comm, char **str)
+void	ft_malloc_free(t_comm *comm, char **str, int i)
 {
-	int	i;
-
-	i = 0;
 	while (str[i])
 	{
 		free(str[i]);

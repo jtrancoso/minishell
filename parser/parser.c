@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/20 18:09:18 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:32:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		ft_lstadd_back(&comm->parse_head, new);
 		j++;
 	}
-	ft_malloc_free(comm, splitsemi);
+	ft_malloc_free(comm, splitsemi, 0);
 	list = comm->parse_head;
 	while (list)
 	{
@@ -136,7 +136,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				free(splitpipe[0]);
 				splitpipe[0] = NULL;
 			}
-			ft_malloc_free(comm, splitpipe);
+			ft_malloc_free(comm, splitpipe, 0);
 		}
 		else
 			free(((t_comm*)list->content)->t_word);
@@ -188,7 +188,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				free(splitgtgt[0]);
 				splitgtgt[0] = NULL;
 			}
-			ft_malloc_free(comm, splitgtgt);
+			ft_malloc_free(comm, splitgtgt, 0);
 		}
 		else
 			free(((t_comm*)list->content)->t_word);
@@ -240,7 +240,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				free(splitgt[0]);
 				splitgt[0] = NULL;
 			}
-			ft_malloc_free(comm, splitgt);
+			ft_malloc_free(comm, splitgt, 0);
 		}
 		else
 			free(((t_comm*)list->content)->t_word);
@@ -292,7 +292,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				free(splitlt[0]);
 				splitlt[0] = NULL;
 			}
-			ft_malloc_free(comm, splitlt);
+			ft_malloc_free(comm, splitlt, 0);
 		}
 		else
 			free(((t_comm*)list->content)->t_word);
