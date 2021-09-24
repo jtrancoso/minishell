@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/23 17:25:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/24 14:57:39 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,49 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 	return (NULL);
 }
 
+int check_path(char *cmd)
+{
+	if (cmd[0] == '/')
+		return (1);
+	else if (ft_strncmp(cmd, "pwd", 3) == 0)
+		return(2);
+	else if (ft_strncmp(cmd, "echo", 4) == 0)
+		return(2);
+	else if (ft_strncmp(cmd, "exit", 4) == 0)
+		return(2);
+	/*else if (ft_strncmp(cmd, "env", 3) == 0)
+		return(2);*/
+	else if (ft_strncmp(cmd, "cd", 2) == 0)
+		return(2);
+	else if (ft_strncmp(cmd, "unset", 5) == 0)
+		return(2);
+	else if (ft_strncmp(cmd, "export", 6) == 0)
+		return(2);
+	return (0);
+}
+
+int exec_comm(t_list *list, t_comm *comm) //TODO: ver si hace falta return o no
+{
+	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
+		return(1);
+	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
+		return(1);
+	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
+	{
+		ft_exit(list, comm);
+		return(1);
+	}
+	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)
+		return(1);
+	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
+		return(1);
+	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
+		return(1);
+	else if (ft_strncmp(comm->cmd.path, "export", 6) == 0)
+		return(1);
+	return(0);
+}
+
 int parse_command(t_list *list, t_comm *comm, t_split *split)
 {
 	t_list *env_list;
@@ -100,23 +143,38 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	char *path;
 	char **env_array;
 
-	cmd = ft_split(((t_comm*)list->content)->t_word, ' ');
-	env_array = ft_superglue(list, comm);
-	path = get_path(list, comm, cmd[0]);
-	status = 0;
-	env_list = comm->env_head;
-	list = comm->parse_head;
-	comm->pid = fork();
-	if (comm->pid == 0)
-	{
-		if (execve(path, cmd, env_array) != 0)
-			ft_error(split, 4);
-		exit(0);
-	}
+	comm->cmd.cmd = ft_split(((t_comm*)list->content)->t_word, ' ');
+	comm->cmd.env_array = ft_superglue(list, comm);
+	printf("%s\n", comm->cmd.cmd[0]);
+	if (!check_path(comm->cmd.cmd[0]))
+		comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
+	else if (check_path(comm->cmd.cmd[0]) == 1)
+		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 	else
-		wait(&status);
-	free(path);
-	ft_malloc_free(comm, cmd, 0);
-	ft_malloc_free(comm, env_array, 0);
+	{
+		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
+		exec_comm(list, comm);
+		printf("%d\n", check_path(comm->cmd.cmd[0]));
+	}
+	printf("%s\n", comm->cmd.path);
+	if (check_path(comm->cmd.cmd[0]) != 2)
+	{
+		status = 0;
+		env_list = comm->env_head;
+		list = comm->parse_head;
+		comm->pid = fork();
+		if (comm->pid == 0)
+		{
+			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
+				ft_error(split, 4);
+			exit(0);
+		}
+		else
+			wait(&status);
+	}
+	printf("hola\n");
+	free(comm->cmd.path);
+	ft_malloc_free(comm, comm->cmd.cmd, 0);
+	ft_malloc_free(comm, comm->cmd.env_array, 0);
 	return(0);
 }

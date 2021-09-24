@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/23 13:31:43 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/24 14:49:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ typedef struct s_echo
 	int	flag_n;
 }				t_echo;
 
-typedef	struct	s_split
+typedef struct s_cmd
+{
+	char **cmd;
+	char *path;
+	char **env_array;
+}				t_cmd;
+
+
+typedef	struct	s_split //FIXME: meterlo en t_comm
 {
 	int f_simple;
 	int f_double;
-	int	errorcode; //el exit code del proceso
+	int	errorcode; //TODO: el exit code del proceso, moverlo a comm
 }				t_split;
 
 typedef struct s_comm
@@ -56,10 +64,12 @@ typedef struct s_comm
 	int		t_lt;
 	int		freed;
 	int		pid;
+	char	*user;
 
 	t_echo	echo;
 	t_list	*env_head;
 	t_list	*parse_head;
+	t_cmd	cmd;
 }				t_comm;
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
@@ -77,5 +87,7 @@ void			free_env(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
+void			ft_exit(t_list *list, t_comm *comm);
+
 
 #endif

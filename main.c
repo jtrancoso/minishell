@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/23 17:21:47 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/24 14:46:01 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 void miraleaks()
 {
 	system("leaks minishell");
+}
+
+char *next_shlvl(char *shlvl)
+{
+	char *aux;
+	int lvl;
+
+	lvl = ft_atoi(shlvl) + 1;
+	aux = shlvl;
+	shlvl = ft_itoa(lvl);
+	free (aux);
+	return(shlvl);
 }
 
 void	env_malloc_free(t_env *env, char **str)
@@ -61,12 +73,13 @@ int main (int argv, char **argc, char **envp)
 		i++;
 	}
 	list = comm.env_head;
-	char *user;
 	char *pwd;
 	while (list)
 	{
 		if (ft_strncmp(((t_env*)list->content)->id, "USER", 4) == 0)
-			user = ft_strdup(((t_env*)list->content)->value);
+			comm.user = ft_strdup(((t_env*)list->content)->value);
+		else if (ft_strncmp(((t_env*)list->content)->id, "SHLVL", 5) == 0)
+			((t_env*)list->content)->value = next_shlvl(((t_env*)list->content)->value);
 		list = list->next;
 	}
 	split.errorcode = 0; //esto sirve para el $? en principio
@@ -75,23 +88,24 @@ int main (int argv, char **argc, char **envp)
 		comm.parse_head = NULL;
 		ft_bzero(line, BUFFERSIZE - 1);
 		write(1, "\033[1;36m", 7);
-		write(1, user , ft_strlen(user));
+		write(1, comm.user , ft_strlen(comm.user));
 		write(1, "> ", 2);
 		write(1, "\033[0m", 4);
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
 		test_list(list, &comm); //para comprobar los dolares
-		if (ft_strncmp(line, "exit", 4) == 0)
+		/*if (ft_strncmp(line, "exit", 4) == 0)
 		{
 			ft_lstclear(&comm.env_head, &free_env);
 			ft_lstclear(&comm.parse_head, &free_list);
-			free(user);
+			free(comm.user);
 			break;
-		}
+		}*/
 		list = comm.parse_head;
 		while (list)
 		{
-			parse_command(list, &comm, &split); //TODO:HABRIA QUE LLAMARLO MIENTRAS HAYA WORDS EN LIST
+			if (((t_comm*)list->content)->t_word)
+				parse_command(list, &comm, &split); //TODO:HABRIA QUE LLAMARLO MIENTRAS HAYA WORDS EN LIST
 			list = list->next;
 		}
 		if (ft_strncmp(line, "pwd", 3) == 0)
