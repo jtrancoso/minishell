@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/24 14:49:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:25:10 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef	struct	s_split //FIXME: meterlo en t_comm
 {
 	int f_simple;
 	int f_double;
-	int	errorcode; //TODO: el exit code del proceso, moverlo a comm
+	int errorcode;
 }				t_split;
 
 typedef struct s_comm
@@ -88,6 +88,7 @@ int				parse_command(t_list *list, t_comm *comm, t_split *split);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
 void			ft_exit(t_list *list, t_comm *comm);
-
+void			ft_pwd(t_list *list, t_comm *comm);
+void			ft_cd(t_list *list, t_comm *comm, t_split *split);
 
 #endif

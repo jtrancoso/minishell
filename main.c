@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/24 14:46:01 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:48:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int main (int argv, char **argc, char **envp)
 		i++;
 	}
 	list = comm.env_head;
-	char *pwd;
 	while (list)
 	{
 		if (ft_strncmp(((t_env*)list->content)->id, "USER", 4) == 0)
@@ -93,7 +92,7 @@ int main (int argv, char **argc, char **envp)
 		write(1, "\033[0m", 4);
 		read(0, line, BUFFERSIZE - 1);
 		ft_parseline(&comm, &split, line);
-		test_list(list, &comm); //para comprobar los dolares
+		//test_list(list, &comm); //para comprobar los dolares
 		/*if (ft_strncmp(line, "exit", 4) == 0)
 		{
 			ft_lstclear(&comm.env_head, &free_env);
@@ -107,12 +106,6 @@ int main (int argv, char **argc, char **envp)
 			if (((t_comm*)list->content)->t_word)
 				parse_command(list, &comm, &split); //TODO:HABRIA QUE LLAMARLO MIENTRAS HAYA WORDS EN LIST
 			list = list->next;
-		}
-		if (ft_strncmp(line, "pwd", 3) == 0)
-		{
-			pwd = getcwd(NULL, 0);
-			printf("%s\n", pwd);
-			free(pwd);
 		}
 		ft_lstclear(&comm.parse_head, &free_list);
 	}

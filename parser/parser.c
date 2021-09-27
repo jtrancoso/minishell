@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/23 13:32:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:47:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		list = list->next;
 	}
 	list = comm->parse_head;
-	test_list(list, comm);
+	//test_list(list, comm);
 	while (list)
 	{
 		char *dollar_id;

@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/09/24 14:28:18 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/09/27 13:15:30 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS		=	main.c \
 				./parser/parser_error.c \
 				./command/parse_command.c \
 				./exec/exit.c \
+				./exec/pwd.c \
+				./exec/cd.c \
 				echo.c
 
 
@@ -28,7 +30,7 @@ OBJS		= ${SRCS:.c=.o}
 NAME		= minishell
 CC			= gcc
 RM			= rm -f
-#CFLAGS		= -fsanitize=address -g3
+CFLAGS		= -fsanitize=address -g3
 
 .c.o:
 			${CC} -g3 -c $< -o ${<:.c=.o}

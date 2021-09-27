@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/24 14:57:39 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:24:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,27 +95,30 @@ int check_path(char *cmd)
 {
 	if (cmd[0] == '/')
 		return (1);
-	else if (ft_strncmp(cmd, "pwd", 3) == 0)
+	else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "pwd", 3) == 0)
 		return(2);
-	else if (ft_strncmp(cmd, "echo", 4) == 0)
+	else if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "echo", 4) == 0)
 		return(2);
-	else if (ft_strncmp(cmd, "exit", 4) == 0)
+	else if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "exit", 4) == 0)
 		return(2);
-	/*else if (ft_strncmp(cmd, "env", 3) == 0)
+	/*else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "env", 3) == 0)
 		return(2);*/
-	else if (ft_strncmp(cmd, "cd", 2) == 0)
+	else if (ft_strlen(cmd) == 2 && ft_strncmp(cmd, "cd", 2) == 0)
 		return(2);
-	else if (ft_strncmp(cmd, "unset", 5) == 0)
+	else if (ft_strlen(cmd) == 5 && ft_strncmp(cmd, "unset", 5) == 0)
 		return(2);
-	else if (ft_strncmp(cmd, "export", 6) == 0)
+	else if (ft_strlen(cmd) == 6 && ft_strncmp(cmd, "export", 6) == 0)
 		return(2);
 	return (0);
 }
 
-int exec_comm(t_list *list, t_comm *comm) //TODO: ver si hace falta return o no
+int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace falta return o no
 {
 	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
+	{
+		ft_pwd(list, comm);
 		return(1);
+	}
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
 		return(1);
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
@@ -126,7 +129,10 @@ int exec_comm(t_list *list, t_comm *comm) //TODO: ver si hace falta return o no
 	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)
 		return(1);
 	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
+	{	
+		ft_cd(list, comm, split);
 		return(1);
+	}
 	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
 		return(1);
 	else if (ft_strncmp(comm->cmd.path, "export", 6) == 0)
@@ -138,14 +144,13 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 {
 	t_list *env_list;
 	int	status;
-	int i = 0;
 	char **cmd;
 	char *path;
 	char **env_array;
 
 	comm->cmd.cmd = ft_split(((t_comm*)list->content)->t_word, ' ');
 	comm->cmd.env_array = ft_superglue(list, comm);
-	printf("%s\n", comm->cmd.cmd[0]);
+	//printf("%s\n", comm->cmd.cmd[0]);
 	if (!check_path(comm->cmd.cmd[0]))
 		comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
 	else if (check_path(comm->cmd.cmd[0]) == 1)
@@ -153,10 +158,10 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	else
 	{
 		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
-		exec_comm(list, comm);
-		printf("%d\n", check_path(comm->cmd.cmd[0]));
+		exec_comm(list, comm, split);
+		//printf("%d\n", check_path(comm->cmd.cmd[0]));
 	}
-	printf("%s\n", comm->cmd.path);
+	//printf("%s\n", comm->cmd.path);
 	if (check_path(comm->cmd.cmd[0]) != 2)
 	{
 		status = 0;
@@ -171,8 +176,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 		}
 		else
 			wait(&status);
-	}
-	printf("hola\n");
+	} 
 	free(comm->cmd.path);
 	ft_malloc_free(comm, comm->cmd.cmd, 0);
 	ft_malloc_free(comm, comm->cmd.env_array, 0);
