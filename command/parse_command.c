@@ -6,36 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/27 13:24:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/28 13:53:14 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char **ft_superglue(t_list *list, t_comm *comm)
-{
-	char **str;
-	char *aux;
-	int len;
-	int i;
-
-	list = comm->env_head;
-	len = ft_lstsize(list);
-	str = malloc(sizeof(char *) * (len + 1));
-	if(!str)
-		return (NULL);
-	i = 0;
-	while (list)
-	{
-		aux = ft_strjoin(((t_env*)list->content)->id, "=");
-		str[i] = ft_strjoin(aux, ((t_env*)list->content)->value);
-		free(aux);
-		list = list->next;
-		i++;
-	}
-	str[i] = NULL;
-	return(str);
-}
 
 char *create_realpath(char *path, char *cmd)
 {

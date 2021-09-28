@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 11:49:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/28 11:59:44 by jtrancos         ###   ########.fr       */
+/*   Created: 2021/09/28 11:58:07 by jtrancos          #+#    #+#             */
+/*   Updated: 2021/09/28 12:29:32 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_cd(t_list *list, t_comm *comm, t_split *split)
+void ft_env(t_list *list, t_comm *comm, t_split *split)
 {
 	int i;
 
 	i = 0;
-	if (comm->cmd.cmd[1])
+	while (comm->cmd.env_array[i])
 	{
-		if (chdir(comm->cmd.cmd[1]) != 0)
-			ft_error(split, 5);
-	}
-	else
-	{
-		list = comm->env_head;
-		while (list)
-		{
-			if (ft_strncmp(((t_env*)list->content)->id, "HOME", 4) == 0)
-				chdir(((t_env*)list->content)->value);
-			list = list->next;
-		}
+		if (ft_strchr(comm->cmd.env_array[i], '='))
+			printf("%s\n", comm->cmd.env_array[i]);
+		i++;
 	}
 }

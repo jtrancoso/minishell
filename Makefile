@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/09/27 13:15:30 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/09/28 13:53:04 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,12 @@ SRCS		=	main.c \
 				./parser/ft_parsedollar.c \
 				./parser/parser_error.c \
 				./command/parse_command.c \
+				./command/comm_utils.c \
 				./exec/exit.c \
 				./exec/pwd.c \
 				./exec/cd.c \
+				./exec/env.c \
+				./exec/export.c \
 				echo.c
 
 
