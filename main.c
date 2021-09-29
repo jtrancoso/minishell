@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/28 12:08:06 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/29 13:48:16 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,6 @@ char *next_shlvl(char *shlvl)
 	return(shlvl);
 }
 
-void	env_malloc_free(t_env *env, char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("q: %s\n", str[i]);
-		free(str[i]);
-		i++;
-	}
-	free (str[i]);
-	free (str);
-}
-
 int main (int argv, char **argc, char **envp)
 {
 	t_list *list;
@@ -52,7 +37,7 @@ int main (int argv, char **argc, char **envp)
 	t_comm comm;
 	t_split split;
 
-	atexit(miraleaks);
+	//atexit(miraleaks);
 	char line[BUFFERSIZE];
 	write(1, "\033[1;33m", 7);
 	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");

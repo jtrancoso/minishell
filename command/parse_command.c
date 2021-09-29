@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/28 13:53:14 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/29 12:18:24 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace fa
 	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
 		return(1);
 	else if (ft_strncmp(comm->cmd.path, "export", 6) == 0)
+	{
+		ft_export(list, comm, split);
 		return(1);
+	}
 	return(0);
 }
 
