@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/29 12:18:24 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:40:29 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int check_path(char *cmd)
 		return(2);
 	else if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "exit", 4) == 0)
 		return(2);
-	/*else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "env", 3) == 0)
-		return(2);*/
+	else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "env", 3) == 0)
+		return(2);
 	else if (ft_strlen(cmd) == 2 && ft_strncmp(cmd, "cd", 2) == 0)
 		return(2);
 	else if (ft_strlen(cmd) == 5 && ft_strncmp(cmd, "unset", 5) == 0)
@@ -102,7 +102,10 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace fa
 		return(1);
 	}
 	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)
+	{
+		ft_env(list, comm, split);
 		return(1);
+	}
 	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
 	{	
 		ft_cd(list, comm, split);

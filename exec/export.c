@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/29 13:30:36 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:10:29 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 	char *id;
 	char *value;
 	int flag;
+	t_list *new;
+	t_env *env;
 
 	i = 1;
 	list = comm->env_head;
-	while (comm->cmd.cmd[i])
+	while (comm->cmd.cmd[i]) //el bucle es para cuando hay export algo
 	{
 		flag = 0;
 		printf("holi\n");
@@ -47,11 +49,28 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 			ft_error(split, 6);
 			flag = 1;
 		}
-		if (ft_strchr(comm->cmd.cmd[i], '=') && !flag)
+		if (!flag)
 		{
-			id = ft_substr(comm->cmd.cmd[i], 0, ft_strchr(comm->cmd.cmd[i], '=') - comm->cmd.cmd[i]);
-			value =ft_strdup(ft_strchr(comm->cmd.cmd[i], '=') + 1);
-			printf("id:%s value:%s\n", id, value);
+			if (ft_strchr(comm->cmd.cmd[i], '='))
+			{
+				id = ft_substr(comm->cmd.cmd[i], 0, ft_strchr(comm->cmd.cmd[i], '=') - comm->cmd.cmd[i] + 1);
+				value =ft_strdup(ft_strchr(comm->cmd.cmd[i], '=') + 1);
+				printf("id:%s value:%s\n", id, value);
+			}
+			else
+			{
+				id = ft_strdup(comm->cmd.cmd[i]);
+				value = NULL;
+				printf("id:%s value:%s\n", id, value);
+			}
+			new = malloc(sizeof(t_list));
+			env = malloc(sizeof(t_env));
+			new->content = env;
+			((t_env*)new->content)->id = id;
+			((t_env*)new->content)->value = value;
+			ft_lstadd_back(&comm->env_head, new);
+			//free(id);
+			//free(value);
 		}
 		i++;
 	}

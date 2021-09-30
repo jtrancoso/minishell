@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/28 13:53:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:39:33 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,30 @@ char **ft_superglue(t_list *list, t_comm *comm)
 	i = 0;
 	while (list)
 	{
+		//printf("id:%s value:%s--\n", (((t_env*)list->content)->id), (((t_env*)list->content)->value));
 		if (((t_env*)list->content)->value)
 		{
-			aux = ft_strjoin(((t_env*)list->content)->id, "=");
-			str[i] = ft_strjoin(aux, ((t_env*)list->content)->value);
-			free(aux);
-			list = list->next;
-			i++;
+			if (ft_strchr(((t_env*)list->content)->id, '='))
+			{
+				aux = ft_strjoin(((t_env*)list->content)->id, ((t_env*)list->content)->value);
+				str[i] = ft_strdup(aux);
+				free(aux);
+			}
+			else
+			{
+				aux = ft_strjoin(((t_env*)list->content)->id, "=");
+				str[i] = ft_strjoin(aux, ((t_env*)list->content)->value);
+				free(aux);
+			}
 		}
+		else 
+		{
+			aux = ft_strdup(((t_env*)list->content)->id);
+			str[i] = ft_strdup(aux);
+			free (aux);
+		}
+		list = list->next;
+		i++;
 	}
 	str[i] = NULL;
 	return(str);
