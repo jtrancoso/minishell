@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/27 13:47:53 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/01 13:13:02 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	int		i;
 	char	aux[BUFFERSIZE];
 	int		j;
+	int		h;
 	t_list *list;
 	t_list *new;
 	t_comm *otro;
@@ -52,6 +53,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 
 	i = 0;
 	j = 0;
+	ft_init(comm);
 	line[ft_strlen(line) - 1] = '\0';
 	ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
@@ -60,7 +62,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		return (0);
 	if (parser_error(comm, split, line, "syntax") != 0)
 		return(0);
-	while (ft_isascii(line[i]))
+	while (line[i] && ft_isascii(line[i]))
 	{
 		aux[j] = line[i];
 		i++;
@@ -69,10 +71,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	aux[j] = '\0';
 	i = 0;
 	j = 0;
+	h = 0;
 	splitsemi = ft_splitshell(split, aux, ';');
 	while (splitsemi[i])
 		i++;
-	int h = 0;
 	while (j < i * 2 - 1)
 	{
 		new = malloc(sizeof(t_list));
@@ -299,7 +301,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		list = list->next;
 	}
 	list = comm->parse_head;
-	//test_list(list, comm);
+	test_list(list, comm);
 	while (list)
 	{
 		char *dollar_id;

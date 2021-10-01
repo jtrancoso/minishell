@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/28 13:52:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/01 11:42:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef struct s_echo
 	int	flag_n;
 }				t_echo;
 
+typedef struct s_export
+{
+	int f_valid;
+	int f_exist;
+	char *id;
+	char *value;
+}				t_export;
+
 typedef struct s_cmd
 {
 	char **cmd;
@@ -66,6 +74,7 @@ typedef struct s_comm
 	int		pid;
 	char	*user;
 
+	t_export export;
 	t_echo	echo;
 	t_list	*env_head;
 	t_list	*parse_head;
