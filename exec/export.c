@@ -6,11 +6,38 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/01 13:26:28 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:57:27 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*void copy_list(t_list *list, t_comm *comm, t_split *split)
+{
+	
+}*/
+
+void export_list(t_list *list, t_comm *comm, t_split *split)  //TODO:ESTAMOS AQUI, NOS FALTA ORDENAR LISTA
+{
+	t_list *new;
+	t_list *export;
+	char *aux_id;
+	char *aux_value;
+	int i;
+
+	comm->export_head = NULL;
+	list = comm->env_head;
+	while (list)
+	{
+		new = malloc(sizeof(t_list));
+		export = malloc(sizeof(t_export));
+		new->content = export;
+		((t_env*)new->content)->id = ft_strdup(((t_env*)list->content)->id);
+		((t_env*)new->content)->value = ft_strdup(((t_env*)list->content)->value);
+		ft_lstadd_back(&comm->export_head, new);
+		list = list->next;
+	}
+}
 
 int	check_export(t_list *list, t_comm *comm, t_split *split, int i)
 {
@@ -38,25 +65,25 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 	list = comm->env_head;
 	while (comm->cmd.cmd[i]) //el bucle es para cuando hay export algo
 	{
-		if (!check_export(list, comm, split, i))
+		if (!check_export(list, comm, split, i)) //checkeamos que el formato es valido (a=c si, =c no)
 		{
 			ft_error(split, 6);
 			comm->export.f_valid = 1;
 		}
-		if (!comm->export.f_valid)
+		if (!comm->export.f_valid) //si es valido
 		{
-			if (ft_strchr(comm->cmd.cmd[i], '='))
+			if (ft_strchr(comm->cmd.cmd[i], '=')) //si hay igual, copiamos el id + = y el value
 			{
 				comm->export.id = ft_substr(comm->cmd.cmd[i], 0, ft_strchr(comm->cmd.cmd[i], '=') - comm->cmd.cmd[i] + 1);
 				comm->export.value =ft_strdup(ft_strchr(comm->cmd.cmd[i], '=') + 1);
 			}
-			else if (!ft_strchr(comm->cmd.cmd[i], '='))
+			else if (!ft_strchr(comm->cmd.cmd[i], '=')) //si no hay igual, solo copiamos el id y dejamos value null
 			{
 				comm->export.id = ft_strdup(comm->cmd.cmd[i]);
 				comm->export.value = NULL;
 			}
 			list = comm->env_head;
-			while (list)
+			while (list) //recorremos la lista para ver si ya tenemos ese id, y sobreescribimos el value en tal caso
 			{
 				if (ft_strncmp(comm->export.id, ((t_env*)list->content)->id, ft_strlen(((t_env*)list->content)->id)) == 0)
 				{
@@ -65,7 +92,7 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 				}
 				list = list->next;
 			}
-			if (!comm->export.f_exist)
+			if (!comm->export.f_exist) //si la hemos recorrido y no estaba el id, alocamos un nuevo id con value copiados
 			{
 				new = malloc(sizeof(t_list));
 				env = malloc(sizeof(t_env));
@@ -79,9 +106,10 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 		}
 		i++;
 	}
-	/*else
+	if (comm->cmd.cmd[1] == NULL)
 	{
-		
-
-	}*/
+		printf("vinicius\n");
+		export_list(list, comm, split);
+		test_list(list, comm);
+	}
 }

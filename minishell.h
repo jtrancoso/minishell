@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/01 11:42:53 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:54:00 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_comm
 	t_echo	echo;
 	t_list	*env_head;
 	t_list	*parse_head;
+	t_list	*export_head;
 	t_cmd	cmd;
 }				t_comm;
 

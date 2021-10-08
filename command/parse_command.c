@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/01 12:07:41 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:19:58 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 	while (paths[i])
 	{
 		real_path = create_realpath(paths[i], aux_cmd);
-		is_stat = lstat(real_path, &t_stat);
+		is_stat = lstat(real_path, &t_stat); 
 		if (is_stat == 0)
 		{
 			aux = ft_strdup(real_path);

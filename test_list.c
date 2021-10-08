@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 12:31:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/01 13:05:31 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:56:01 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void test_list(t_list *list, t_comm *comm)
 		list = list->next;
 	}
 	printf("\n");
+	list = comm->export_head;
+	while (list)
+	{
+		//printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
+		printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
+		list = list->next;
+	}
 	/*list = comm->env_head;
 	while (list)
 	{
