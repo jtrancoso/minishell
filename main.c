@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/10 09:27:00 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/10/11 14:35:04 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main (int argv, char **argc, char **envp)
 		write(1, comm.user , ft_strlen(comm.user));
 		write(1, "> ", 2);
 		write(1, "\033[0m", 4);
-		read(0, line, BUFFERSIZE - 1);
+		read(0, line, BUFFERSIZE - 1); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
 		ft_parseline(&comm, &split, line);
 		//test_list(list, &comm); //para comprobar los dolares
 		list = comm.parse_head;

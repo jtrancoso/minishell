@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/08 12:57:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/11 14:37:07 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,37 @@
 	
 }*/
 
+void swap_list(t_list *list, t_comm *comm, t_split *split)
+{
+	char *aux_id;
+	char *aux_value;
+
+	aux_id = ((t_export*)list->content)->id;
+	((t_export*)list->content)->id = ((t_export*)list->next->content)->id;
+	((t_export*)list->next->content)->id = aux_id;
+	aux_value = ((t_export*)list->content)->value;
+	((t_export*)list->content)->value = ((t_export*)list->next->content)->value;
+	((t_export*)list->next->content)->value = aux_value;
+}
+
+size_t export_len(char *s1, char *s2)
+{
+	size_t len1;
+	size_t len2;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	if (len1 > len2)
+		return (len2);
+	return (len1);
+}
+
 void export_list(t_list *list, t_comm *comm, t_split *split)  //TODO:ESTAMOS AQUI, NOS FALTA ORDENAR LISTA
 {
 	t_list *new;
 	t_list *export;
-	char *aux_id;
-	char *aux_value;
 	int i;
+	int swapped;
 
 	comm->export_head = NULL;
 	list = comm->env_head;
@@ -32,9 +56,66 @@ void export_list(t_list *list, t_comm *comm, t_split *split)  //TODO:ESTAMOS AQU
 		new = malloc(sizeof(t_list));
 		export = malloc(sizeof(t_export));
 		new->content = export;
-		((t_env*)new->content)->id = ft_strdup(((t_env*)list->content)->id);
-		((t_env*)new->content)->value = ft_strdup(((t_env*)list->content)->value);
+		((t_export*)new->content)->id = ft_strdup(((t_env*)list->content)->id);
+		if (((t_env*)list->content)->value)
+			((t_export*)new->content)->value = ft_strdup(((t_env*)list->content)->value);
+		else 
+			((t_export*)new->content)->value = NULL;
 		ft_lstadd_back(&comm->export_head, new);
+		list = list->next;
+	}
+	list = comm->export_head;
+	while (list)
+	{
+		if (list->next)
+		{
+			swapped = 0;
+			//printf("id: %s id_next: %s len: %zu ", ((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id));
+			//printf("COMP: %d\n", ft_strncmp(((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id)));
+			if (ft_strncmp(((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id)) > 0)
+			{
+				//printf("hola\n");
+				swap_list(list, comm, split);
+				swapped = 1;
+			}
+			if (ft_strncmp(((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id)) == 0)
+			{
+				//printf("hu\n");
+				if (ft_strlen(((t_export*)list->content)->id) > ft_strlen(((t_export*)list->next->content)->id))
+				{
+					//printf("adios\n");
+					swap_list(list, comm, split);
+					swapped = 1;
+				}
+			}
+		}
+		if (swapped == 1)
+			list = comm->export_head;
+		else
+			list = list->next;
+	}
+}
+
+void export_print(t_list *list, t_comm *comm, t_split *split)
+{
+	list = comm->export_head;
+	while (list)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		if (ft_strchr((((t_export*)list->content)->id), '=') == 0)
+			ft_putstr_fd(((t_export*)list->content)->id, 1);
+		else
+		{
+			((t_export*)list->content)->id[strlen(((t_export*)list->content)->id) - 1] = '\0'; //FIXME: si se te ocurre algo mejor, adelante
+			ft_putstr_fd(((t_export*)list->content)->id, 1);
+		}
+		if (((t_export*)list->content)->value)
+		{
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(((t_export*)list->content)->value, 1);
+			ft_putstr_fd("\"", 1);
+		}
+		ft_putstr_fd("\n", 1);
 		list = list->next;
 	}
 }
@@ -62,7 +143,6 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 	t_env *env;
 
 	i = 1;
-	list = comm->env_head;
 	while (comm->cmd.cmd[i]) //el bucle es para cuando hay export algo
 	{
 		if (!check_export(list, comm, split, i)) //checkeamos que el formato es valido (a=c si, =c no)
@@ -99,6 +179,7 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 				new->content = env;
 				((t_env*)new->content)->id = comm->export.id;
 				((t_env*)new->content)->value = comm->export.value;
+				printf("id: %s valueee: %s\n", ((t_env*)new->content)->id, ((t_env*)new->content)->value);
 				ft_lstadd_back(&comm->env_head, new);
 			}
 			//free(id);
@@ -108,8 +189,7 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 	}
 	if (comm->cmd.cmd[1] == NULL)
 	{
-		printf("vinicius\n");
 		export_list(list, comm, split);
-		test_list(list, comm);
+		export_print(list, comm, split);
 	}
 }
