@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/10 09:25:24 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:34:02 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_init(t_comm *comm)
 	comm->t_gtgt = 0;
 	comm->t_lt = 0;
 	comm->freed = 0;
+	comm->f_d = 0;
+	comm->f_s = 0;
 	comm->export.f_valid = 0; //la podemos si hace falta
 	comm->export.f_exist = 0;
 	comm->dir = NULL;
@@ -66,4 +68,11 @@ void check_quote(t_split *split, const char *c)
 		split->f_double = 0;
 	else if ((int)c[0] == '\'' && split->f_double == 0 && split->f_simple == 1)
 		split->f_simple = 0;
+}
+
+int check_inverted_var(const char *c)
+{
+	if ((int)c[0] == '\\' && (int)c[0] != '\0' && ((int)c[1] == '$'))
+		return (1);
+	return (0);
 }

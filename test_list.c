@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 12:31:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/11 14:18:12 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:53:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void test_list(t_list *list, t_comm *comm)
 {
-	/*list = comm->parse_head;
+	list = comm->parse_head;
 	while (list)
 	{
 		//printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
 		printf("word: %s pipe: %d semi: %d gtgt: %d gt: %d lt: %d, exist: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi, ((t_comm*)list->content)->t_gtgt, ((t_comm*)list->content)->t_gt, ((t_comm*)list->content)->t_lt, ((t_comm*)list->content)->export.f_exist);
 		list = list->next;
 	}
-	printf("\n");*/
-	list = comm->export_head;
+	printf("\n");
+	/*list = comm->export_head;
 	while (list)
 	{
 		//printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
@@ -30,7 +30,7 @@ void test_list(t_list *list, t_comm *comm)
 		printf(" value: %s", ((t_export*)list->content)->value);
 		printf("\n");
 		list = list->next;
-	}
+	}*/
 	/*list = comm->env_head;
 	while (list)
 	{

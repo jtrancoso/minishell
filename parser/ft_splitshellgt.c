@@ -6,18 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 12:51:54 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/20 13:48:48 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:44:26 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static int check_inverted_var(const char *c)
-{
-	if ((int)c[0] == '\\' && (int)c[0] != '\0' && ((int)c[1] == '\"' || (int)c[1] == '\''))
-		return (1);
-	return (0);
-}
 
 static int		ft_words(t_split *split, char const *s1, char c)
 {

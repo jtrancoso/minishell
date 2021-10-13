@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/10 09:22:55 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:32:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_comm
 	int		pid;
 	char	*user;
 	char	*dir;
+	int		f_d;
+	int		f_s;
 
 	t_export export;
 	t_echo	echo;
@@ -91,6 +93,7 @@ char			**ft_splitshell(t_split *split, char const *s, char c);
 char			**ft_splitshellgt(t_split *split, char const *s, char c);
 char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line);
 void			check_quote(t_split *split, const char *c);
+int				check_inverted_var(const char *c);
 void 			test_list(t_list *list, t_comm *comm);
 void 			clear_list(t_list *list, t_comm *comm);
 void 			free_list(void *cont);

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/11 14:37:07 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:45:00 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ size_t export_len(char *s1, char *s2)
 	return (len1);
 }
 
-void export_list(t_list *list, t_comm *comm, t_split *split)  //TODO:ESTAMOS AQUI, NOS FALTA ORDENAR LISTA
+void export_list(t_list *list, t_comm *comm, t_split *split)
 {
 	t_list *new;
 	t_list *export;

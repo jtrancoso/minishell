@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/11 14:34:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:31:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,76 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 	free(paths);
 	free(aux_cmd);
 	return (NULL);
+}
+
+void clean_quotes(t_list *list, t_comm *comm, t_split *split)
+{
+	char **aux;
+	int i;
+	int j;
+	int k;
+	int l;
+	char *str;
+
+	i = 0;
+	j = 0;
+	while (comm->cmd.cmd[i])
+		i++;
+	aux = malloc(sizeof(char **) * (i + 1));
+	i = 0;
+	while (comm->cmd.cmd[i])
+	{
+		l = 0;
+		k = 0;
+		aux[j] = malloc(sizeof(char *) * (ft_strlen(comm->cmd.cmd[i])) + 1);
+		while (comm->cmd.cmd[i][k])
+		{
+			if (check_inverted_var(&comm->cmd.cmd[i][k]) == 1)
+				k += 2;
+			check_quote(split, &comm->cmd.cmd[i][k]);
+			if (comm->cmd.cmd[i][k] == '\"' && split->f_double == 1)
+			{
+				k++;
+				comm->f_d = 1;
+			}
+			else if (comm->cmd.cmd[i][k] == '\"' && split->f_double == 0 && comm->f_d == 1)
+			{
+				k++;
+				comm->f_d = 0;
+			}
+			else if (comm->cmd.cmd[i][k] == '\'' && split->f_simple == 1)
+			{
+				k++;
+				comm->f_s = 1;
+			}
+			else if (comm->cmd.cmd[i][k] == '\'' && split->f_simple == 0 && comm->f_s == 1)
+			{
+				k++;
+				comm->f_s = 0;
+			}
+			else
+			{
+				aux[j][l] = comm->cmd.cmd[i][k];
+				l++;
+				k++;
+			}
+		}
+		aux[j][l] = '\0';
+		i++;
+		j++;
+	}
+	aux[j] = NULL;
+	i = 0;
+	while (aux[i])
+	{
+		str = ft_strdup(comm->cmd.cmd[i]);
+		free(comm->cmd.cmd[i]);
+		comm->cmd.cmd[i] = aux[i];
+		free(str);
+		printf("finalcmd[%d]%s\n", i, comm->cmd.cmd[i]);
+		i++;
+	}
+	ft_malloc_free(comm, aux, j);
 }
 
 int check_path(char *cmd)
@@ -129,9 +199,10 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	char *path;
 	char **env_array;
 
-	comm->cmd.cmd = ft_split(((t_comm*)list->content)->t_word, ' ');
+	comm->cmd.cmd = ft_splitshell(split, ((t_comm*)list->content)->t_word, ' ');
 	comm->cmd.env_array = ft_superglue(list, comm);
-	//printf("%s\n", comm->cmd.cmd[0]);
+	printf("cmd[0]:%s cmd[1]:%s\n", comm->cmd.cmd[0], comm->cmd.cmd[1]);
+	clean_quotes(list, comm, split);
 	if (!check_path(comm->cmd.cmd[0]))
 		comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
 	else if (check_path(comm->cmd.cmd[0]) == 1)
