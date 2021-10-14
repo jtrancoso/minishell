@@ -6,16 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/13 11:45:00 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/14 13:12:43 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*void copy_list(t_list *list, t_comm *comm, t_split *split)
-{
-	
-}*/
 
 void swap_list(t_list *list, t_comm *comm, t_split *split)
 {
@@ -70,20 +65,15 @@ void export_list(t_list *list, t_comm *comm, t_split *split)
 		if (list->next)
 		{
 			swapped = 0;
-			//printf("id: %s id_next: %s len: %zu ", ((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id));
-			//printf("COMP: %d\n", ft_strncmp(((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id)));
 			if (ft_strncmp(((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id)) > 0)
 			{
-				//printf("hola\n");
 				swap_list(list, comm, split);
 				swapped = 1;
 			}
 			if (ft_strncmp(((t_export*)list->content)->id, ((t_export*)list->next->content)->id, export_len(((t_export*)list->content)->id, ((t_export*)list->next->content)->id)) == 0)
 			{
-				//printf("hu\n");
 				if (ft_strlen(((t_export*)list->content)->id) > ft_strlen(((t_export*)list->next->content)->id))
 				{
-					//printf("adios\n");
 					swap_list(list, comm, split);
 					swapped = 1;
 				}
@@ -145,6 +135,7 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 	i = 1;
 	while (comm->cmd.cmd[i]) //el bucle es para cuando hay export algo
 	{
+		comm->export.f_valid = 0;
 		if (!check_export(list, comm, split, i)) //checkeamos que el formato es valido (a=c si, =c no)
 		{
 			ft_error(split, 6);
@@ -179,11 +170,8 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 				new->content = env;
 				((t_env*)new->content)->id = comm->export.id;
 				((t_env*)new->content)->value = comm->export.value;
-				printf("id: %s valueee: %s\n", ((t_env*)new->content)->id, ((t_env*)new->content)->value);
 				ft_lstadd_back(&comm->env_head, new);
 			}
-			//free(id);
-			//free(value);
 		}
 		i++;
 	}
@@ -191,5 +179,7 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 	{
 		export_list(list, comm, split);
 		export_print(list, comm, split);
+		ft_lstclear(&comm->export_head, &free_export);
+
 	}
 }

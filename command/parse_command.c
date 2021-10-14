@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/13 14:31:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/14 13:28:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		free(comm->cmd.cmd[i]);
 		comm->cmd.cmd[i] = aux[i];
 		free(str);
-		printf("finalcmd[%d]%s\n", i, comm->cmd.cmd[i]);
 		i++;
 	}
 	ft_malloc_free(comm, aux, j);
@@ -165,7 +164,11 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace fa
 		return(1);
 	}
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
+	{
+		ft_echo(list, comm, split);
 		return(1);
+	}
+
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
 	{
 		ft_exit(list, comm);
@@ -182,7 +185,10 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace fa
 		return(1);
 	}
 	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
+	{
+		ft_unset(list, comm, split);
 		return(1);
+	}
 	else if (ft_strncmp(comm->cmd.path, "export", 6) == 0)
 	{
 		ft_export(list, comm, split);
@@ -201,7 +207,6 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm*)list->content)->t_word, ' ');
 	comm->cmd.env_array = ft_superglue(list, comm);
-	printf("cmd[0]:%s cmd[1]:%s\n", comm->cmd.cmd[0], comm->cmd.cmd[1]);
 	clean_quotes(list, comm, split);
 	if (!check_path(comm->cmd.cmd[0]))
 		comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
@@ -211,9 +216,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	{
 		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 		exec_comm(list, comm, split);
-		//printf("%d\n", check_path(comm->cmd.cmd[0]));
 	}
-	//printf("%s\n", comm->cmd.path);
 	if (check_path(comm->cmd.cmd[0]) != 2)
 	{
 		status = 0;

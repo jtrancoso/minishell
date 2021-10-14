@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/09/28 13:15:07 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/14 14:26:11 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ft_error(t_split *split, int error)
 		ft_putstr_fd("Error. No such file or directory.\n", 2);
 	if (error == 6)
 		ft_putstr_fd("Error. Not a valid identifier.\n", 2);
+	if (error == 7)
+		ft_putstr_fd("Error. Uneven number of backslashes\n", 2);
 	split->errorcode = 1; //FIXME: ESTO ESTA EN TENGUERENGUE
 	return (-1);
 }

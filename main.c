@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/13 14:21:07 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/14 14:16:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main (int argv, char **argc, char **envp)
 	t_comm comm;
 	t_split split;
 
-	atexit(miraleaks);
+	//atexit(miraleaks);
 	char line[BUFFERSIZE];
 	write(1, "\033[1;33m", 7);
 	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");
@@ -77,7 +77,7 @@ int main (int argv, char **argc, char **envp)
 		write(1, "\033[0m", 4);
 		read(0, line, BUFFERSIZE - 1); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
 		ft_parseline(&comm, &split, line);
-		test_list(list, &comm); //para comprobar los dolares
+		//test_list(list, &comm); //para comprobar los dolares
 		list = comm.parse_head;
 		while (list)
 		{

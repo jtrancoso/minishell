@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/13 13:32:53 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/14 13:34:03 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ typedef struct	s_env
 	char *id;
 	char *value; 
 }				t_env;
-
-typedef struct s_echo
-{
-	int	flag_n;
-}				t_echo;
 
 typedef struct s_export
 {
@@ -76,9 +71,9 @@ typedef struct s_comm
 	char	*dir;
 	int		f_d;
 	int		f_s;
+	int		flag_n;
 
 	t_export export;
-	t_echo	echo;
 	t_list	*env_head;
 	t_list	*parse_head;
 	t_list	*export_head;
@@ -86,7 +81,7 @@ typedef struct s_comm
 }				t_comm;
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
-int				ft_echo(t_comm *comm, char *line);
+void			ft_echo(t_list *list, t_comm *comm, t_split *split);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, int error);
 char			**ft_splitshell(t_split *split, char const *s, char c);
@@ -98,6 +93,7 @@ void 			test_list(t_list *list, t_comm *comm);
 void 			clear_list(t_list *list, t_comm *comm);
 void 			free_list(void *cont);
 void			free_env(void *cont);
+void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
@@ -107,6 +103,8 @@ void			ft_cd(t_list *list, t_comm *comm, t_split *split);
 void			ft_env(t_list *list, t_comm *comm, t_split *split);
 void			ft_export(t_list *list, t_comm *comm, t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);
+void			ft_unset(t_list *list, t_comm *comm, t_split *split);
+
 
 
 

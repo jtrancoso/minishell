@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/13 13:34:02 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/14 13:12:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ void free_env(void *cont)
 	if (((t_env *)cont)->value)
 		free(((t_env *)cont)->value);
 	free((t_env *)cont);
+}
+
+void free_export(void *cont)
+{
+	if (((t_export *)cont)->id)
+		free(((t_export *)cont)->id);
+	if (((t_export *)cont)->value)
+		free(((t_export *)cont)->value);
+	free((t_export *)cont);
 }
 
 void check_quote(t_split *split, const char *c)
