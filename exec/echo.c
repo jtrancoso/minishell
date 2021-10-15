@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/14 14:28:14 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/15 14:06:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ int parse_bar(t_split *split, char *line)
 {
 	int i;
 	int bar;
-
 	i = 0;
 	bar = 0;
 	while (line[i])
 	{
-		if (line[i] == '\\')
+		if ((line[i] == '\\' && !line[i + 1]) || (line[i] == '\\' && line[i + 1] == '\\'))
 			bar++;
 		i++;
 	}
@@ -29,15 +28,13 @@ int parse_bar(t_split *split, char *line)
 		return (ft_error(split, 7));
 	return (1);
 }
-
 void ft_echo(t_list *list, t_comm *comm, t_split *split)
 {
 	int i;
 	int j;
-
 	i = 1;
 	comm->flag_n = 0;
-	if ((ft_strncmp(comm->cmd.cmd[1], "-n", 2) == 0 && ft_strlen(comm->cmd.cmd[1]) == 2))
+	while ((ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
 	{
 		comm->flag_n = 1;
 		i++;
@@ -55,9 +52,9 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 			j++;
 		}
 		if (comm->cmd.cmd[i + 1])
-			write(1, " ", 1);
+			ft_putchar_fd(' ',  1);
 		i++;
 	}
 	if (!comm->flag_n)
-		write(1, "\n", 1);
+		ft_putchar_fd('\n', 1);
 }

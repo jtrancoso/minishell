@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/14 13:34:03 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/15 14:16:52 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
 void			ft_exit(t_list *list, t_comm *comm);
 void			ft_pwd(t_list *list, t_comm *comm);
-void			ft_cd(t_list *list, t_comm *comm, t_split *split);
+int				ft_cd(t_list *list, t_comm *comm, t_split *split);
 void			ft_env(t_list *list, t_comm *comm, t_split *split);
 void			ft_export(t_list *list, t_comm *comm, t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);

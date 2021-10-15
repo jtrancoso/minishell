@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/14 13:28:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/15 14:24:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,7 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace fa
 		return(1);
 	}
 	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
-	{	
-		ft_cd(list, comm, split);
-		return(1);
-	}
+		return(ft_cd(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
 	{
 		ft_unset(list, comm, split);
@@ -215,7 +212,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	else
 	{
 		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
-		exec_comm(list, comm, split);
+		split->errorcode = exec_comm(list, comm, split);
 	}
 	if (check_path(comm->cmd.cmd[0]) != 2)
 	{
@@ -226,8 +223,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 		if (comm->pid == 0)
 		{
 			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
-				ft_error(split, 4);
-			exit(0);
+				return(ft_error(split, 4));
 		}
 		else
 			wait(&status);
@@ -235,5 +231,6 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	free(comm->cmd.path);
 	ft_malloc_free(comm, comm->cmd.cmd, 0);
 	ft_malloc_free(comm, comm->cmd.env_array, 0);
+	printf("hola\n");
 	return(0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:49:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/10 11:36:21 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/10/15 14:16:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_cd(t_list *list, t_comm *comm, t_split *split)
+int	ft_cd(t_list *list, t_comm *comm, t_split *split)
 {
 	int 	i;
 
@@ -20,7 +20,7 @@ void	ft_cd(t_list *list, t_comm *comm, t_split *split)
 	if (comm->cmd.cmd[1])
 	{
 		if (chdir(comm->cmd.cmd[1]) != 0)
-			ft_error(split, 5);
+			return(ft_error(split, 5));
 	}
 	else
 	{
@@ -56,4 +56,5 @@ void	ft_cd(t_list *list, t_comm *comm, t_split *split)
 		list = list->next;
 	}
 	free(comm->dir);
+	return (0);
 }
