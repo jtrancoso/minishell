@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/13 12:43:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/18 14:02:42 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,22 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 		{
 			i++;
 			q = 0;
-			while (line[i] != ' ' && line[i] != '\0' && line[i] != '\"' && line[i] != '\'')
+			while (line[i] != ' ' && line[i] != '\0' && line[i] != '\"' && line[i] != '\'' && ((ft_isalnum(line[i]) || line[i] == '_' || line[i] == '?')))
 			{
-				aux_id[q] = line[i];
-				q++;
-				i++;
+				if (ft_isdigit(line[i]) && line[i - 1] == '$')
+				{
+					printf("hola\n");
+					aux_id[q] = line[i];
+					i++;
+					q++;
+					break ;
+				}
+				else
+				{
+					aux_id[q] = line[i];
+					q++;
+					i++;
+				}
 			}
 			aux_id[q] = '\0';
 			if (aux_id[0] == '?')

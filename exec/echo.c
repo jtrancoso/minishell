@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/15 14:06:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:24:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,14 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 {
 	int i;
 	int j;
+	int q;
+
 	i = 1;
+	q = 1;
 	comm->flag_n = 0;
-	while ((ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
+	while (comm->cmd.cmd[q])
+		q++;
+	while (i < q && (ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
 	{
 		comm->flag_n = 1;
 		i++;

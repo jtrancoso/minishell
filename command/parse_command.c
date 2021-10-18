@@ -6,11 +6,23 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/15 14:24:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/18 12:59:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char *point_path(t_split *split, char *cmd)
+{
+	char *aux;
+	char *expand;
+
+	aux = getcwd(NULL, 0);
+	expand = ft_strjoin(aux, cmd + 1);
+	free (aux);
+	printf("expand: %s\n", expand);
+	return (expand);
+}
 
 char *create_realpath(char *path, char *cmd)
 {
@@ -49,7 +61,7 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 	while (paths[i])
 	{
 		real_path = create_realpath(paths[i], aux_cmd);
-		is_stat = lstat(real_path, &t_stat); 
+		is_stat = lstat(real_path, &t_stat);
 		if (is_stat == 0)
 		{
 			aux = ft_strdup(real_path);
@@ -139,6 +151,8 @@ int check_path(char *cmd)
 {
 	if (cmd[0] == '/')
 		return (1);
+	else if (cmd[0] == '.' && cmd[1] == '/')
+		return(3);
 	else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "pwd", 3) == 0)
 		return(2);
 	else if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "echo", 4) == 0)
@@ -168,7 +182,6 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace fa
 		ft_echo(list, comm, split);
 		return(1);
 	}
-
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
 	{
 		ft_exit(list, comm);
@@ -209,6 +222,8 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 		comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
 	else if (check_path(comm->cmd.cmd[0]) == 1)
 		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
+	else if (check_path(comm->cmd.cmd[0]) == 3)
+		comm->cmd.path = point_path(split, comm->cmd.cmd[0]);
 	else
 	{
 		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
@@ -223,7 +238,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 		if (comm->pid == 0)
 		{
 			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
-				return(ft_error(split, 4));
+				exit (ft_error(split, 4));
 		}
 		else
 			wait(&status);
@@ -231,6 +246,5 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	free(comm->cmd.path);
 	ft_malloc_free(comm, comm->cmd.cmd, 0);
 	ft_malloc_free(comm, comm->cmd.env_array, 0);
-	printf("hola\n");
 	return(0);
 }

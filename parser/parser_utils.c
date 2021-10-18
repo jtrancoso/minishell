@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/14 13:12:38 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/18 14:26:05 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_init(t_comm *comm)
 	comm->t_gt = 0;
 	comm->t_gtgt = 0;
 	comm->t_lt = 0;
+	comm->t_ltlt = 0;
 	comm->freed = 0;
 	comm->f_d = 0;
 	comm->f_s = 0;

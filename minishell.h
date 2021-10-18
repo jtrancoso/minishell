@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/15 14:16:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/18 14:29:17 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_comm
 	int		t_gt;
 	int		t_gtgt;
 	int		t_lt;
+	int		t_ltlt;
 	int		freed;
 	int		pid;
 	char	*user;
@@ -96,7 +97,7 @@ void			free_env(void *cont);
 void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
-int				parser_error (t_comm *comm, t_split *split, char *line, char *mode);
+int				parser_error (t_comm *comm, t_split *split, char *line);
 void			ft_exit(t_list *list, t_comm *comm);
 void			ft_pwd(t_list *list, t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
