@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/18 14:29:17 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:29:00 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ typedef struct s_export
 	char *value;
 }				t_export;
 
+typedef struct s_redir
+{
+	int	last_fd;
+	char *file;
+	char *rest;
+	int	t_create;
+	int	t_append;
+	int t_trunc;
+}				t_redir;
+
 typedef struct s_cmd
 {
 	char **cmd;
@@ -58,7 +68,7 @@ typedef	struct	s_split //FIXME: meterlo en t_comm
 
 typedef struct s_comm
 {
-	char	*t_command;
+	char	*t_command; //TODO: comprobar uso y borrar si hace falta
 	char	*t_word;
 	int		t_pipe;
 	int		t_semi;
@@ -73,12 +83,15 @@ typedef struct s_comm
 	int		f_d;
 	int		f_s;
 	int		flag_n;
+	int		fd;
+	int		page;
 
 	t_export export;
 	t_list	*env_head;
 	t_list	*parse_head;
 	t_list	*export_head;
 	t_cmd	cmd;
+	t_redir redir;
 }				t_comm;
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
@@ -105,6 +118,8 @@ void			ft_env(t_list *list, t_comm *comm, t_split *split);
 void			ft_export(t_list *list, t_comm *comm, t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);
 void			ft_unset(t_list *list, t_comm *comm, t_split *split);
+void			parse_redir(t_list *list, t_comm *comm, t_split *split);
+
 
 
 

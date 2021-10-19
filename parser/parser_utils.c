@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/18 14:26:05 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:49:07 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_init(t_comm *comm)
 {
-	comm->t_command = NULL;
+	//comm->t_command = NULL;
 	comm->t_word = NULL;
 	comm->t_pipe = 0;
 	comm->t_semi = 0;
@@ -25,8 +25,16 @@ void	ft_init(t_comm *comm)
 	comm->freed = 0;
 	comm->f_d = 0;
 	comm->f_s = 0;
+	comm->fd = 1;
+	comm->page = 1;
 	comm->export.f_valid = 0; //la podemos si hace falta
 	comm->export.f_exist = 0;
+	comm->redir.file = NULL;
+	comm->redir.rest = NULL;
+	comm->redir.last_fd = 1;
+	comm->redir.t_append = 0;
+	comm->redir.t_create = 0;
+	comm->redir.t_trunc = 0;
 	comm->dir = NULL;
 }
 
@@ -47,6 +55,10 @@ void free_list(void *cont)
 {
 	if (((t_comm *)cont)->t_word)
 		free(((t_comm *)cont)->t_word);
+	if (((t_comm *)cont)->redir.file)
+		free(((t_comm *)cont)->redir.file);
+	if (((t_comm *)cont)->redir.rest)
+		free(((t_comm *)cont)->redir.rest);
 	free((t_comm *)cont);
 }
 

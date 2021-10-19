@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/10/14 13:25:51 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/10/19 15:56:21 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS		=	main.c \
 				./exec/env.c \
 				./exec/export.c \
 				./exec/unset.c \
-				./exec/echo.c
+				./exec/echo.c \
+				./redir/parse_redir.c 
 
 
 OBJS		= ${SRCS:.c=.o}
