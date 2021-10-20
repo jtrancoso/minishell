@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/19 18:47:03 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/20 14:24:03 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main (int argv, char **argc, char **envp)
 	t_comm comm;
 	t_split split;
 
-	atexit(miraleaks);
+	//atexit(miraleaks);
 	char line[BUFFERSIZE];
 	write(1, "\033[1;33m", 7);
 	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");
@@ -102,10 +102,62 @@ int main (int argv, char **argc, char **envp)
 		}
 		test_list(list, &comm);
 		list = comm.parse_head;
+		i = 1;
+		char *str;
+		char *aux;
+		int fdin;
+		int fdout;
+
+		fdin = 0;
+		fdout = 0;
 		while (list)
 		{
-			if (((t_comm*)list->content)->t_word) //FIXME: limitar entradas que no sea con todos los words
-				parse_command(list, &comm, &split); //TODO:HABRIA QUE LLAMARLO MIENTRAS HAYA WORDS EN LIST
+			str = NULL;
+			while ((((t_comm*)list->content)->page) == i)
+			{
+				if (((t_comm*)list->content)->t_word && !str)
+				{
+					str = ft_strdup(((t_comm*)list->content)->t_word);
+					((t_comm*)list->content)->f_exec = 1;
+				}
+				else if (!((t_comm*)list->content)->t_word && str)
+				{
+					aux = str;
+					if (((t_comm*)list->content)->redir.rest)
+					{
+						str = ft_strjoin(str, ((t_comm*)list->content)->redir.rest);
+						free (aux);
+					}
+					if (fdin)
+						close(fdin);
+					if (((t_comm*)list->content)->t_gt)
+						fdin = open(((t_comm*)list->content)->redir.file, O_RDWR | O_TRUNC | O_CREAT, 0700);
+					if (((t_comm*)list->content)->t_gtgt)
+						fdin = open(((t_comm*)list->content)->redir.file, O_RDWR | O_APPEND | O_CREAT, 0700);
+				}
+				if ((list->next && (((t_comm*)list->next->content)->page) == 0) || !list->next)
+				{
+					((t_comm*)list->content)->t_command = ft_strdup(str);
+					if (str)
+						free(str);
+					((t_comm*)list->content)->redir.last_fdin = fdin;
+					parse_command(list, &comm, &split);
+					if (fdin)
+					{
+						((t_comm*)list->content)->redir.last_fdin = 1;
+						close(fdin);
+					}
+					i++;
+					if (list->next)
+						list = list->next;
+				}
+				if (list->next || ((t_comm*)list->content)->page == 0)
+				{
+					if (((t_comm*)list->content)->page == 0)
+						str = NULL;
+					list = list->next;
+				}
+			}
 			list = list->next;
 		}
 		ft_lstclear(&comm.parse_head, &free_list);

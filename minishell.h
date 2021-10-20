@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/19 18:29:00 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/20 12:27:49 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include "libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+
 
 typedef struct	s_env
 {
@@ -43,7 +45,8 @@ typedef struct s_export
 
 typedef struct s_redir
 {
-	int	last_fd;
+	int	last_fdin;
+	int	last_fdout;
 	char *file;
 	char *rest;
 	int	t_create;
@@ -85,6 +88,7 @@ typedef struct s_comm
 	int		flag_n;
 	int		fd;
 	int		page;
+	int		f_exec;
 
 	t_export export;
 	t_list	*env_head;
