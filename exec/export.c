@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/14 13:12:43 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:49:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,21 @@ void export_print(t_list *list, t_comm *comm, t_split *split)
 	list = comm->export_head;
 	while (list)
 	{
-		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd("declare -x ", comm->redir.last_fdin);
 		if (ft_strchr((((t_export*)list->content)->id), '=') == 0)
-			ft_putstr_fd(((t_export*)list->content)->id, 1);
+			ft_putstr_fd(((t_export*)list->content)->id, comm->redir.last_fdin);
 		else
 		{
 			((t_export*)list->content)->id[strlen(((t_export*)list->content)->id) - 1] = '\0'; //FIXME: si se te ocurre algo mejor, adelante
-			ft_putstr_fd(((t_export*)list->content)->id, 1);
+			ft_putstr_fd(((t_export*)list->content)->id, comm->redir.last_fdin);
 		}
 		if (((t_export*)list->content)->value)
 		{
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(((t_export*)list->content)->value, 1);
-			ft_putstr_fd("\"", 1);
+			ft_putstr_fd("=\"", comm->redir.last_fdin);
+			ft_putstr_fd(((t_export*)list->content)->value, comm->redir.last_fdin);
+			ft_putstr_fd("\"", comm->redir.last_fdin);
 		}
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", comm->redir.last_fdin);
 		list = list->next;
 	}
 }
