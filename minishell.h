@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/20 12:27:49 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 17:33:24 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <readline/history.h>
 
 
 typedef struct	s_env
@@ -123,6 +124,7 @@ void			ft_export(t_list *list, t_comm *comm, t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);
 void			ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);
+void			create_history(t_list *list, t_comm *comm, t_split *split);
 
 
 

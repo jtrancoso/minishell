@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/08 11:19:40 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 17:32:42 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,18 @@ char **ft_superglue(t_list *list, t_comm *comm)
 	}
 	str[i] = NULL;
 	return(str);
+}
+
+void create_history(t_list *list, t_comm *comm, t_split *split)
+{
+	list = comm->env_head;
+	while (list)
+	{
+		if (ft_strncmp(((t_env*)list->content)->id, "_", 1) == 0)
+		{
+			free(((t_env*)list->content)->value);
+			((t_env*)list->content)->value = ft_strdup(comm->cmd.cmd[0]);
+		}
+		list = list->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 12:09:38 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 17:33:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 
 	comm->redir.last_fdin = ((t_comm*)list->content)->redir.last_fdin;
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm*)list->content)->t_command, ' ');
+	create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
 	clean_quotes(list, comm, split);
 	if (!check_path(comm->cmd.cmd[0]))
