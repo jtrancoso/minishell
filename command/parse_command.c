@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/20 14:22:47 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 12:09:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 
 	list = comm->env_head;
 	i = 0;
+	aux = NULL;
 	while (list)
 	{
 		if (ft_strncmp(((t_env*)list->content)->id, "PATH", 4) == 0)
@@ -56,6 +57,8 @@ char *get_path(t_list *list, t_comm *comm, char *cmd)
 	}
 	paths = ft_split(aux, ':');
 	free(aux);
+	if (!paths)
+		return (NULL);
 	aux_cmd = ft_strjoin("/", cmd);
 	i = 0;
 	while (paths[i])
@@ -241,7 +244,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 		comm->pid = fork();
 		if (comm->pid == 0)
 		{
-			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
+			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0) //TODO: gestionar los fd
 				exit (ft_error(split, 4));
 		}
 		else

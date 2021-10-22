@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/20 14:24:03 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 13:11:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,40 @@ int main (int argv, char **argc, char **envp)
 	char **split_env;
 	comm.env_head = NULL;
 	int i = 0;
+	if (!envp[i])
+	{
+		char *aux;
+		i = 0;
+		split_env = malloc(sizeof(char *) * 7);
+		while (i < 6)
+		{
+			split_env[i] = malloc(sizeof(char ) * 50);
+			i++;
+		}
+		aux = ft_strjoin("PWD=", getcwd(NULL, 0));
+		split_env[i] = NULL;
+		split_env[0] = "SHLVL=0";
+		split_env[1] = aux;
+		split_env[2] = "_=./minishell"; //FIXME: actualizar con el historial
+		split_env[3] = "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin";
+		split_env[4] = "USER=unknown";
+		split_env[5] = "OLDPWD= ";
+		i = 0;
+		char **new_split;
+		while (split_env[i])
+		{
+			new = malloc(sizeof(t_list));
+			env = malloc(sizeof(t_env));
+			new_split = ft_split(split_env[i], '=');
+			new->content = env;
+			((t_env*)new->content)->id = new_split[0];
+			((t_env*)new->content)->value = new_split[1];
+			ft_lstadd_back(&comm.env_head, new);
+			free(new_split);
+			i++;
+		}
+		free(aux);
+	}
 	while (envp[i])
 	{
 		new = malloc(sizeof(t_list));
@@ -100,7 +134,7 @@ int main (int argv, char **argc, char **envp)
 			printf("gt: %d file fuera: %s\n", ((t_comm*)list->content)->t_gt, ((t_comm*)list->content)->redir.file);
 			list = list->next;
 		}
-		test_list(list, &comm);
+		//test_list(list, &comm);
 		list = comm.parse_head;
 		i = 1;
 		char *str;

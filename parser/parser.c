@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/19 15:18:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 12:00:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 	}
 	if (s_quote % 2 != 0 || d_quote % 2 != 0)
 		return (ft_error(split, 1));
-	return (1);
+	return (0);
 }
 
 int	ft_parseline(t_comm *comm, t_split *split, char *line)
@@ -59,7 +59,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
 		i++;
-	if (ft_parse_quote(comm, split, line + i) == -1)
+	if (ft_parse_quote(comm, split, line + i))
 		return (0);
 	if (parser_error(comm, split, line) != 0)
 		return(0);

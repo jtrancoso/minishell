@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/18 14:02:42 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/22 11:58:17 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	char *content;
 	while (line[i])
 	{
-		if (line[i] == '$')
+		if (line[i] == '$') //FIXME: si es dolar solo pues se pone 
 			j++;
 		i++;
 	}
@@ -98,7 +98,7 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 		if (check_inverted_var(&line[i]) == 1)
 			i += 2;
 		check_quote(split, &line[i]);
-		if (line[i] != '$' || (line[i] == '$' && split->f_simple != 0) || (line[i] == '$' && line[i - 1] == '\\' && i != 0))
+		if (line[i] != '$' || (line[i] == '$' && split->f_simple != 0) || (line[i] == '$' && line[i - 1] == '\\' && i != 0) || (line[i] == '$' && (line[i + 1] == ' ' || line[i + 1] == '\0')) || (line[i] == '$' && line[i - 1] == '\"' && line[i + 1] == '\"'))
 		{
 			aux[j] = line[i];
 			j++;
@@ -111,7 +111,6 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 			{
 				if (ft_isdigit(line[i]) && line[i - 1] == '$')
 				{
-					printf("hola\n");
 					aux_id[q] = line[i];
 					i++;
 					q++;
