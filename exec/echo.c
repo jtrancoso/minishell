@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/20 13:03:13 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/25 13:55:47 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 	i = 1;
 	q = 1;
 	comm->flag_n = 0;
-	printf("fd: %d\n", comm->redir.last_fdin);
 	while (comm->cmd.cmd[q])
 		q++;
 	while (i < q && (ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
@@ -54,13 +53,13 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 		{
 			if (comm->cmd.cmd[i][j] == '\\' && comm->cmd.cmd[i][j + 1])
 				j++;
-			ft_putchar_fd(comm->cmd.cmd[i][j], comm->redir.last_fdin);
+			ft_putchar_fd(comm->cmd.cmd[i][j], 1);
 			j++;
 		}
 		if (comm->cmd.cmd[i + 1])
-			ft_putchar_fd(' ',  comm->redir.last_fdin);
+			ft_putchar_fd(' ',  1);
 		i++;
 	}
 	if (!comm->flag_n)
-		ft_putchar_fd('\n', comm->redir.last_fdin);
+		ft_putchar_fd('\n', 1);
 }

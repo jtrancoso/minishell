@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 17:42:47 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/25 14:30:51 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,47 +37,46 @@ int main (int argv, char **argc, char **envp)
 	t_comm comm;
 	t_split split;
 
-	atexit(miraleaks);
+	//atexit(miraleaks);
 	char line[BUFFERSIZE];
 	write(1, "\033[1;33m", 7);
 	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");
 	write(1, "\033[0m", 4);
-	char **split_env;
 	comm.env_head = NULL;
+	char **split_env;
 	int i = 0;
 	if (!envp[i])
 	{
 		char *aux;
-		i = 0;
-		split_env = malloc(sizeof(char *) * 7);
-		while (i < 6)
-		{
-			split_env[i] = malloc(sizeof(char ) * 50);
-			i++;
-		}
-		aux = ft_strjoin("PWD=", getcwd(NULL, 0));
-		split_env[i] = NULL;
-		split_env[0] = "SHLVL=0";
-		split_env[1] = aux;
-		split_env[2] = "_=./minishell"; //FIXME: actualizar con el historial
-		split_env[3] = "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin";
-		split_env[4] = "USER=unknown";
-		split_env[5] = "OLDPWD= ";
+		char *aux2;
+		aux2 = getcwd(NULL, 0);
+		aux = ft_strjoin("PWD=", aux2);
+		comm.fixed_env[0] = ft_strdup("SHLVL=0");
+		comm.fixed_env[1] = aux;
+		comm.fixed_env[2] = ft_strdup("_=./minishell"); //FIXME: actualizar con el historial
+		comm.fixed_env[3] = ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin");
+		comm.fixed_env[4] = ft_strdup("USER=unknown");
+		comm.fixed_env[5] = ft_strdup("OLDPWD= ");
+		comm.fixed_env[6] = NULL;
 		i = 0;
 		char **new_split;
-		while (split_env[i])
+		while (comm.fixed_env[i])
 		{
 			new = malloc(sizeof(t_list));
 			env = malloc(sizeof(t_env));
-			new_split = ft_split(split_env[i], '=');
+			//aux2 = comm.fixed_env[i];
+			new_split = ft_split(comm.fixed_env[i], '=');
 			new->content = env;
 			((t_env*)new->content)->id = new_split[0];
 			((t_env*)new->content)->value = new_split[1];
 			ft_lstadd_back(&comm.env_head, new);
 			free(new_split);
+			//free(aux2);
 			i++;
 		}
+		//free(comm.fixed_env);
 		free(aux);
+		free(aux2);
 	}
 	i = 0;
 	while (envp[i])
@@ -142,9 +141,11 @@ int main (int argv, char **argc, char **envp)
 		char *aux;
 		int fdin;
 		int fdout;
+		int real_fdout;
 
 		fdin = 0;
 		fdout = 0;
+		real_fdout = dup(1);
 		while (list)
 		{
 			str = NULL;
@@ -163,24 +164,29 @@ int main (int argv, char **argc, char **envp)
 						str = ft_strjoin(str, ((t_comm*)list->content)->redir.rest);
 						free (aux);
 					}
-					if (fdin)
-						close(fdin);
+					if (fdout)
+					{
+						close(fdout);
+						close(((t_comm*)list->content)->redir.last_fdout);
+					}
 					if (((t_comm*)list->content)->t_gt)
-						fdin = open(((t_comm*)list->content)->redir.file, O_RDWR | O_TRUNC | O_CREAT, 0700);
+						fdout = open(((t_comm*)list->content)->redir.file, O_RDWR | O_TRUNC | O_CREAT, 0700);
 					if (((t_comm*)list->content)->t_gtgt)
-						fdin = open(((t_comm*)list->content)->redir.file, O_RDWR | O_APPEND | O_CREAT, 0700);
+						fdout = open(((t_comm*)list->content)->redir.file, O_RDWR | O_APPEND | O_CREAT, 0700);
 				}
 				if ((list->next && (((t_comm*)list->next->content)->page) == 0) || !list->next)
 				{
 					((t_comm*)list->content)->t_command = ft_strdup(str);
 					if (str)
 						free(str);
-					((t_comm*)list->content)->redir.last_fdin = fdin;
+					((t_comm*)list->content)->redir.last_fdout = fdout;
+					dup2(((t_comm*)list->content)->redir.last_fdout, 1);
 					parse_command(list, &comm, &split);
-					if (fdin)
+					if (fdout)
 					{
-						((t_comm*)list->content)->redir.last_fdin = 1;
-						close(fdin);
+						close(((t_comm*)list->content)->redir.last_fdout);
+						close(fdout);
+						dup2(real_fdout, 1);
 					}
 					i++;
 					if (list->next)

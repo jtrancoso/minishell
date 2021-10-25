@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 17:33:24 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/25 12:03:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_comm
 	int		fd;
 	int		page;
 	int		f_exec;
+	char	**fixed_env;
 
 	t_export export;
 	t_list	*env_head;

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/20 13:52:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/25 12:14:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_init(t_comm *comm)
 	comm->redir.t_create = 0;
 	comm->redir.t_trunc = 0;
 	comm->dir = NULL;
+	comm->fixed_env = NULL;
 }
 
 void	ft_malloc_free(t_comm *comm, char **str, int i)
