@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/25 14:30:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:29:06 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int main (int argv, char **argc, char **envp)
 		{
 			if (((t_comm*)list->content)->t_word == NULL)
 				parse_redir(list, &comm, &split);
-			printf("gt: %d file fuera: %s\n", ((t_comm*)list->content)->t_gt, ((t_comm*)list->content)->redir.file);
 			list = list->next;
 		}
 		//test_list(list, &comm);
@@ -142,10 +141,10 @@ int main (int argv, char **argc, char **envp)
 		int fdin;
 		int fdout;
 		int real_fdout;
+		int	real_fdin;
 
 		fdin = 0;
 		fdout = 0;
-		real_fdout = dup(1);
 		while (list)
 		{
 			str = NULL;
@@ -165,28 +164,41 @@ int main (int argv, char **argc, char **envp)
 						free (aux);
 					}
 					if (fdout)
-					{
 						close(fdout);
-						close(((t_comm*)list->content)->redir.last_fdout);
-					}
+					if (fdin)
+						close(fdin);
 					if (((t_comm*)list->content)->t_gt)
 						fdout = open(((t_comm*)list->content)->redir.file, O_RDWR | O_TRUNC | O_CREAT, 0700);
 					if (((t_comm*)list->content)->t_gtgt)
 						fdout = open(((t_comm*)list->content)->redir.file, O_RDWR | O_APPEND | O_CREAT, 0700);
+					if (fdout)
+						real_fdout = dup(1);
+					if (((t_comm*)list->content)->t_lt)
+						fdin = open(((t_comm*)list->content)->redir.file, O_RDONLY);
+					if (fdin)
+						real_fdin = dup(0);
 				}
-				if ((list->next && (((t_comm*)list->next->content)->page) == 0) || !list->next)
+				if ((list->next && ((((t_comm*)list->next->content)->page) == 0)) || !list->next)
 				{
 					((t_comm*)list->content)->t_command = ft_strdup(str);
 					if (str)
 						free(str);
-					((t_comm*)list->content)->redir.last_fdout = fdout;
-					dup2(((t_comm*)list->content)->redir.last_fdout, 1);
+					if (fdout)
+						dup2(fdout, 1);
+					if (fdin)
+						dup2(fdin, 0);
 					parse_command(list, &comm, &split);
 					if (fdout)
 					{
-						close(((t_comm*)list->content)->redir.last_fdout);
 						close(fdout);
 						dup2(real_fdout, 1);
+						close (real_fdout);//TODO: preguntar porque no se actualiza con >> y execve
+					}
+					if (fdin)
+					{
+						close(fdin);
+						dup2(real_fdin, 0);
+						close(real_fdin);
 					}
 					i++;
 					if (list->next)
