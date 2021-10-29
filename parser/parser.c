@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 12:00:35 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/29 13:04:57 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 	d_quote = 0;
 	while (line[i])
 	{
-		if (line[i] == '\\' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+		if (line[i] == '\\' && (line[i + 1] == '\"')/* || line[i + 1] == '\'')*/)
 			i += 2;
 		if (line[i] == '\"' && s_quote % 2 == 0)
 			d_quote++;
