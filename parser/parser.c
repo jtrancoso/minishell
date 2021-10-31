@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/29 13:04:57 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/10/31 12:44:28 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,34 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 	i = 0;
 	s_quote = 0;
 	d_quote = 0;
-	while (line[i])
+	/*while (line[i])
 	{
-		if (line[i] == '\\' && (line[i + 1] == '\"')/* || line[i + 1] == '\'')*/)
+		if (line[i] == '\\' && (line[i + 1] == '\"' || line[i + 1] == '\''))
 			i += 2;
 		if (line[i] == '\"' && s_quote % 2 == 0)
 			d_quote++;
 		if (line[i] == '\'' && d_quote % 2 == 0)
 			s_quote++;
+		i++;
+	}*/
+	while (line[i])
+	{
+		if (i == 0 && line[i] == '\\' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+			i += 1;
+		else
+		{
+			if ((line[i] == '\\' && line[i + 1] == '\"') || (line[i] == '\\' && line[i + 1] == '\'' && s_quote % 2 == 0))
+				i+= 1;
+			else if (line[i] == '\\' && line[i + 1] == '\'' && s_quote % 2 != 0)
+			{
+				i++;
+				s_quote++;
+			}
+			else if (line[i] == '\"' && s_quote % 2 == 0)
+				d_quote++;
+			else if (line[i] == '\'' && d_quote % 2 == 0)
+				s_quote++;
+		}
 		i++;
 	}
 	if (s_quote % 2 != 0 || d_quote % 2 != 0)
