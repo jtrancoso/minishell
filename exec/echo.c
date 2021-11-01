@@ -6,18 +6,18 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/31 13:23:48 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/01 09:26:00 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int parse_bar(t_split *split, char *line)
+/*int parse_bar(t_split *split, char *line)
 {
 	int i;
-	int bar; /*Contador barras*/
-	int s_quote; /*Contador comillas dobles*/
-	int d_quote; /*Contador comillas simples*/
+	int bar; //Contador barras
+	int s_quote; //Contador comillas dobles
+	int d_quote; //Contador comillas simples
 
 	i = 0;
 	bar = 0;
@@ -25,10 +25,10 @@ int parse_bar(t_split *split, char *line)
 	d_quote = 0;
 	while (line[i])
 	{
-		printf("i:%d\n", i);
+		printf("line[i]:%c i:%d\n", line[i], i);
 		if (i == 0)
 		{
-			printf("i:%d\n", i);
+			printf("line[i]: %c i:%d\n", line[i], i);
 			if (line[i] == '\'')
 			{
 				printf("here1\n");
@@ -66,7 +66,7 @@ int parse_bar(t_split *split, char *line)
 			}
 		}
 		i++;
-	}
+	}*/
 	/*while (line[i])
 	{
 		//Contador de comillas simples
@@ -100,11 +100,12 @@ int parse_bar(t_split *split, char *line)
 		}
 		i++;
 	}*/
-	if (bar % 2 != 0)
+	/*if (bar % 2 != 0)
 		return (ft_error(split, 7));
 	else
 		return (1);
-}
+}*/
+
 void ft_echo(t_list *list, t_comm *comm, t_split *split)
 {
 	int i;
@@ -114,6 +115,14 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 	i = 1;
 	q = 1;
 	comm->flag_n = 0;
+	printf("llego con estas cadenas:");
+	while (comm->cmd.cmd[q])
+	{
+		printf("llego con estas cadenas:%s", comm->cmd.cmd[q]);
+		q++;
+	}
+	printf("\n");
+	q = 1;
 	while (comm->cmd.cmd[q])
 		q++;
 	while (i < q && (ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
@@ -124,8 +133,8 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 	while (comm->cmd.cmd[i])
 	{
 		j = 0;
-		if (parse_bar(split, comm->cmd.cmd[i]) == -1)
-			return ;
+		//if (parse_bar(split, comm->cmd.cmd[i]) == -1)
+		//	return ;
 		//printf("Hola\n");
 		while (comm->cmd.cmd[i][j])
 		{
