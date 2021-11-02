@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/01 09:26:00 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/02 09:06:37 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 		//printf("Hola\n");
 		while (comm->cmd.cmd[i][j])
 		{
-			if (comm->cmd.cmd[i][j] == '\\' && comm->cmd.cmd[i][j + 1])
-				j++;
+			//if (comm->cmd.cmd[i][j] == '\\' && comm->cmd.cmd[i][j + 1])
+			//	j++;
 			ft_putchar_fd(comm->cmd.cmd[i][j], 1);
 			j++;
 		}

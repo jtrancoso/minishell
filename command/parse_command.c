@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/01 11:25:46 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/02 12:41:25 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 	char *str;
 	int s_quote;
 	int d_quote;
+	int	bar;
 
 	i = 0;
 	j = 0;
-	printf("Estoy en clean quotes\n");
+	printf("Estoy en clean quotes\n"); // Esto junto con el while se puede borrar
 	while (comm->cmd.cmd[i])
 	{
 		printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
@@ -108,6 +109,84 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		k = 0;
 		aux[j] = malloc(sizeof(char *) * (ft_strlen(comm->cmd.cmd[i])) + 1);
 		while (comm->cmd.cmd[i][k])
+		{
+			if (s_quote % 2 == 0 && d_quote % 2 == 0)
+			{
+				if (comm->cmd.cmd[i][k] == '\\')
+				{
+					k++;
+					if (comm->cmd.cmd[i][k] == '\\' || comm->cmd.cmd[i][k] == '\'' || comm->cmd.cmd[i][k] == '\"')
+						{
+							aux[j][l] = comm->cmd.cmd[i][k];
+							l++;
+							k++;							
+						}
+				}
+				else if (comm->cmd.cmd[i][k] == '\'')
+				{
+					s_quote++;
+					k++;
+				}
+				else if (comm->cmd.cmd[i][k] == '\"')
+				{
+					d_quote++;
+					k++;
+				}
+				else
+				{
+					aux[j][l] = comm->cmd.cmd[i][k];
+					l++;
+					k++;
+				}
+			}
+			else if (s_quote % 2 != 0)
+			{
+				if (comm->cmd.cmd[i][k] == '\'')
+				{
+					s_quote++;
+					k++;
+				}
+				else
+				{
+					aux[j][l] = comm->cmd.cmd[i][k];
+					l++;
+					k++;
+				}				
+			}
+			else if (d_quote % 2 != 0)
+			{
+				if (comm->cmd.cmd[i][k] == '\\')
+				{
+					k++;
+					if (comm->cmd.cmd[i][k] == '\'' || (comm->cmd.cmd[i][k] != '\\' && comm->cmd.cmd[i][k] != '\"'))
+					{
+							aux[j][l] = '\\';
+							l++;
+							aux[j][l] = comm->cmd.cmd[i][k];
+							l++;
+							k++;
+					}
+					else if (comm->cmd.cmd[i][k] == '\\' || comm->cmd.cmd[i][k] == '\"')
+						{
+							aux[j][l] = comm->cmd.cmd[i][k];
+							l++;
+							k++;							
+						}
+				}
+				else if (comm->cmd.cmd[i][k] == '\"')
+				{
+					d_quote++;
+					k++;	
+				}
+				else
+				{
+					aux[j][l] = comm->cmd.cmd[i][k];
+					l++;
+					k++;
+				}					
+			}
+		}
+		/*while (comm->cmd.cmd[i][k])
 		{
 			if (check_inverted_var(&comm->cmd.cmd[i][k]) == 1)
 				k += 2;
@@ -138,7 +217,7 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 				l++;
 				k++;
 			}
-		}
+		}*/
 		aux[j][l] = '\0';
 		i++;
 		j++;
@@ -154,7 +233,7 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		i++;
 	}
 	ft_malloc_free(comm, aux, j);
-	printf("Estoy en clean quotes2\n");
+	printf("Estoy en clean quotes2\n"); // Esto junto con el while se puede borrar
 	i = 0;
 	while (comm->cmd.cmd[i])
 	{
