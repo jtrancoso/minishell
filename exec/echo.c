@@ -6,11 +6,24 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/02 09:06:37 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/02 19:59:55 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_printhome(t_list *list, t_comm *comm, t_split *split)
+{
+	comm->home = NULL;
+	list = comm->env_head;
+	while (list)
+	{
+		if (ft_strncmp(((t_env*)list->content)->id, "HOME", 4) == 0)
+			comm->home = ft_strdup(((t_env*)list->content)->value);
+		list = list->next;
+	}
+	return (comm->home);
+}
 
 /*int parse_bar(t_split *split, char *line)
 {
@@ -111,6 +124,7 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 	int i;
 	int j;
 	int q;
+	int l;
 
 	i = 1;
 	q = 1;
@@ -127,8 +141,25 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 		q++;
 	while (i < q && (ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
 	{
-		comm->flag_n = 1;
-		i++;
+		printf("LAi es: %d", i);
+		j = 1;
+		l = 1;
+		while (comm->cmd.cmd[i][j] == 'n')
+		{
+			l++;
+			j++;
+		}
+		if (l == ft_strlen(comm->cmd.cmd[i]))
+		{
+			printf("Para gestionar el -n, recibo %s\n", comm->cmd.cmd[i]);
+			comm->flag_n = 1;
+			i++;
+		}
+		else
+		{
+			//i--;
+			break ;
+		}
 	}
 	while (comm->cmd.cmd[i])
 	{
@@ -140,7 +171,10 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 		{
 			//if (comm->cmd.cmd[i][j] == '\\' && comm->cmd.cmd[i][j + 1])
 			//	j++;
-			ft_putchar_fd(comm->cmd.cmd[i][j], 1);
+			if ((comm->cmd.cmd[i][j] == '~' && comm->cmd.cmd[i][j+1] == '/') || (comm->cmd.cmd[i][j] == '~' && comm->cmd.cmd[i][j+1] == '\0'))
+				ft_putstr_fd(ft_printhome(list, comm, split), 1);
+			else
+				ft_putchar_fd(comm->cmd.cmd[i][j], 1);
 			j++;
 		}
 		if (comm->cmd.cmd[i + 1])

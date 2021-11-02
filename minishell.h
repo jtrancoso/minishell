@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/25 12:03:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/02 19:17:43 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_comm
 	int		pid;
 	char	*user;
 	char	*dir;
+	char	*home;
 	int		f_d;
 	int		f_s;
 	int		flag_n;
