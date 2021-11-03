@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 08:15:22 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:44:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ int main (int argv, char **argc, char **envp)
 		i = 1;
 		while (list)
 		{
-			if (((t_comm*)list->content)->t_pipe == 0)
+			if (((t_comm*)list->content)->t_pipe == 0 || ((t_comm*)list->content)->t_semi == 0)
 				((t_comm*)list->content)->page = i;
-			if (((t_comm*)list->content)->t_pipe == 1)
+			if (((t_comm*)list->content)->t_pipe == 1 || ((t_comm*)list->content)->t_semi == 1)
 			{
 				((t_comm*)list->content)->page = 0;
 				i++;
@@ -151,10 +151,7 @@ int main (int argv, char **argc, char **envp)
 			while ((((t_comm*)list->content)->page) == i)
 			{
 				if (((t_comm*)list->content)->t_word && !str)
-				{
 					str = ft_strdup(((t_comm*)list->content)->t_word);
-					((t_comm*)list->content)->f_exec = 1;
-				}
 				else if (!((t_comm*)list->content)->t_word && str)
 				{
 					aux = str;

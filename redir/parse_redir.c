@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:22:11 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/26 13:16:01 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/03 11:19:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,4 @@ void	parse_redir(t_list *list, t_comm *comm, t_split *split)
 		}
 		free (aux);
 	}
-	/*
-	else if (((t_comm*)list->content)->t_ltlt == 1)
-	{
-
-	}*/
 }

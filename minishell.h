@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 07:32:05 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 11:42:24 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <locale.h>
 # include <readline/history.h>
 
 
@@ -91,7 +92,6 @@ typedef struct s_comm
 	int		flag_n;
 	int		fd;
 	int		page;
-	int		f_exec;
 	char	**fixed_env;
 
 	t_export export;

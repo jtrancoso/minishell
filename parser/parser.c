@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 08:03:57 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 11:59:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	//test_list(list, comm);
 	if (parser_error(comm, split, line) != 0)
 		return(0);
-	while (line[i] && ft_isascii(line[i]))
+	while (line[i])
 	{
 		aux[j] = line[i];
 		i++;

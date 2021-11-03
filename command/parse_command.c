@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 08:06:51 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:44:18 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char *point_path(t_split *split, char *cmd)
 	aux = getcwd(NULL, 0);
 	expand = ft_strjoin(aux, cmd + 1);
 	free (aux);
-	printf("expand: %s\n", expand);
 	return (expand);
 }
 
@@ -322,33 +321,36 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
 	clean_quotes(list, comm, split);
-	if (!check_path(comm->cmd.cmd[0]))
-		comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
-	else if (check_path(comm->cmd.cmd[0]) == 1)
-		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
-	else if (check_path(comm->cmd.cmd[0]) == 3)
-		comm->cmd.path = point_path(split, comm->cmd.cmd[0]);
-	else
+	if (comm->cmd.cmd[0])
 	{
-		comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
-		split->errorcode = exec_comm(list, comm, split);
-	}
-	if (check_path(comm->cmd.cmd[0]) != 2)
-	{
-		status = 0;
-		env_list = comm->env_head;
-		list = comm->parse_head;
-		comm->pid = fork();
-		if (comm->pid == 0)
-		{
-			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0) //TODO: gestionar los fd
-				exit (ft_error(split, 4));
-		}
+		if (!check_path(comm->cmd.cmd[0]))
+			comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
+		else if (check_path(comm->cmd.cmd[0]) == 1)
+			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
+		else if (check_path(comm->cmd.cmd[0]) == 3)
+			comm->cmd.path = point_path(split, comm->cmd.cmd[0]);
 		else
-			wait(&status);
-	} 
-	free(comm->cmd.path);
-	ft_malloc_free(comm, comm->cmd.cmd, 0);
-	ft_malloc_free(comm, comm->cmd.env_array, 0);
+		{
+			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
+			split->errorcode = exec_comm(list, comm, split);
+		}
+		if (check_path(comm->cmd.cmd[0]) != 2)
+		{
+			status = 0;
+			env_list = comm->env_head;
+			list = comm->parse_head;
+			comm->pid = fork();
+			if (comm->pid == 0)
+			{
+				if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0) //TODO: gestionar los fd
+					exit (ft_error(split, 4));
+			}
+			else
+				wait(&status);
+		}
+		free(comm->cmd.path);
+		ft_malloc_free(comm, comm->cmd.cmd, 0);
+		ft_malloc_free(comm, comm->cmd.env_array, 0);
+	}
 	return(0);
 }

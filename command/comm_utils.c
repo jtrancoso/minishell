@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 17:32:42 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/03 12:13:59 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void create_history(t_list *list, t_comm *comm, t_split *split)
 		if (ft_strncmp(((t_env*)list->content)->id, "_", 1) == 0)
 		{
 			free(((t_env*)list->content)->value);
-			((t_env*)list->content)->value = ft_strdup(comm->cmd.cmd[0]);
+			if (comm->cmd.cmd[0])
+				((t_env*)list->content)->value = ft_strdup(comm->cmd.cmd[0]);
+			else
+				((t_env*)list->content)->value = NULL;
 		}
 		list = list->next;
 	}
