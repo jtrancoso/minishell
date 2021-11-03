@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 12:25:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/10/29 12:20:50 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	ft_error(t_split *split, int error)
 	if (error == 6)
 		ft_putstr_fd("Error. Not a valid identifier.\n", 2);
 	if (error == 7)
+	{
 		ft_putstr_fd("Error. Uneven number of backslashes\n", 2);
+		return (-1);
+	}
 	if (error == 8)
 		ft_putstr_fd("HOME not set\n", 2);
 	split->errorcode = 1; //FIXME: ESTO ESTA EN TENGUERENGUE

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/25 12:14:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/03 07:33:11 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_init(t_comm *comm)
 	comm->redir.t_trunc = 0;
 	comm->dir = NULL;
 	comm->fixed_env = NULL;
+	comm->home = NULL;
+	comm->f_verg = 0;
 }
 
 void	ft_malloc_free(t_comm *comm, char **str, int i)

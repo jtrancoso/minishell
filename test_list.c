@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 12:31:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 13:06:21 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/01 08:24:14 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void test_list(t_list *list, t_comm *comm)
 {
-	/*list = comm->parse_head;
+	list = comm->parse_head;
 	while (list)
 	{
 		//printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
@@ -23,7 +23,7 @@ void test_list(t_list *list, t_comm *comm)
 	}
 	printf("\n");
 	list = comm->export_head;
-	while (list)
+	/*while (list)
 	{
 		//printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
 		printf("id: %s", ((t_export*)list->content)->id);
@@ -31,11 +31,11 @@ void test_list(t_list *list, t_comm *comm)
 		printf("\n");
 		list = list->next;
 	}*/
-	list = comm->env_head;
+	/*list = comm->env_head;
 	while (list)
 	{
 		printf("id: %s value: %s\n", ((t_env*)list->content)->id, ((t_env*)list->content)->value);
 		//printf("word: %s pipe: %d semi: %d\n", ((t_comm*)list->content)->t_word, ((t_comm*)list->content)->t_pipe, ((t_comm*)list->content)->t_semi);
 		list = list->next;
-	}
+	}*/
 }
