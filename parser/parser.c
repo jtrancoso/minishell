@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/01 09:45:32 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 08:03:57 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ int ft_parse_bar(t_comm *comm, t_split *split, char *line)
 	d_quote = 0;
 	while (line[i])
 	{
-		printf("line[i]:%c i:%d\n", line[i], i);
+		//printf("line[i]:%c i:%d\n", line[i], i);
 		if (i == 0)
 		{
-			printf("line[i]: %c i:%d\n", line[i], i);
+			//printf("line[i]: %c i:%d\n", line[i], i);
 			if (line[i] == '\'')
 			{
-				printf("here1\n");
+				//printf("here1\n");
 				s_quote++;
 			}
 			else if (line[i] == '\"')
 			{
-				printf("here2\n");
+				//printf("here2\n");
 				d_quote++;
 			}
 			else if (line[i] == '\\')
 			{
-				printf("no entiendor\n");
+				//printf("no entiendor\n");
 				if (line[i + 1] != '\0')
 					i++;
 				else
@@ -94,7 +94,7 @@ int ft_parse_bar(t_comm *comm, t_split *split, char *line)
 		}
 		else if (i > 0)
 		{
-			printf("aqui\n");
+			//printf("aqui\n");
 			if (d_quote % 2 != 0 && line[i] == '\"' && line[i - 1] != '\\')
 				d_quote++;
 			else if (d_quote % 2 != 0 && line[i] == '\"' && line[i - 1] == '\\')
@@ -105,7 +105,7 @@ int ft_parse_bar(t_comm *comm, t_split *split, char *line)
 				i++;
 			else if (line[i] == '\\' && line[i + 1] == '\0')
 			{
-				printf("hola\n");
+				//printf("hola\n");
 				return (ft_error(split, 7));
 			}
 		}
@@ -144,7 +144,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		return (0);
 	if (ft_parse_bar(comm, split, line + i))
 		return (0);
-	test_list(list, comm);
+	//test_list(list, comm);
 	if (parser_error(comm, split, line) != 0)
 		return(0);
 	while (line[i] && ft_isascii(line[i]))

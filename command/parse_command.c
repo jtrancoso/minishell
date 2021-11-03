@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 07:39:48 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 08:06:51 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 
 	i = 0;
 	j = 0;
-	printf("Estoy en clean quotes\n"); // Esto junto con el while se puede borrar
+	//printf("Estoy en clean quotes\n"); // Esto junto con el while se puede borrar
 	while (comm->cmd.cmd[i])
 	{
-		printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
+	//	printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
 		i++;
 	}
 	aux = malloc(sizeof(char **) * (i + 1));
@@ -119,30 +119,30 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 						{
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							k++;
-							if (comm->cmd.cmd[i][k] == '~')
+							//k++;
+							if (comm->cmd.cmd[i][k + 1] == '~')
 								comm->f_verg = 1;
 						}
 				}
 				else if (comm->cmd.cmd[i][k] == '\'')
 				{
 					s_quote++;
-					k++;
-					if (comm->cmd.cmd[i][k] == '~')
+					//k++;
+					if (comm->cmd.cmd[i][k + 1] == '~')
 						comm->f_verg = 1;
 				}
 				else if (comm->cmd.cmd[i][k] == '\"')
 				{
 					d_quote++;
-					k++;
-					if (comm->cmd.cmd[i][k] == '~')
+					//k++;
+					if (comm->cmd.cmd[i][k + 1] == '~')
 						comm->f_verg = 1;
 				}
 				else
 				{
 					aux[j][l] = comm->cmd.cmd[i][k];
 					l++;
-					k++;
+					//k++;
 				}
 			}
 			else if (s_quote % 2 != 0)
@@ -150,13 +150,13 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 				if (comm->cmd.cmd[i][k] == '\'')
 				{
 					s_quote++;
-					k++;
+					//k++;
 				}
 				else
 				{
 					aux[j][l] = comm->cmd.cmd[i][k];
 					l++;
-					k++;
+					//k++;
 				}				
 			}
 			else if (d_quote % 2 != 0)
@@ -170,27 +170,28 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 							l++;
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							k++;
+							//k++;
 					}
 					else if (comm->cmd.cmd[i][k] == '\\' || comm->cmd.cmd[i][k] == '\"')
 						{
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							k++;							
+							//k++;							
 						}
 				}
 				else if (comm->cmd.cmd[i][k] == '\"')
 				{
 					d_quote++;
-					k++;	
+					//k++;	
 				}
 				else
 				{
 					aux[j][l] = comm->cmd.cmd[i][k];
 					l++;
-					k++;
+					//k++;
 				}					
 			}
+			k++;
 		}
 		/*while (comm->cmd.cmd[i][k])
 		{
@@ -239,13 +240,13 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		i++;
 	}
 	ft_malloc_free(comm, aux, j);
-	printf("Estoy en clean quotes2\n"); // Esto junto con el while se puede borrar
-	i = 0;
-	while (comm->cmd.cmd[i])
-	{
-		printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
-		i++;
-	}	
+	//printf("Estoy en clean quotes2\n"); // Esto junto con el while se puede borrar
+	//i = 0;
+	//while (comm->cmd.cmd[i])
+	//{
+	//	printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
+	//	i++;
+	//}	
 }
 
 int check_path(char *cmd)

@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 07:37:43 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 08:02:38 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,19 +129,19 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 	i = 1;
 	q = 1;
 	comm->flag_n = 0;
-	printf("llego con estas cadenas:");
-	while (comm->cmd.cmd[q])
-	{
-		printf("llego con estas cadenas:%s", comm->cmd.cmd[q]);
-		q++;
-	}
-	printf("\n");
-	q = 1;
+	//printf("llego con estas cadenas:");
+	//while (comm->cmd.cmd[q])
+	//{
+	//	printf("llego con estas cadenas:%s", comm->cmd.cmd[q]);
+	//	q++;
+	//}
+	//printf("\n");
+	//q = 1;
 	while (comm->cmd.cmd[q])
 		q++;
 	while (i < q && (ft_strncmp(comm->cmd.cmd[i], "-n", 2) == 0))
 	{
-		printf("LAi es: %d", i);
+		//printf("LAi es: %d", i);
 		j = 1;
 		l = 1;
 		while (comm->cmd.cmd[i][j] == 'n')
@@ -151,15 +151,15 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 		}
 		if (l == ft_strlen(comm->cmd.cmd[i]))
 		{
-			printf("Para gestionar el -n, recibo %s\n", comm->cmd.cmd[i]);
+			//printf("Para gestionar el -n, recibo %s\n", comm->cmd.cmd[i]);
 			comm->flag_n = 1;
 			i++;
 		}
 		else
-		{
+		//{
 			//i--;
 			break ;
-		}
+		//}
 	}
 	while (comm->cmd.cmd[i])
 	{
