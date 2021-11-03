@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/02 12:41:25 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 07:39:48 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,22 +115,28 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 				if (comm->cmd.cmd[i][k] == '\\')
 				{
 					k++;
-					if (comm->cmd.cmd[i][k] == '\\' || comm->cmd.cmd[i][k] == '\'' || comm->cmd.cmd[i][k] == '\"')
+					if (comm->cmd.cmd[i][k] == '\\' || comm->cmd.cmd[i][k] == '\'' || comm->cmd.cmd[i][k] == '\"' || comm->cmd.cmd[i][k] == '~')
 						{
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							k++;							
+							k++;
+							if (comm->cmd.cmd[i][k] == '~')
+								comm->f_verg = 1;
 						}
 				}
 				else if (comm->cmd.cmd[i][k] == '\'')
 				{
 					s_quote++;
 					k++;
+					if (comm->cmd.cmd[i][k] == '~')
+						comm->f_verg = 1;
 				}
 				else if (comm->cmd.cmd[i][k] == '\"')
 				{
 					d_quote++;
 					k++;
+					if (comm->cmd.cmd[i][k] == '~')
+						comm->f_verg = 1;
 				}
 				else
 				{

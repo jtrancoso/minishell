@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/02 19:17:43 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 07:32:05 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_comm
 	char	*user;
 	char	*dir;
 	char	*home;
+	int		f_verg; // flag para la vergulilla
 	int		f_d;
 	int		f_s;
 	int		flag_n;

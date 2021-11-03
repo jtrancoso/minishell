@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/02 19:59:55 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/03 07:37:43 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void ft_echo(t_list *list, t_comm *comm, t_split *split)
 		{
 			//if (comm->cmd.cmd[i][j] == '\\' && comm->cmd.cmd[i][j + 1])
 			//	j++;
-			if ((comm->cmd.cmd[i][j] == '~' && comm->cmd.cmd[i][j+1] == '/') || (comm->cmd.cmd[i][j] == '~' && comm->cmd.cmd[i][j+1] == '\0'))
+			if ((j == 0 && comm->cmd.cmd[i][j] == '~' && comm->cmd.cmd[i][j+1] == '/') || (j == 0 && comm->cmd.cmd[i][j] == '~' && comm->cmd.cmd[i][j+1] == '\0' && comm->f_verg == 0))
 				ft_putstr_fd(ft_printhome(list, comm, split), 1);
 			else
 				ft_putchar_fd(comm->cmd.cmd[i][j], 1);
