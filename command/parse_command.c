@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 13:44:18 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 14:15:59 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 						{
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							//k++;
 							if (comm->cmd.cmd[i][k + 1] == '~')
 								comm->f_verg = 1;
 						}
@@ -126,14 +125,12 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 				else if (comm->cmd.cmd[i][k] == '\'')
 				{
 					s_quote++;
-					//k++;
 					if (comm->cmd.cmd[i][k + 1] == '~')
 						comm->f_verg = 1;
 				}
 				else if (comm->cmd.cmd[i][k] == '\"')
 				{
 					d_quote++;
-					//k++;
 					if (comm->cmd.cmd[i][k + 1] == '~')
 						comm->f_verg = 1;
 				}
@@ -141,22 +138,17 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 				{
 					aux[j][l] = comm->cmd.cmd[i][k];
 					l++;
-					//k++;
 				}
 			}
 			else if (s_quote % 2 != 0)
 			{
 				if (comm->cmd.cmd[i][k] == '\'')
-				{
 					s_quote++;
-					//k++;
-				}
 				else
 				{
 					aux[j][l] = comm->cmd.cmd[i][k];
 					l++;
-					//k++;
-				}				
+				}	
 			}
 			else if (d_quote % 2 != 0)
 			{
@@ -169,61 +161,23 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 							l++;
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							//k++;
 					}
 					else if (comm->cmd.cmd[i][k] == '\\' || comm->cmd.cmd[i][k] == '\"')
 						{
 							aux[j][l] = comm->cmd.cmd[i][k];
 							l++;
-							//k++;							
 						}
 				}
 				else if (comm->cmd.cmd[i][k] == '\"')
-				{
 					d_quote++;
-					//k++;	
-				}
 				else
 				{
 					aux[j][l] = comm->cmd.cmd[i][k];
 					l++;
-					//k++;
-				}					
+				}
 			}
 			k++;
 		}
-		/*while (comm->cmd.cmd[i][k])
-		{
-			if (check_inverted_var(&comm->cmd.cmd[i][k]) == 1)
-				k += 2;
-			check_quote(split, &comm->cmd.cmd[i][k]);
-			if (comm->cmd.cmd[i][k] == '\"' && split->f_double == 1)
-			{
-				k++;
-				comm->f_d = 1;
-			}
-			else if (comm->cmd.cmd[i][k] == '\"' && split->f_double == 0 && comm->f_d == 1)
-			{
-				k++;
-				comm->f_d = 0;
-			}
-			else if (comm->cmd.cmd[i][k] == '\'' && split->f_simple == 1)
-			{
-				k++;
-				comm->f_s = 1;
-			}
-			else if (comm->cmd.cmd[i][k] == '\'' && split->f_simple == 0 && comm->f_s == 1)
-			{
-				k++;
-				comm->f_s = 0;
-			}
-			else
-			{
-				aux[j][l] = comm->cmd.cmd[i][k];
-				l++;
-				k++;
-			}
-		}*/
 		aux[j][l] = '\0';
 		i++;
 		j++;
@@ -239,13 +193,6 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		i++;
 	}
 	ft_malloc_free(comm, aux, j);
-	//printf("Estoy en clean quotes2\n"); // Esto junto con el while se puede borrar
-	//i = 0;
-	//while (comm->cmd.cmd[i])
-	//{
-	//	printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
-	//	i++;
-	//}	
 }
 
 int check_path(char *cmd)
@@ -271,41 +218,23 @@ int check_path(char *cmd)
 	return (0);
 }
 
-int exec_comm(t_list *list, t_comm *comm, t_split *split) //TODO: ver si hace falta return o no
+int exec_comm(t_list *list, t_comm *comm, t_split *split)
 {
 	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
-	{
-		ft_pwd(list, comm);
-		return(1);
-	}
+		return (ft_pwd(list, comm));
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
-	{
-		ft_echo(list, comm, split);
-		return(1);
-	}
+		return(ft_echo(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
-	{
 		ft_exit(list, comm);
-		return(1);
-	}
 	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)
-	{
-		ft_env(list, comm, split);
-		return(1);
-	}
+		return(ft_env(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
 		return(ft_cd(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
-	{
-		ft_unset(list, comm, split);
-		return(1);
-	}
+		return(ft_unset(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "export", 6) == 0)
-	{
-		ft_export(list, comm, split);
-		return(1);
-	}
-	return(0);
+		return(ft_export(list, comm, split));
+	return (0);
 }
 
 int parse_command(t_list *list, t_comm *comm, t_split *split)
@@ -316,7 +245,6 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	char *path;
 	char **env_array;
 
-	//comm->redir.last_fdout = ((t_comm*)list->content)->redir.last_fdout;
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm*)list->content)->t_command, ' ');
 	create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
@@ -342,11 +270,14 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 			comm->pid = fork();
 			if (comm->pid == 0)
 			{
-				if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0) //TODO: gestionar los fd
-					exit (ft_error(split, 4));
+				if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
+					exit(ft_error(split, 4));
 			}
 			else
+			{
 				wait(&status);
+				split->errorcode = status >> 8; //BRUJERIA
+			}
 		}
 		free(comm->cmd.path);
 		ft_malloc_free(comm, comm->cmd.cmd, 0);

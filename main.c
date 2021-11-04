@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 13:44:31 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 12:57:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int main (int argv, char **argc, char **envp)
 			((t_env*)list->content)->value = next_shlvl(((t_env*)list->content)->value);
 		list = list->next;
 	}
-	split.errorcode = 0; //esto sirve para el $? en principio
+	split.errorcode = 0;
 	while (1)
 	{
 		comm.parse_head = NULL;

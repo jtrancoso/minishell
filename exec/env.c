@@ -6,13 +6,13 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:58:07 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/26 12:30:50 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 11:25:26 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_env(t_list *list, t_comm *comm, t_split *split)
+int ft_env(t_list *list, t_comm *comm, t_split *split)
 {
 	int i;
 
@@ -26,4 +26,5 @@ void ft_env(t_list *list, t_comm *comm, t_split *split)
 		}
 		i++;
 	}
+	return (0);
 }

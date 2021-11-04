@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:11:21 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/05/19 15:56:53 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 12:58:18 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-
-
 
 typedef struct s_list
 {

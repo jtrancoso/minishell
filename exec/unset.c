@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:40:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/14 13:00:07 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 12:32:03 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,25 @@ int	check_unset(t_list *list, t_comm *comm, t_split *split, int i)
 	return (1);
 }
 
-void ft_unset(t_list *list, t_comm *comm, t_split *split)
+int ft_unset(t_list *list, t_comm *comm, t_split *split)
 {
 	t_list *aux;
 	t_list *prev;
 	int i;
 	int len;
+	int ret;
 
 	i = 1;
+	ret = 0;
 	while (comm->cmd.cmd[i])
 	{
 		list = comm->env_head;
 		prev = list;
 		comm->export.f_valid = 0;
-		if (!check_unset(list, comm, split, i)) //checkeamos que el formato es valido (a=c no, a si)
+		if (!check_unset(list, comm, split, i))
 		{
 			ft_error(split, 6);
+			ret = 1;
 			comm->export.f_valid = 1;
 		}
 		if (!comm->export.f_valid)
@@ -69,4 +72,7 @@ void ft_unset(t_list *list, t_comm *comm, t_split *split)
 		}
 		i++;
 	}
+	if (ret)
+		return(1);
+	return (0);
 }

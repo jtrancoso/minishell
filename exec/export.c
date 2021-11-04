@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/26 12:31:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 12:38:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,22 @@ int	check_export(t_list *list, t_comm *comm, t_split *split, int i)
 	return (1);
 }
 
-void ft_export(t_list *list, t_comm *comm, t_split *split)
+int ft_export(t_list *list, t_comm *comm, t_split *split)
 {
 	int i;
+	int ret;
 	t_list *new;
 	t_env *env;
 
 	i = 1;
+	ret = 0;
 	while (comm->cmd.cmd[i]) //el bucle es para cuando hay export algo
 	{
 		comm->export.f_valid = 0;
 		if (!check_export(list, comm, split, i)) //checkeamos que el formato es valido (a=c si, =c no)
 		{
 			ft_error(split, 6);
+			ret = 1;
 			comm->export.f_valid = 1;
 		}
 		if (!comm->export.f_valid) //si es valido
@@ -180,6 +183,8 @@ void ft_export(t_list *list, t_comm *comm, t_split *split)
 		export_list(list, comm, split);
 		export_print(list, comm, split);
 		ft_lstclear(&comm->export_head, &free_export);
-
 	}
+	if (ret)
+		return (1);
+	return (0);
 }
