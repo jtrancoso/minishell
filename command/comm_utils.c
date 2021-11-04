@@ -6,13 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 14:17:42 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 15:14:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//void
 
 char	**ft_superglue(t_list *list, t_comm *comm)
 {

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 12:32:45 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:18:21 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/stat.h>
 # include <locale.h>
 # include <readline/history.h>
+# include <signal.h>
 
 
 typedef struct	s_env
@@ -128,6 +129,13 @@ char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);
 void			create_history(t_list *list, t_comm *comm, t_split *split);
+void			default_sigint(int bit);
+void			fork_sigint(int bit);
+void			default_sigquit(int bit);
+void			fork_sigquit(int bit);
+void			print_user(t_comm *comm);
+
+
 
 
 

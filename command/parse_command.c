@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 14:15:59 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 14:19:52 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,8 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 
 	i = 0;
 	j = 0;
-	//printf("Estoy en clean quotes\n"); // Esto junto con el while se puede borrar
 	while (comm->cmd.cmd[i])
-	{
-	//	printf("cmd[%d]: %s\n", i, comm->cmd.cmd[i]);
 		i++;
-	}
 	aux = malloc(sizeof(char **) * (i + 1));
 	i = 0;
 	while (comm->cmd.cmd[i])

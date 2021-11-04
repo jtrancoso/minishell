@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 12:57:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:55:11 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int main (int argv, char **argc, char **envp)
 	write(1, "\033[1;33m", 7);
 	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");
 	write(1, "\033[0m", 4);
+	print_user(&comm);
 	comm.env_head = NULL;
 	char **split_env;
 	int i = 0;
@@ -103,13 +104,19 @@ int main (int argv, char **argc, char **envp)
 	split.errorcode = 0;
 	while (1)
 	{
+		int ctrld;
+		signal(SIGINT, default_sigint);
+		signal(SIGQUIT, default_sigquit);
 		comm.parse_head = NULL;
 		ft_bzero(line, BUFFERSIZE - 1);
-		write(1, "\033[1;36m", 7);
-		write(1, comm.user , ft_strlen(comm.user));
-		write(1, "> ", 2);
-		write(1, "\033[0m", 4);
-		read(0, line, BUFFERSIZE - 1); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
+		ctrld = read(0, line, BUFFERSIZE - 1); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
+		if (ctrld == 0)
+		{
+			printf("exit\n");
+			exit (0);
+		}
+		signal(SIGINT, fork_sigint);
+		signal(SIGQUIT, fork_sigquit);
 		ft_parseline(&comm, &split, line); //Parseo de línea para su preparación y búsqueda de errores quotes abiertas y backslashes abiertos
 		//test_list(list, &comm); //para comprobar los dolares
 		list = comm.parse_head;
@@ -190,7 +197,7 @@ int main (int argv, char **argc, char **envp)
 					{
 						close(fdout);
 						dup2(real_fdout, 1);
-						close (real_fdout);//TODO: preguntar porque no se actualiza con >> y execve
+						close (real_fdout);
 					}
 					if (fdin)
 					{
@@ -211,6 +218,7 @@ int main (int argv, char **argc, char **envp)
 			}
 			list = list->next;
 		}
+		print_user(&comm);
 		ft_lstclear(&comm.parse_head, &free_list);
 	}
 	return (0);
