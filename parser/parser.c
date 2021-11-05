@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 11:59:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/05 12:48:01 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	j = 0;
 	ft_init(comm);
 	line[ft_strlen(line) - 1] = '\0';
+	printf("line: %s\n", line);
 	ft_bzero(aux, BUFFERSIZE - 1);
 	while (ft_isspace(line[i]))
 		i++;
@@ -154,6 +155,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j++;
 	}
 	aux[j] = '\0';
+	//printf("aux: %s\n", aux);
 	//i = 0;
 	//j = -1;
 	//printf("La auxiliar es: ");

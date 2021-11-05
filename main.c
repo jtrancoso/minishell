@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 17:55:11 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/05 12:48:17 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,18 @@ int main (int argv, char **argc, char **envp)
 		signal(SIGINT, default_sigint);
 		signal(SIGQUIT, default_sigquit);
 		comm.parse_head = NULL;
-		ft_bzero(line, BUFFERSIZE - 1);
-		ctrld = read(0, line, BUFFERSIZE - 1); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
+		ft_bzero(line, BUFFERSIZE);
+		ctrld = read(0, line, BUFFERSIZE); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
+		//printf("ctr: %d\n", ctrld);
 		if (ctrld == 0)
 		{
+			//printf("%lu\n", ft_strlen(line));
 			printf("exit\n");
-			exit (0);
+			exit (split.errorcode);
 		}
 		signal(SIGINT, fork_sigint);
 		signal(SIGQUIT, fork_sigquit);
+		//printf("%s\n", line);
 		ft_parseline(&comm, &split, line); //Parseo de línea para su preparación y búsqueda de errores quotes abiertas y backslashes abiertos
 		//test_list(list, &comm); //para comprobar los dolares
 		list = comm.parse_head;
