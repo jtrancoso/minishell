@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/05 11:15:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/08 11:50:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void			fork_sigint(int bit);
 void			default_sigquit(int bit);
 void			fork_sigquit(int bit);
 void			print_user(t_comm *comm);
+void			ctrl_d(t_split *split, char *line, int ctrld);
+
 
 
 

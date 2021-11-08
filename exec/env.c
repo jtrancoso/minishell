@@ -6,15 +6,15 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:58:07 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 11:25:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/08 13:44:06 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_env(t_list *list, t_comm *comm, t_split *split)
+int	ft_env(t_list *list, t_comm *comm, t_split *split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (comm->cmd.env_array[i])
