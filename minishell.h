@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 11:50:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:52:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_export
 {
 	int f_valid;
 	int f_exist;
+	int ret;
 	char *id;
 	char *value;
 }				t_export;
@@ -70,6 +71,7 @@ typedef	struct	s_split //FIXME: meterlo en t_comm
 	int f_simple;
 	int f_double;
 	int errorcode;
+	int	ret;
 }				t_split;
 
 typedef struct s_comm
@@ -125,6 +127,12 @@ int				ft_pwd(t_list *list, t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
 int				ft_env(t_list *list, t_comm *comm, t_split *split);
 int				ft_export(t_list *list, t_comm *comm, t_split *split);
+size_t			export_len(char *s1, char *s2);
+void			swap_list(t_list *list, t_comm *comm);
+void			sort_list(t_list *list, t_comm *comm, int *swapped);
+void			export_list(t_list *list, t_comm *comm, t_split *split);
+void			fill_list(t_list *list, t_comm *comm, t_list *new, t_list *export);
+int				check_export(t_list *list, t_comm *comm, t_split *split, int i);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);
