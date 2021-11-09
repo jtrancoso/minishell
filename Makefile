@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/08 14:53:43 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/11/09 15:24:30 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ SRCS		=	main.c \
 				./exec/unset.c \
 				./exec/echo.c \
 				./redir/parse_redir.c \
-				./signal/signal.c
+				./signal/signal.c \
+				./utils/utils.c \
+				./utils/prompt.c
 
 
 OBJS		= ${SRCS:.c=.o}

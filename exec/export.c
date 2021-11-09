@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 15:50:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:10:30 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,36 +93,32 @@ void	export_value(t_list *list, t_comm *comm, int i)
 	}
 }
 
+void	export_new_var(t_comm *comm, t_list *new, t_env *env)
+{
+	new = malloc(sizeof(t_list));
+	env = malloc(sizeof(t_env));
+	new->content = env;
+	((t_env *)new->content)->id = comm->export.id;
+	((t_env *)new->content)->value = comm->export.value;
+	ft_lstadd_back(&comm->env_head, new);
+}
+
 int	ft_export(t_list *list, t_comm *comm, t_split *split)
 {
 	t_list	*new;
 	t_env	*env;
 	int		i;
-	int		ret;
 
 	i = 1;
-	ret = 0;
 	while (comm->cmd.cmd[i])
 	{
 		comm->export.f_valid = 0;
-		if (!check_export(list, comm, split, i))
-		{
-			ft_error(split, 6);
-			ret = 1;
-			comm->export.f_valid = 1;
-		}
+		check_export(list, comm, split, i);
 		if (!comm->export.f_valid)
 		{
 			export_value(list, comm, i);
 			if (!comm->export.f_exist)
-			{
-				new = malloc(sizeof(t_list));
-				env = malloc(sizeof(t_env));
-				new->content = env;
-				((t_env *)new->content)->id = comm->export.id;
-				((t_env *)new->content)->value = comm->export.value;
-				ft_lstadd_back(&comm->env_head, new);
-			}
+				export_new_var(comm, new, env);
 		}
 		i++;
 	}
@@ -132,7 +128,5 @@ int	ft_export(t_list *list, t_comm *comm, t_split *split)
 		export_print(list, comm, split);
 		ft_lstclear(&comm->export_head, &free_export);
 	}
-	if (ret)
-		return (1);
-	return (0);
+	return (comm->export.ret);
 }

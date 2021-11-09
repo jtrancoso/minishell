@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 15:52:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:38:06 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define MINISHELL_H
 
 # define BUFFERSIZE 4096
+# define ART "\
+             _            _   _             _          _ _  \n\
+  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n\
+ / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n\
+| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n\
+ \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n\
+  |___/                                                      \n\n"
+
 
 /*
 	command = echo, cd, pwd...
@@ -86,6 +94,8 @@ typedef struct s_comm
 	int		t_ltlt;
 	int		freed;
 	int		pid;
+	int		prev_pipe;
+	int		post_pipe;
 	char	*user;
 	char	*dir;
 	char	*home;
@@ -132,7 +142,7 @@ void			swap_list(t_list *list, t_comm *comm);
 void			sort_list(t_list *list, t_comm *comm, int *swapped);
 void			export_list(t_list *list, t_comm *comm, t_split *split);
 void			fill_list(t_list *list, t_comm *comm, t_list *new, t_list *export);
-int				check_export(t_list *list, t_comm *comm, t_split *split, int i);
+void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);
@@ -142,7 +152,10 @@ void			fork_sigint(int bit);
 void			default_sigquit(int bit);
 void			fork_sigquit(int bit);
 void			print_user(t_comm *comm);
+void			print_prompt(t_comm *comm);
+char 			*next_shlvl(char *shlvl);
 void			ctrl_d(t_split *split, char *line, int ctrld);
+void			galactic_env(t_comm *comm);
 
 
 

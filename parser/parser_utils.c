@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/03 11:36:49 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:05:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void	ft_init(t_comm *comm)
 	comm->f_s = 0;
 	comm->fd = 1;
 	comm->page = 1;
+	comm->export.ret = 0;
 	comm->export.f_valid = 0; //la podemos si hace falta
 	comm->export.f_exist = 0;
+	comm->prev_pipe = 0;
+	comm->post_pipe = 0;
 	comm->redir.file = NULL;
 	comm->redir.rest = NULL;
 	comm->redir.last_fdin = 1;

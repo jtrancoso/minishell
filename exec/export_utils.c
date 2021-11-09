@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:52:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 15:51:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:03:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,27 @@ void	swap_list(t_list *list, t_comm *comm)
 	((t_export *)list->next->content)->value = aux_value;
 }
 
-int	check_export(t_list *list, t_comm *comm, t_split *split, int i)
+void	check_export(t_list *list, t_comm *comm, t_split *split, int i)
 {
 	int	j;
 
 	j = 0;
 	if (!ft_isalpha(comm->cmd.cmd[i][0]) && comm->cmd.cmd[i][0] != '_')
-		return (0);
+	{
+		ft_error(split, 6);
+		comm->export.ret = 1;
+		comm->export.f_valid = 1;
+		return ;
+	}
 	while (comm->cmd.cmd[i][j] != '=' && comm->cmd.cmd[i][j])
 	{
 		if (!ft_isalnum(comm->cmd.cmd[i][j]) && comm->cmd.cmd[i][j] != '_')
-			return (0);
+		{
+			ft_error(split, 6);
+			comm->export.ret = 1;
+			comm->export.f_valid = 1;
+			return ;
+		}
 		j++;
 	}
-	return (1);
 }

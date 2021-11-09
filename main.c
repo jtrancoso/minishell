@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 12:42:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:39:26 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,6 @@ void miraleaks()
 	system("leaks minishell");
 }
 
-char *next_shlvl(char *shlvl)
-{
-	char *aux;
-	int lvl;
-
-	lvl = ft_atoi(shlvl) + 1;
-	aux = shlvl;
-	shlvl = ft_itoa(lvl);
-	free (aux);
-	return(shlvl);
-}
-
 int main (int argv, char **argc, char **envp)
 {
 	t_list *list;
@@ -36,49 +24,16 @@ int main (int argv, char **argc, char **envp)
 	t_env *env;
 	t_comm comm;
 	t_split split;
+	int i;
 
 	//atexit(miraleaks);
 	char line[BUFFERSIZE];
-	write(1, "\033[1;33m", 7);
-	printf("             _            _   _             _          _ _  \n  __ _  __ _| | __ _  ___| |_(_) ___    ___| |__   ___| | | \n / _` |/ _` | |/ _` |/ __| __| |/ __|  / __| '_ \\ / _ \\ | | \n| (_| | (_| | | (_| | (__| |_| | (__   \\__ \\ | | |  __/ | | \n \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n |___/                                                      \n\n");
-	write(1, "\033[0m", 4);
-	print_user(&comm);
+	print_prompt(&comm);
 	comm.env_head = NULL;
 	char **split_env;
-	int i = 0;
+	i = 0;
 	if (!envp[i])
-	{
-		char *aux;
-		char *aux2;
-		aux2 = getcwd(NULL, 0);
-		aux = ft_strjoin("PWD=", aux2);
-		comm.fixed_env[0] = ft_strdup("SHLVL=0");
-		comm.fixed_env[1] = aux;
-		comm.fixed_env[2] = ft_strdup("_=./minishell"); //FIXME: actualizar con el historial
-		comm.fixed_env[3] = ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin");
-		comm.fixed_env[4] = ft_strdup("USER=unknown");
-		comm.fixed_env[5] = ft_strdup("OLDPWD= ");
-		comm.fixed_env[6] = NULL;
-		i = 0;
-		char **new_split;
-		while (comm.fixed_env[i])
-		{
-			new = malloc(sizeof(t_list));
-			env = malloc(sizeof(t_env));
-			//aux2 = comm.fixed_env[i];
-			new_split = ft_split(comm.fixed_env[i], '=');
-			new->content = env;
-			((t_env*)new->content)->id = new_split[0];
-			((t_env*)new->content)->value = new_split[1];
-			ft_lstadd_back(&comm.env_head, new);
-			free(new_split);
-			//free(aux2);
-			i++;
-		}
-		//free(comm.fixed_env);
-		free(aux);
-		free(aux2);
-	}
+		galactic_env(&comm);
 	i = 0;
 	while (envp[i])
 	{
@@ -138,18 +93,35 @@ int main (int argv, char **argc, char **envp)
 				parse_redir(list, &comm, &split);
 			list = list->next;
 		}
-		//test_list(list, &comm);
+		list = comm.parse_head;
+		while (list)
+		{
+			if (((t_comm*)list->content)->t_word != NULL && list->next)
+			{
+				if (((t_comm*)list->next->content)->t_pipe == 1)
+					((t_comm*)list->content)->post_pipe = 1;
+			}
+			if (((t_comm*)list->content)->t_pipe == 1)
+			{
+				if (((t_comm*)list->next->content)->t_word != NULL)
+					((t_comm*)list->next->content)->prev_pipe = 1;
+			}
+			list = list->next;
+		}
+		test_list(list, &comm);
 		list = comm.parse_head;
 		i = 1;
 		char *str;
 		char *aux;
 		int fdin;
-		int fdout;
+		int fdout;     //TODO: todo estos fd a la estructura
 		int real_fdout;
 		int	real_fdin;
+		int *fd; //TODO: habra que meterlo en la funcion correspondiente
 
 		fdin = 0;
 		fdout = 0;
+		fd = malloc(sizeof(int) * 2);
 		while (list)
 		{
 			str = NULL;

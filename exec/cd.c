@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:49:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 12:59:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 11:14:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	cd_home(t_list *list, t_comm *comm, t_split *split)
 
 int	ft_cd(t_list *list, t_comm *comm, t_split *split)
 {
-	cd_home(list, comm, split);
+	if (cd_home(list, comm, split))
+		return (1);
 	list = comm->env_head;
 	while (list)
 	{
