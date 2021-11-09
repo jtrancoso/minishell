@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/09 18:19:38 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:21:16 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <locale.h>
-# include <readline/history.h> //en linux no va
+# include <readline/history.h> //en linux no va u
 # include <signal.h>
 
 
