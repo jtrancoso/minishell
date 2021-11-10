@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 10:30:09 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:14:57 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,38 @@ int main (int argv, char **argc, char **envp)
 			}
 			list = list->next;
 		}
-		test_list(list, &comm);
+		/*int page;					//TODO: por lo que he estado viendo con mario esto no hace tanta falta porque los > | no cambian el fd
+		list = comm.parse_head;
+		while (list)
+		{
+			if (((t_comm*)list->content)->post_pipe == 1)
+			{
+				page = ((t_comm*)list->content)->page;
+				list = comm.parse_head;
+				while (page == ((t_comm*)list->content)->page)
+				{
+					printf("pongo post\n");
+					((t_comm*)list->content)->post_pipe = 1;
+					list = list->next;
+				}
+			}
+			if (((t_comm*)list->content)->prev_pipe == 1)
+			{
+				printf("prev: %s\n", ((t_comm*)list->content)->t_word);
+				page = ((t_comm*)list->content)->page;
+				while (list && page == ((t_comm*)list->content)->page)
+				{
+					((t_comm*)list->content)->prev_pipe = 1;
+					if (((t_comm*)list->next->content)->t_pipe != 1)
+						list = list->next;
+				}
+				printf("out: %s\n", ((t_comm*)list->content)->t_word);
+			}
+			//printf("out: %s\n", ((t_comm*)list->content)->t_word);
+			//printf("--page %d\n", ((t_comm*)list->content)->page);
+			list = list->next;
+		}*/
+		//test_list(list, &comm);
 		list = comm.parse_head;
 		i = 1;
 		char *str;
@@ -117,11 +148,10 @@ int main (int argv, char **argc, char **envp)
 		int fdout;     //TODO: todo estos fd a la estructura
 		int real_fdout;
 		int	real_fdin;
-		int *fd; //TODO: habra que meterlo en la funcion correspondiente
+		int fd[2]; //TODO: habra que meterlo en la funcion correspondiente
 
 		fdin = 0;
 		fdout = 0;
-		fd = malloc(sizeof(int) * 2);
 		while (list)
 		{
 			str = NULL;

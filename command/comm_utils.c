@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 12:50:48 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:42:08 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*glue_content(t_list *list, t_comm *comm, char **str, int i)
 char	**ft_superglue(t_list *list, t_comm *comm)
 {
 	char	**str;
-	char	*aux;
 	int		len;
 	int		i;
 

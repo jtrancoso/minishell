@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 10:36:59 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:58:16 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@
  \\__, |\\__,_|_|\\__,_|\\___|\\__|_|\\___|  |___/_| |_|\\___|_|_| \n\
   |___/                                                      \n\n"
 
-/*
-	command = echo, cd, pwd...
-	arg = hola, ../
-	flags = -n
-*/
-
 # include "libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
@@ -35,7 +29,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <locale.h>
-# include <readline/history.h> //en linux no va u
 # include <signal.h>
 
 typedef struct s_env
@@ -127,6 +120,7 @@ void			free_list(void *cont);
 void			free_env(void *cont);
 void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
+char			*get_path(t_list *list, t_comm *comm, char *cmd);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error(t_comm *comm, t_split *split, char *line);
 void			ft_exit(t_list *list, t_comm *comm, t_split *split);

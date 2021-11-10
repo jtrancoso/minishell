@@ -6,16 +6,16 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 12:42:43 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:24:02 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *point_path(t_split *split, char *cmd)
+char	*point_path(t_split *split, char *cmd)
 {
-	char *aux;
-	char *expand;
+	char	*aux;
+	char	*expand;
 
 	aux = getcwd(NULL, 0);
 	expand = ft_strjoin(aux, cmd + 1);
@@ -23,64 +23,7 @@ char *point_path(t_split *split, char *cmd)
 	return (expand);
 }
 
-char *create_realpath(char *path, char *cmd)
-{
-	char *aux;
-
-	if (!path)
-		return (NULL);
-	aux = path;
-	path = ft_strjoin(path, cmd);
-	free (aux);
-	return (path);
-}
-
-char *get_path(t_list *list, t_comm *comm, char *cmd)
-{
-	char *aux;
-	char *aux_cmd;
-	char **paths;
-	char *real_path;
-	int i;
-	struct stat	t_stat;
-	int is_stat;
-
-	list = comm->env_head;
-	i = 0;
-	aux = NULL;
-	while (list)
-	{
-		if (ft_strncmp(((t_env*)list->content)->id, "PATH", 4) == 0)
-			aux = ft_strdup(((t_env*)list->content)->value);
-		list = list->next;
-	}
-	paths = ft_split(aux, ':');
-	free(aux);
-	if (!paths)
-		return (NULL);
-	aux_cmd = ft_strjoin("/", cmd);
-	i = 0;
-	while (paths[i])
-	{
-		real_path = create_realpath(paths[i], aux_cmd);
-		is_stat = lstat(real_path, &t_stat);
-		if (is_stat == 0)
-		{
-			aux = ft_strdup(real_path);
-			free(real_path);
-			free(aux_cmd);
-			ft_malloc_free(comm, paths, i + 1);
-			return(aux);
-		}
-		free(real_path);
-		i++;
-	}
-	free(paths);
-	free(aux_cmd);
-	return (NULL);
-}
-
-void clean_quotes(t_list *list, t_comm *comm, t_split *split)
+void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 {
 	char **aux;
 	int i;
@@ -191,7 +134,7 @@ void clean_quotes(t_list *list, t_comm *comm, t_split *split)
 	ft_malloc_free(comm, aux, j);
 }
 
-int check_path(char *cmd)
+int	check_path(char *cmd)
 {
 	if (cmd[0] == '/')
 		return (1);
@@ -214,7 +157,7 @@ int check_path(char *cmd)
 	return (0);
 }
 
-int exec_comm(t_list *list, t_comm *comm, t_split *split)
+int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 {
 	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
 		return (ft_pwd(list, comm));
@@ -233,7 +176,7 @@ int exec_comm(t_list *list, t_comm *comm, t_split *split)
 	return (0);
 }
 
-int parse_command(t_list *list, t_comm *comm, t_split *split)
+int	parse_command(t_list *list, t_comm *comm, t_split *split)
 {
 	t_list *env_list;
 	int	status;
@@ -241,8 +184,7 @@ int parse_command(t_list *list, t_comm *comm, t_split *split)
 	char *path;
 	char **env_array;
 
-	comm->cmd.cmd = ft_splitshell(split, ((t_comm*)list->content)->t_command, ' ');
-	//printf("cmd: %s\n", ((t_comm*)list->content)->t_command);
+	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)->t_command, ' ');
 	create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
 	clean_quotes(list, comm, split);
