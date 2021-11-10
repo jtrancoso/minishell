@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsedollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/10/22 11:58:17 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:30:11 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *ft_strcpy(char *str)
+char	*ft_strcpy(char *str)
 {
-	int i = 0;
-	int j = 0;
-	char *aux;
+	int		i;
+	int		j;
+	char	*aux;
 
+	i = 0;
+	j = 0;
 	while (str[i])
 	{
 		aux[j] = str[i];
@@ -28,11 +30,11 @@ char *ft_strcpy(char *str)
 	return (aux);
 }
 
-char *expand_dollar(t_comm *comm, char *aux_id)
+char	*expand_dollar(t_comm *comm, char *aux_id)
 {
-	t_list *list;
-	int i;
-	char *content;
+	t_list	*list;
+	int		i;
+	char	*content;
 
 	list = comm->env_head;
 	i = 0;
@@ -40,19 +42,19 @@ char *expand_dollar(t_comm *comm, char *aux_id)
 	content = ft_strdup("");
 	while (list)
 	{
-		if (ft_strncmp(((t_env*)list->content)->id, aux_id, i) == 0)
+		if (ft_strncmp(((t_env *)list->content)->id, aux_id, i) == 0)
 		{
 			free (content);
-			content = ft_strdup(((t_env*)list->content)->value);
+			content = ft_strdup(((t_env *)list->content)->value);
 		}
 		list = list->next;
 	}
 	return (content);
 }
 
-char *ft_askdollar(t_comm *comm, t_split *split, char *aux_id)
+char	*ft_askdollar(t_comm *comm, t_split *split, char *aux_id)
 {
-	char *value;
+	char	*value;
 
 	value = ft_itoa(split->errorcode);
 	return (value);
@@ -60,18 +62,21 @@ char *ft_askdollar(t_comm *comm, t_split *split, char *aux_id)
 
 char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 {
-	char *aux;
-	char *aux2;
-	char *aux_id;
-	char *final_aux;
-	int	lmax;
-	
+	char	*aux;
+	char	*aux2;
+	char	*aux_id;
+	char	*final_aux;
+	int		lmax;
+	int		i;
+	int		j;
+	int		q;
+	char	*content;
+
 	list = comm->env_head;
 	lmax = 0;
-	int i = 0;
-	int j = 0;
-	int q = 0;
-	char *content;
+	i = 0;
+	j = 0;
+	q = 0;
 	while (line[i])
 	{
 		if (line[i] == '$') //FIXME: si es dolar solo pues se pone 
@@ -80,10 +85,10 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	}
 	while (list)
 	{
-		if (((t_env*)list->content)->value)
+		if (((t_env *)list->content)->value)
 		{
-			if (ft_strlen(((t_env*)list->content)->value) > lmax)
-				lmax = ft_strlen(((t_env*)list->content)->value);
+			if (ft_strlen(((t_env *)list->content)->value) > lmax)
+				lmax = ft_strlen(((t_env *)list->content)->value);
 		}
 		list = list->next;
 	}
@@ -98,7 +103,10 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 		if (check_inverted_var(&line[i]) == 1)
 			i += 2;
 		check_quote(split, &line[i]);
-		if (line[i] != '$' || (line[i] == '$' && split->f_simple != 0) || (line[i] == '$' && line[i - 1] == '\\' && i != 0) || (line[i] == '$' && (line[i + 1] == ' ' || line[i + 1] == '\0')) || (line[i] == '$' && line[i - 1] == '\"' && line[i + 1] == '\"'))
+		if (line[i] != '$' || (line[i] == '$' && split->f_simple != 0) 
+			|| (line[i] == '$' && line[i - 1] == '\\' && i != 0)
+			|| (line[i] == '$' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
+			|| (line[i] == '$' && line[i - 1] == '\"' && line[i + 1] == '\"'))
 		{
 			aux[j] = line[i];
 			j++;
@@ -107,7 +115,9 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 		{
 			i++;
 			q = 0;
-			while (line[i] != ' ' && line[i] != '\0' && line[i] != '\"' && line[i] != '\'' && ((ft_isalnum(line[i]) || line[i] == '_' || line[i] == '?')))
+			while (line[i] != ' ' && line[i] != '\0' && line[i] != '\"'
+				&& line[i] != '\'' && ((ft_isalnum(line[i]) || line[i] == '_'
+				|| line[i] == '?')))
 			{
 				if (ft_isdigit(line[i]) && line[i - 1] == '$')
 				{
@@ -126,8 +136,8 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 			aux_id[q] = '\0';
 			if (aux_id[0] == '?')
 				content = ft_askdollar(comm, split, aux_id);
-			else 
-				content = expand_dollar(comm, aux_id); 
+			else
+				content = expand_dollar(comm, aux_id);
 			q = 0;
 			if (content)
 			{
@@ -143,7 +153,7 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 					}
 					free (aux2);
 				}
-				else														//FIXME: a ver el lio de las lineas y los mallocs
+				else//FIXME: a ver el lio de las lineas y los mallocs
 				{
 					while (content[q])
 					{
@@ -161,5 +171,4 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 	aux[j] = '\0';
 	free (aux_id);
 	return (aux);
-
 }

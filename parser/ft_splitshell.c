@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitshell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 10:09:14 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/10/13 12:44:12 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:45:49 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int		ft_words(t_split *split, char const *s1, char c)
+static int	ft_words(t_split *split, char const *s1, char c)
 {
 	int	a;
 	int	b;
-	int i;
+	int	i;
 
 	a = 0;
 	b = 0;
@@ -28,9 +28,11 @@ static int		ft_words(t_split *split, char const *s1, char c)
 		if (check_inverted_var(&s1[i]) == 1)
 			i += 2;
 		check_quote(split, &s1[i]);
-		if (i != 0 && (s1[i] == c && s1[i - 1] != '\\' && split->f_simple == 0 && split->f_double == 0))
+		if (i != 0 && (s1[i] == c && s1[i - 1] != '\\' && split->f_simple == 0
+			&& split->f_double == 0))
 			a = 0;
-		else if (i == 0 && s1[i] == c && split->f_simple == 0 && split->f_double == 0)
+		else if (i == 0 && s1[i] == c && split->f_simple == 0
+			&& split->f_double == 0)
 			a = 0;
 		else if (a == 0)
 		{
@@ -42,7 +44,7 @@ static int		ft_words(t_split *split, char const *s1, char c)
 	return (b);
 }
 
-static int		ft_letters(t_split *split, char const *s2, char c, int a)
+static int	ft_letters(t_split *split, char const *s2, char c, int a)
 {
 	int	len;
 
@@ -50,9 +52,9 @@ static int		ft_letters(t_split *split, char const *s2, char c, int a)
 	split->f_double = 0;
 	split->f_simple = 0;
 	check_quote(split, &s2[a]);
-	while ((s2[a] != c && s2[a] != '\0') || (s2[a] == c && (split->f_double != 0 || split->f_simple != 0)))
+	while ((s2[a] != c && s2[a] != '\0') || (s2[a] == c && (split->f_double != 0
+		|| split->f_simple != 0)))
 	{
-
 		len++;
 		a++;
 		check_quote(split, &s2[a]);
@@ -65,7 +67,7 @@ static int		ft_letters(t_split *split, char const *s2, char c, int a)
 	return (len);
 }
 
-static char		**ft_clean(char const **str, int b)
+static char	**ft_clean(char const **str, int b)
 {
 	while (b > 0)
 	{
@@ -76,7 +78,7 @@ static char		**ft_clean(char const **str, int b)
 	return (NULL);
 }
 
-static char		**ft_divide(t_split *split, char const *s, char **str, char c, int n)
+static char	**ft_divide(t_split *split, char const *s, char **str, char c, int n)
 {
 	int	a;
 	int	b;
@@ -89,7 +91,8 @@ static char		**ft_divide(t_split *split, char const *s, char **str, char c, int 
 	while (s[a] != '\0' && b < n)
 	{
 		d = 0;
-		while (s[a] == c || (s[a] == c && (split->f_double != 0 || split->f_simple != 0)) || (s[a] == c && s[a - 1] == '\\'))
+		while (s[a] == c || (s[a] == c && (split->f_double != 0
+			|| split->f_simple != 0)) || (s[a] == c && s[a - 1] == '\\'))
 		{
 			check_quote(split, &s[a]);
 			a++;
@@ -97,7 +100,9 @@ static char		**ft_divide(t_split *split, char const *s, char **str, char c, int 
 		str[b] = (char *)malloc(sizeof(char) * ft_letters(split, s, c, a) + 1);
 		if (str[b] == NULL)
 			return (ft_clean((char const **)str, b));
-		while ((s[a] != '\0' && s[a] != c) || (s[a] == c && (split->f_double != 0 || split->f_simple != 0)) || (s[a] == c && s[a - 1] == '\\'))
+		while ((s[a] != '\0' && s[a] != c) || (s[a] == c
+			&& (split->f_double != 0 || split->f_simple != 0))
+			|| (s[a] == c && s[a - 1] == '\\'))
 		{
 			str[b][d] = s[a];
 			check_quote(split, &s[a]);
@@ -111,7 +116,7 @@ static char		**ft_divide(t_split *split, char const *s, char **str, char c, int 
 	return (str);
 }
 
-char			**ft_splitshell(t_split *split, char const *s, char c)
+char	**ft_splitshell(t_split *split, char const *s, char c)
 {
 	char	**str;
 	int		n;
@@ -121,7 +126,8 @@ char			**ft_splitshell(t_split *split, char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	n = ft_words(split, s, c);
-	if (!(str = (char **)malloc(sizeof(char *) * (n + 1))))
+	str = (char **)malloc(sizeof(char *) * (n + 1));
+	if (!str)
 		return (NULL);
 	return (ft_divide(split, s, str, c, n));
 }

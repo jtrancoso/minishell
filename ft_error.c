@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 15:43:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:07:22 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_error(t_split *split, int error)
 	{
 		split->errorcode = 127;
 		ft_putstr_fd("Error. Command not found.\n", 2);
-		return(127);
+		return (127);
 	}
 	if (error == 5)
 		ft_putstr_fd("Error. No such file or directory.\n", 2);

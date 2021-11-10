@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/09 15:05:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 09:54:00 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_malloc_free(t_comm *comm, char **str, int i)
 		free(str);
 }
 
-void free_list(void *cont)
+void	free_list(void *cont)
 {
 	if (((t_comm *)cont)->t_word)
 		free(((t_comm *)cont)->t_word);
@@ -71,7 +71,7 @@ void free_list(void *cont)
 	free((t_comm *)cont);
 }
 
-void free_env(void *cont)
+void	free_env(void *cont)
 {
 	if (((t_env *)cont)->id)
 		free(((t_env *)cont)->id);
@@ -80,7 +80,7 @@ void free_env(void *cont)
 	free((t_env *)cont);
 }
 
-void free_export(void *cont)
+void	free_export(void *cont)
 {
 	if (((t_export *)cont)->id)
 		free(((t_export *)cont)->id);
@@ -89,7 +89,7 @@ void free_export(void *cont)
 	free((t_export *)cont);
 }
 
-void check_quote(t_split *split, const char *c)
+void	check_quote(t_split *split, const char *c)
 {
 	if ((int)c[0] == '\"' && split->f_double == 0 && split->f_simple == 0)
 		split->f_double = 1;
@@ -101,7 +101,7 @@ void check_quote(t_split *split, const char *c)
 		split->f_simple = 0;
 }
 
-int check_inverted_var(const char *c)
+int	check_inverted_var(const char *c)
 {
 	if ((int)c[0] == '\\' && (int)c[0] != '\0' && ((int)c[1] == '$'))
 		return (1);
