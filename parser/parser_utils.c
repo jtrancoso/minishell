@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 09:54:00 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:37:34 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_init(t_comm *comm)
 	comm->redir.t_create = 0;
 	comm->redir.t_trunc = 0;
 	comm->dir = NULL;
-	comm->fixed_env = NULL;
 	comm->home = NULL;
 	comm->f_verg = 0;
 }

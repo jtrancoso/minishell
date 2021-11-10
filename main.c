@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/09 15:39:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:30:09 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main (int argv, char **argc, char **envp)
 	t_split split;
 	int i;
 
-	//atexit(miraleaks);
+	atexit(miraleaks);
 	char line[BUFFERSIZE];
 	print_prompt(&comm);
 	comm.env_head = NULL;

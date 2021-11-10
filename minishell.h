@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 10:14:24 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:36:59 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct s_comm
 	int			flag_n;
 	int			fd;
 	int			page;
-	char		**fixed_env;
 
 	t_export	export;
 	t_list		*env_head;

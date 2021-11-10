@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 10:05:28 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:34:53 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ void	galactic_env(t_comm *comm)
 		i++;
 	}
 	//free(comm.fixed_env);
-	free(aux);
+	i = 0;
+	while (fix_env[i])
+	{
+		free(fix_env[i]);
+		i++;
+	}
+	free(fix_env[i]);
+	//free(aux);
 	free(aux2);
 }
