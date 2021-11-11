@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:56:59 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:59:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ typedef struct s_comm
 	int			t_gt;
 	int			t_gtgt;
 	int			t_lt;
-	int			t_ltlt;
 	int			freed;
 	int			pid;
 	int			prev_pipe;

@@ -6,11 +6,47 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 16:14:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:01:32 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_init_2(t_comm *comm)
+{
+	comm->prev_pipe = 0;
+	comm->post_pipe = 0;
+	comm->redir.file = NULL;
+	comm->redir.rest = NULL;
+	comm->redir.last_fdin = 1;
+	comm->redir.last_fdout = 1;
+	comm->redir.t_append = 0;
+	comm->redir.t_create = 0;
+	comm->redir.t_trunc = 0;
+	comm->dir = NULL;
+	comm->home = NULL;
+	comm->f_verg = 0;
+}
+
+void	ft_init(t_comm *comm)
+{
+	ft_init_2(comm);
+	comm->t_command = NULL;
+	comm->t_word = NULL;
+	comm->t_pipe = 0;
+	comm->t_semi = 0;
+	comm->t_gt = 0;
+	comm->t_gtgt = 0;
+	comm->t_lt = 0;
+	comm->freed = 0;
+	comm->f_d = 0;
+	comm->f_s = 0;
+	comm->fd = 1;
+	comm->page = 1;
+	comm->export.ret = 0;
+	comm->export.f_valid = 0;
+	comm->export.f_exist = 0;
+}
 
 char	*next_shlvl(char *shlvl)
 {
