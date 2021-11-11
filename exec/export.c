@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/09 15:10:30 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:36:43 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	export_value(t_list *list, t_comm *comm, int i)
 
 void	export_new_var(t_comm *comm, t_list *new, t_env *env)
 {
-	new = malloc(sizeof(t_list));
-	env = malloc(sizeof(t_env));
+	new = ft_malloc(sizeof(t_list));
+	env = ft_malloc(sizeof(t_env));
 	new->content = env;
 	((t_env *)new->content)->id = comm->export.id;
 	((t_env *)new->content)->value = comm->export.value;

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 11:42:08 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:36:28 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_superglue(t_list *list, t_comm *comm)
 
 	list = comm->env_head;
 	len = ft_lstsize(list);
-	str = malloc(sizeof(char *) * (len + 1));
+	str = ft_malloc(sizeof(char *) * (len + 1));
 	if (!str)
 		return (NULL);
 	i = 0;

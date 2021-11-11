@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsedollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 09:30:11 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:40:00 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 		}
 		list = list->next;
 	}
-	aux = malloc(sizeof(char *) * (lmax * j) + 1);
-	aux_id = malloc(sizeof(char *) * (ft_strlen(line)));
+	aux = ft_malloc(sizeof(char *) * (lmax * j) + 1);
+	aux_id = ft_malloc(sizeof(char *) * (ft_strlen(line)));
 	i = 0;
 	j = 0;
 	split->f_simple = 0;

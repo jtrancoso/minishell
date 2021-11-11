@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:56:40 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:41:17 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main (int argv, char **argc, char **envp)
 	t_split split;
 	int i;
 
-	//atexit(miraleaks);
+	atexit(miraleaks);
 	print_prompt(&comm);
 	comm.env_head = NULL;
 	char **split_env;
@@ -35,8 +35,8 @@ int main (int argv, char **argc, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		new = malloc(sizeof(t_list));
-		env = malloc(sizeof(t_env));
+		new = ft_malloc(sizeof(t_list));
+		env = ft_malloc(sizeof(t_env));
 		split_env = ft_split(envp[i], '=');
 		new->content = env;
 		((t_env*)new->content)->id = split_env[0];

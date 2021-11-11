@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:44:02 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:42:24 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	comm->parse_head = NULL;
 	while (j < i * 2 - 1)
 	{
-		new = malloc(sizeof(t_list));
-		otro = malloc(sizeof(t_comm));
+		new = ft_malloc(sizeof(t_list));
+		otro = ft_malloc(sizeof(t_comm));
 		new->content = otro;
 		ft_init(otro);
 		if (j == 0 || j % 2 == 0)
@@ -192,8 +192,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));
-						otro = malloc(sizeof(t_comm));
+						new = ft_malloc(sizeof(t_list));
+						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
 						if (j % 2 == 0 && j != 0)
@@ -244,8 +244,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));
-						otro = malloc(sizeof(t_comm));
+						new = ft_malloc(sizeof(t_list));
+						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
 						if (j % 2 == 0 && j != 0)
@@ -273,7 +273,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		list = list->next;
 	}
 	list = comm->parse_head;
-	while (list)
+	/*while (list)
 	{
 		i = 0;
 		j = 0;
@@ -296,8 +296,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));
-						otro = malloc(sizeof(t_comm));
+						new = ft_malloc(sizeof(t_list));
+						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
 						if (j % 2 == 0 && j != 0)
@@ -323,8 +323,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		else
 			free(((t_comm*)list->content)->t_word);
 		list = list->next;
-	}
-	list = comm->parse_head;
+	}*/
 	while (list)
 	{
 		i = 0;
@@ -348,8 +347,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));
-						otro = malloc(sizeof(t_comm));
+						new = ft_malloc(sizeof(t_list));
+						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
 						if (j % 2 == 0 && j != 0)
@@ -400,8 +399,8 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 					}
 					else
 					{
-						new = malloc(sizeof(t_list));
-						otro = malloc(sizeof(t_comm));
+						new = ft_malloc(sizeof(t_list));
+						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
 						ft_init(otro);
 						if (j % 2 == 0 && j != 0)
@@ -447,5 +446,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		}
 		list = list->next;
 	}
+	free(line);
 	return (0);
 }

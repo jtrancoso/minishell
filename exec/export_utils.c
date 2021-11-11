@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:52:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/09 15:03:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:36:26 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	fill_list(t_list *list, t_comm *comm, t_list *new, t_list *export)
 	list = comm->env_head;
 	while (list)
 	{
-		new = malloc(sizeof(t_list));
-		export = malloc(sizeof(t_export));
+		new = ft_malloc(sizeof(t_list));
+		export = ft_malloc(sizeof(t_export));
 		new->content = export;
 		((t_export *)new->content)->id
 			= ft_strdup(((t_env *)list->content)->id);

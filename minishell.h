@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:59:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:34:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void			free_env(void *cont);
 void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
 char			*get_path(t_list *list, t_comm *comm, char *cmd, int i);
+void			*ft_malloc(size_t size);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error(t_comm *comm, t_split *split, char *line);
 void			ft_exit(t_list *list, t_comm *comm, t_split *split);

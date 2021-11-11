@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:01:32 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:37:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	save_galactic_env(t_comm *comm, char **fix_env)
 	i = 0;
 	while (fix_env[i])
 	{
-		new = malloc(sizeof(t_list));
-		env = malloc(sizeof(t_env));
+		new = ft_malloc(sizeof(t_list));
+		env = ft_malloc(sizeof(t_env));
 		new_split = ft_split(fix_env[i], '=');
 		new->content = env;
 		((t_env *)new->content)->id = new_split[0];
@@ -88,7 +88,7 @@ void	galactic_env(t_comm *comm)
 	char	*aux2;
 	char	**fix_env;
 
-	fix_env = malloc(sizeof(char **) * 6);
+	fix_env = ft_malloc(sizeof(char **) * 6);
 	aux2 = getcwd(NULL, 0);
 	aux = ft_strjoin("PWD=", aux2);
 	fix_env[0] = ft_strdup("SHLVL=0");

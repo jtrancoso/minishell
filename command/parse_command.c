@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:04:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:37:29 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 	j = 0;
 	while (comm->cmd.cmd[i])
 		i++;
-	aux = malloc(sizeof(char **) * (i + 1));
+	aux = ft_malloc(sizeof(char **) * (i + 1));
 	i = 0;
 	while (comm->cmd.cmd[i])
 	{
 		l = 0;
 		k = 0;
-		aux[j] = malloc(sizeof(char *) * (ft_strlen(comm->cmd.cmd[i])) + 1);
+		aux[j] = ft_malloc(sizeof(char *) * (ft_strlen(comm->cmd.cmd[i])) + 1);
 		while (comm->cmd.cmd[i][k])
 		{
 			if (s_quote % 2 == 0 && d_quote % 2 == 0)

@@ -6,13 +6,25 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:04:14 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:33:57 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 //TODO: hacer el ft_malloc protegido
+
+void	*ft_malloc(size_t size)
+{
+	char *aux;
+	aux = malloc(size);
+	if (!aux)
+	{
+		printf("malloc error\n");
+		exit (1);
+	}
+	return (aux);
+}
 
 void	ft_malloc_free(t_comm *comm, char **str, int i)
 {
