@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 16:25:18 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/09 15:13:04 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:09:57 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	fork_sigquit(int bit)
 	printf("Quit: %d\n", bit);
 }
 
-void	ctrl_d(t_split *split, char *line, int ctrld)
+void	ctrl_d(t_split *split)
 {
-	if (!ctrld)
-	{
-		printf("exit\n");
-		exit(split->errorcode);
-	}
+	printf("exit\n");
+	exit(split->errorcode);
 }

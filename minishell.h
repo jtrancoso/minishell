@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 16:58:16 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 17:29:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ typedef struct s_env
 	char	*id;
 	char	*value;
 }				t_env;
+
+typedef struct s_path
+{
+	int			is_stat;
+}				t_path;
+
+typedef struct s_line
+{
+	int		bit_read;
+	char	char_read[2];
+	int		i;
+	char	*tmp;
+	char	*join_line;
+}				t_line;
 
 typedef struct s_export
 {
@@ -76,6 +90,7 @@ typedef struct s_comm
 {
 	char		*t_command; //TODO: comprobar uso y borrar si hace falta
 	char		*t_word;
+	char		*final_line;
 	int			t_pipe;
 	int			t_semi;
 	int			t_gt;
@@ -102,6 +117,7 @@ typedef struct s_comm
 	t_list		*export_head;
 	t_cmd		cmd;
 	t_redir		redir;
+	t_path		path;
 }				t_comm;
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
@@ -120,7 +136,7 @@ void			free_list(void *cont);
 void			free_env(void *cont);
 void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
-char			*get_path(t_list *list, t_comm *comm, char *cmd);
+char			*get_path(t_list *list, t_comm *comm, char *cmd, int i);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error(t_comm *comm, t_split *split, char *line);
 void			ft_exit(t_list *list, t_comm *comm, t_split *split);
@@ -146,7 +162,7 @@ void			fork_sigquit(int bit);
 void			print_user(t_comm *comm);
 void			print_prompt(t_comm *comm);
 char			*next_shlvl(char *shlvl);
-void			ctrl_d(t_split *split, char *line, int ctrld);
+void			ctrl_d(t_split *split);
 void			galactic_env(t_comm *comm);
 
 #endif

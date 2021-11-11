@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 17:05:06 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:03:41 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,12 @@ char	*create_realpath(char *path, char *cmd)
 	return (path);
 }
 
-char	*pathing(t_comm *comm, char **paths, char *aux_cmd, int i)
+char	**extract_path(t_list *list, t_comm *comm)
 {
-	struct stat	t_stat;
-	int			is_stat;
-	char		*real_path;
-	char		*aux;
-
-	real_path = create_realpath(paths[i], aux_cmd);
-	is_stat = lstat(real_path, &t_stat);
-	if (is_stat == 0)
-	{
-		aux = ft_strdup(real_path);
-		free(real_path);
-		free(aux_cmd);
-		return (aux);
-	}
-	free(real_path);
-	return (NULL);
-}
-
-char	*get_path(t_list *list, t_comm *comm, char *cmd)
-{
-	char		*aux;
-	char		*aux_cmd;
-	char		**paths;
-	int			i;
+	char	*aux;
+	char	**paths;
 
 	list = comm->env_head;
-	i = 0;
 	aux = NULL;
 	while (list)
 	{
@@ -64,20 +41,25 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd)
 	free(aux);
 	if (!paths)
 		return (NULL);
+	return (paths);
+}
+
+char	*get_path(t_list *list, t_comm *comm, char *cmd, int i)
+{
+	char		*aux;
+	char		*aux_cmd;
+	char		**paths;
+	char		*real_path;
+	struct stat	t_stat;
+
+
+	paths = extract_path(list, comm);
 	aux_cmd = ft_strjoin("/", cmd);
-	i = 0;
 	while (paths[i])
 	{
-		aux = pathing(comm, &paths[i], aux_cmd, i); //TODO: mirar este malloc
-		if (aux)
-		{
-			ft_malloc_free(comm, paths, i + 1);
-			return (aux);
-		}
-		i++;
-		/*real_path = create_realpath(paths[i], aux_cmd);
-		is_stat = lstat(real_path, &t_stat);
-		if (is_stat == 0)
+		real_path = create_realpath(paths[i], aux_cmd);
+		comm->path.is_stat = lstat(real_path, &t_stat);
+		if (comm->path.is_stat == 0)
 		{
 			aux = ft_strdup(real_path);
 			free(real_path);
@@ -86,7 +68,7 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd)
 			return (aux);
 		}
 		free(real_path);
-		i++;*/
+		i++;
 	}
 	free(paths);
 	free(aux_cmd);

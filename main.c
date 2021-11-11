@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 16:14:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:47:28 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,48 @@
 void miraleaks()
 {
 	system("leaks minishell");
+}
+
+void	fill_line(t_comm *comm, t_line *line)
+{
+	while (1)
+	{
+		//printf("%s\n", line->char_read);
+		line->char_read[1] = '\0';
+		if (!comm->final_line)
+			comm->final_line = ft_strdup(line->char_read);
+		else
+		{
+			if (line->bit_read == 0 && !line->join_line)
+				line->join_line = ft_strdup(comm->final_line);
+			line->tmp = comm->final_line;
+			comm->final_line = ft_strjoin(comm->final_line, line->char_read);
+			free(line->tmp);
+		}
+		if (comm->final_line[line->i] == '\n')
+		{
+			if (line->join_line)
+			{
+				free(comm->final_line);
+				comm->final_line = line->join_line;
+			}
+			break ;
+		}
+		line->i++;
+		line->bit_read = read(0, line->char_read, 1);
+	}
+}
+
+void	our_read_line(t_comm *comm, t_split *split)
+{
+	t_line	line;
+
+	line.i = 0;
+	line.join_line = NULL;
+	line.bit_read = read(0, line.char_read, 1);
+	if (line.bit_read == 0)
+		ctrl_d(split);
+	fill_line(comm, &line);
 }
 
 int main (int argv, char **argc, char **envp)
@@ -26,8 +68,7 @@ int main (int argv, char **argc, char **envp)
 	t_split split;
 	int i;
 
-	atexit(miraleaks);
-	char line[BUFFERSIZE];
+	//atexit(miraleaks);
 	print_prompt(&comm);
 	comm.env_head = NULL;
 	char **split_env;
@@ -59,20 +100,16 @@ int main (int argv, char **argc, char **envp)
 	split.errorcode = 0;
 	while (1)
 	{
-		int ctrld;
 		signal(SIGINT, default_sigint);
 		signal(SIGQUIT, default_sigquit);
-		comm.parse_head = NULL;
-		ft_bzero(line, BUFFERSIZE);
-		ctrld = read(0, line, BUFFERSIZE); //TODO: crear un int que a = read, si es 0 exit para ctrl+D
-		if (ctrld == 0)
-			ctrl_d(&split, line, ctrld);
+		our_read_line(&comm, &split);
 		signal(SIGINT, fork_sigint);
 		signal(SIGQUIT, fork_sigquit);
-		//printf("%s\n", line);
-		ft_parseline(&comm, &split, line); //Parseo de línea para su preparación y búsqueda de errores quotes abiertas y backslashes abiertos
-		//test_list(list, &comm); //para comprobar los dolares
+		ft_parseline(&comm, &split, NULL);
+		free(comm.final_line);
+		comm.final_line = NULL;
 		list = comm.parse_head;
+		//printf("1: %s\n", ((t_comm*)list->content)->t_word);
 		i = 1;
 		while (list)
 		{
@@ -218,8 +255,8 @@ int main (int argv, char **argc, char **envp)
 			}
 			list = list->next;
 		}
-		print_user(&comm);
 		ft_lstclear(&comm.parse_head, &free_list);
+		print_user(&comm);
 	}
 	return (0);
 }

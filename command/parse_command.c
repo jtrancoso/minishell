@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 16:24:02 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:04:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,13 +185,16 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 	char **env_array;
 
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)->t_command, ' ');
+	int i = 0;
+	while (comm->cmd.cmd[i])
+		i++;
 	create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
 	clean_quotes(list, comm, split);
 	if (comm->cmd.cmd[0])
 	{
 		if (!check_path(comm->cmd.cmd[0]))
-			comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0]);
+			comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0], 0);
 		else if (check_path(comm->cmd.cmd[0]) == 1)
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 		else if (check_path(comm->cmd.cmd[0]) == 3)
