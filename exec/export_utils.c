@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:52:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:36:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 20:01:46 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	check_export(t_list *list, t_comm *comm, t_split *split, int i)
 	j = 0;
 	if (!ft_isalpha(comm->cmd.cmd[i][0]) && comm->cmd.cmd[i][0] != '_')
 	{
-		ft_error(split, 6);
+		ft_error(split, comm->cmd.cmd[0], 6);
 		comm->export.ret = 1;
 		comm->export.f_valid = 1;
 		return ;
@@ -94,7 +94,7 @@ void	check_export(t_list *list, t_comm *comm, t_split *split, int i)
 	{
 		if (!ft_isalnum(comm->cmd.cmd[i][j]) && comm->cmd.cmd[i][j] != '_')
 		{
-			ft_error(split, 6);
+			ft_error(split, comm->cmd.cmd[0], 6);
 			comm->export.ret = 1;
 			comm->export.f_valid = 1;
 			return ;

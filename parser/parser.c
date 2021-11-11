@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:42:24 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 20:02:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 		i++;
 	}
 	if (s_quote % 2 != 0 || d_quote % 2 != 0)
-		return (ft_error(split, 1));
+		return (ft_error(split, NULL , 1)); //TODO: me he quedado aqui
 	return (0);
 }
 
