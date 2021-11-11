@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 17:29:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:56:59 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,8 @@ void			print_prompt(t_comm *comm);
 char			*next_shlvl(char *shlvl);
 void			ctrl_d(t_split *split);
 void			galactic_env(t_comm *comm);
+void			our_read_line(t_comm *comm, t_split *split);
+void			fill_line(t_comm *comm, t_line *line);
+
 
 #endif
