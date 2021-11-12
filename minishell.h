@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:59:08 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:14:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_comm
 	int			flag_n;
 	int			fd;
 	int			page;
+	int			p_page;
 
 	t_export	export;
 	t_list		*env_head;
@@ -154,6 +155,7 @@ void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);
+void			manage_redir(t_list **list, t_comm *comm, t_split *split);
 void			create_history(t_list *list, t_comm *comm, t_split *split);
 void			default_sigint(int bit);
 void			fork_sigint(int bit);

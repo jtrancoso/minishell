@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 20:02:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:12:22 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int ft_parse_bar(t_comm *comm, t_split *split, char *line)
 				if (line[i + 1] != '\0')
 					i++;
 				else
-					return (ft_error(split, 7));
+					return (ft_error(split, NULL, 7));
 			}
 		}
 		else if (i > 0)
@@ -106,13 +106,13 @@ int ft_parse_bar(t_comm *comm, t_split *split, char *line)
 			else if (line[i] == '\\' && line[i + 1] == '\0')
 			{
 				//printf("hola\n");
-				return (ft_error(split, 7));
+				return (ft_error(split, NULL, 7));
 			}
 		}
 		i++;
 	}
 	if (bar % 2 != 0)
-		return (ft_error(split, 7));
+		return (ft_error(split, NULL, 7));
 	else
 		return (0);
 }
@@ -133,17 +133,26 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	char **splitlt;
 
 	i = 0;
-	ft_init(comm);
+	ft_init(comm); //TODO: no se si esto afecta en algo
 	line = ft_strtrim(comm->final_line, "\n");
 	while (ft_isspace(line[i]))
 		i++;
 	if (ft_parse_quote(comm, split, line + i))
-		return (0);
+	{
+		free(line);
+		return (1);
+	}
 	if (ft_parse_bar(comm, split, line + i))
-		return (0);
+	{
+		free(line);
+		return (1);
+	}
 	//test_list(list, comm);
 	if (parser_error(comm, split, line) != 0)
-		return (0);
+	{
+		free(line);
+		return (1);
+	}
 	i = 0;
 	j = 0;
 	h = 0;
@@ -156,7 +165,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		new = ft_malloc(sizeof(t_list));
 		otro = ft_malloc(sizeof(t_comm));
 		new->content = otro;
-		ft_init(otro);
+		ft_init((t_comm*)new->content);   //TODO: comprobar si esto realmente funciona o podemos dejarlo como init(otro)
 		if (j == 0 || j % 2 == 0)
 		{
 			((t_comm*)new->content)->t_word = ft_strdup(splitsemi[h]);
@@ -195,7 +204,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init(otro);
+						ft_init((t_comm*)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitpipe[h]);
@@ -247,7 +256,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init(otro);
+						ft_init((t_comm*)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitgtgt[h]);
@@ -350,7 +359,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init(otro);
+						ft_init((t_comm*)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitgt[h]);
@@ -402,7 +411,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init(otro);
+						ft_init((t_comm*)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm*)new->content)->t_word = ft_strdup(splitlt[h]);

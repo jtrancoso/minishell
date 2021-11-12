@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:37:29 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/12 11:28:27 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 			if (comm->pid == 0)
 			{
 				if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
-					exit(ft_error(split, 4));
+					exit(ft_error(split, comm->cmd.cmd[0], 4));
 			}
 			else
 			{

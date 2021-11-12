@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:16:44 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/10 09:52:36 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/12 13:36:22 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@ int	parser_error(t_comm *comm, t_split *split, char *line) //TODO: añadir error
 
 	i = 0;
 	if (line[0] == ';' || line[0] == '|' || line[0] == '<')
-		return (ft_error(split, 3));
+		return (ft_error(split, NULL, 3));
 	while (line[i])
 	{
 		if (line[i] == ';' && line[i + 1] == ';' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
 		else if (line[i] == ';' && line[i + 1] == '|' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
 		else if (line[i] == '|' && line[i + 1] == ';' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
 		else if (line[i] == '|' && line[i + 1] == '|' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
 		else if (line[i] == '<' && line[i + 1] == '>' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
 		else if (line[i] == '>' && line[i + 1] == '<' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
 		else if (line[i] == '<' && line[i + 1] == '<' && line[i + 1] != '\0')
-			return (ft_error(split, 3));
+			return (ft_error(split, NULL, 3));
+		/*else if (line[i] == '>' && line[i + 1] == '>' && line[i + 2] == '>' && line[i + 3] != '\0')
+			return (ft_error(split, NULL, 3));*/
 		else if ((line[i] == '|' || line[i] == ';')
 			&& line[i + 1] == ' ' && line[i + 2])
 		{
@@ -42,12 +44,12 @@ int	parser_error(t_comm *comm, t_split *split, char *line) //TODO: añadir error
 			while (ft_isspace(line[i]))
 				i++;
 			if (!ft_isalnum(line[i]))
-				return (ft_error(split, 3));
+				return (ft_error(split, NULL, 3));
 		}
 		i++;
 	}
 	if ((line[i - 1] == '<' || line[i - 1] == '>'
 		|| line[i - 1] == '|') && i > 0)
-		return (ft_error(split, 3));
+		return (ft_error(split, NULL, 3));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 20:02:02 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/12 11:35:30 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_error(t_split *split, char *line, int error)
 	if (error == 4)
 	{
 		split->errorcode = 127;
-		ft_putstr_fd("galactic: error. Command not found.\n", 2);
+		printf("galactic: %s: command not found.\n", line);
 		return (127);
 	}
 	if (error == 5)

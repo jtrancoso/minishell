@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:52:04 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:09:29 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int main (int argv, char **argc, char **envp)
 		list = list->next;
 	}
 	split.errorcode = 0;
+	int pars; //para gestionar el error de sintaxis y que no libere
 	while (1)
 	{
 		signal(SIGINT, default_sigint);
@@ -62,7 +63,7 @@ int main (int argv, char **argc, char **envp)
 		our_read_line(&comm, &split);
 		signal(SIGINT, fork_sigint);
 		signal(SIGQUIT, fork_sigquit);
-		ft_parseline(&comm, &split, NULL);
+		pars = ft_parseline(&comm, &split, NULL);
 		free(comm.final_line);
 		comm.final_line = NULL;
 		list = comm.parse_head;
@@ -135,84 +136,18 @@ int main (int argv, char **argc, char **envp)
 		}*/
 		//test_list(list, &comm);
 		list = comm.parse_head;
-		i = 1;
-		char *str;
-		char *aux;
-		int fdin;
-		int fdout;     //TODO: todo estos fd a la estructura
-		int real_fdout;
-		int	real_fdin;
 		int fd[2]; //TODO: habra que meterlo en la funcion correspondiente
-
-		fdin = 0;
-		fdout = 0;
+		comm.p_page = 1;
 		while (list)
 		{
-			str = NULL;
-			while ((((t_comm*)list->content)->page) == i)
-			{
-				if (((t_comm*)list->content)->t_word && !str)
-					str = ft_strdup(((t_comm*)list->content)->t_word);
-				else if (!((t_comm*)list->content)->t_word && str)
-				{
-					aux = str;
-					if (((t_comm*)list->content)->redir.rest)
-					{
-						str = ft_strjoin(str, ((t_comm*)list->content)->redir.rest);
-						free (aux);
-					}
-					if (fdout)
-						close(fdout);
-					if (fdin)
-						close(fdin);
-					if (((t_comm*)list->content)->t_gt)
-						fdout = open(((t_comm*)list->content)->redir.file, O_RDWR | O_TRUNC | O_CREAT, 0700);
-					if (((t_comm*)list->content)->t_gtgt)
-						fdout = open(((t_comm*)list->content)->redir.file, O_RDWR | O_APPEND | O_CREAT, 0700);
-					if (fdout)
-						real_fdout = dup(1);
-					if (((t_comm*)list->content)->t_lt)
-						fdin = open(((t_comm*)list->content)->redir.file, O_RDONLY);
-					if (fdin)
-						real_fdin = dup(0);
-				}
-				if ((list->next && ((((t_comm*)list->next->content)->page) == 0)) || !list->next)
-				{
-					((t_comm*)list->content)->t_command = ft_strdup(str);
-					if (str)
-						free(str);
-					if (fdout)
-						dup2(fdout, 1);
-					if (fdin)
-						dup2(fdin, 0);
-					parse_command(list, &comm, &split);
-					//test_list(list, &comm);
-					if (fdout)
-					{
-						close(fdout);
-						dup2(real_fdout, 1);
-						close (real_fdout);
-					}
-					if (fdin)
-					{
-						close(fdin);
-						dup2(real_fdin, 0);
-						close(real_fdin);
-					}
-					i++;
-					if (list->next)
-						list = list->next;
-				}
-				if (list->next || ((t_comm*)list->content)->page == 0)
-				{
-					if (((t_comm*)list->content)->page == 0)
-						str = NULL;
-					list = list->next;
-				}
-			}
+			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0)
+				manage_redir(&list, &comm, &split);
+			else
+				printf("pillamos los pipes\n");
 			list = list->next;
 		}
-		ft_lstclear(&comm.parse_head, &free_list);
+		if (!pars)
+			ft_lstclear(&comm.parse_head, &free_list);
 		print_user(&comm);
 	}
 	return (0);
