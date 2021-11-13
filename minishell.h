@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/13 07:55:23 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/13 09:36:34 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ typedef struct s_redir
 	int		t_create;
 	int		t_append;
 	int		t_trunc;
+	int		fdin;
+	int		fdout;
+	int		real_fdout;
+	int		real_fdin;
 }				t_redir;
 
 typedef struct s_cmd
