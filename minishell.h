@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/12 14:14:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/13 07:55:23 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_cmd
 	char	**env_array;
 }				t_cmd;
 
-typedef	struct s_split //FIXME: meterlo en t_comm
+typedef struct s_split //FIXME: meterlo en t_comm
 {
 	int	f_simple;
 	int	f_double;
@@ -168,6 +168,5 @@ void			ctrl_d(t_split *split);
 void			galactic_env(t_comm *comm);
 void			our_read_line(t_comm *comm, t_split *split);
 void			fill_line(t_comm *comm, t_line *line);
-
 
 #endif

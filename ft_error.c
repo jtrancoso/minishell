@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/12 11:35:30 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/13 08:00:57 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_error2(t_split *split, char *line, int error)
+{
+	if (error == 7)
+	{
+		ft_putstr_fd("galactic: error. Uneven number of backslashes\n", 2);
+		return (-1);
+	}
+	if (error == 8)
+		ft_putstr_fd("galactic: error. HOME not set\n", 2);
+	return (1);
+}
 
 int	ft_error(t_split *split, char *line, int error)
 {
@@ -33,13 +45,8 @@ int	ft_error(t_split *split, char *line, int error)
 		split->ret = 1;
 		ft_putstr_fd("galactic: error. Not a valid identifier.\n", 2);
 	}
-	if (error == 7)
-	{
-		ft_putstr_fd("galactic: error. Uneven number of backslashes\n", 2);
-		return (-1);
-	}
-	if (error == 8)
-		ft_putstr_fd("galactic: error. HOME not set\n", 2);
+	if (error == 7 || error == 8)
+		ft_error2(split, line, error);
 	split->errorcode = 1; //FIXME: ESTO ESTA EN TENGUERENGUE
 	return (1);
 }
