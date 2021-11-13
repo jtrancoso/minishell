@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/12 11:28:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/13 07:45:38 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 	if (comm->cmd.cmd[0])
 	{
 		if (!check_path(comm->cmd.cmd[0]))
-			comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0], 0);
+			comm->cmd.path = get_path(list, comm, comm->cmd.cmd[0], -1);
 		else if (check_path(comm->cmd.cmd[0]) == 1)
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 		else if (check_path(comm->cmd.cmd[0]) == 3)

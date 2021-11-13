@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:03:41 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/13 07:45:38 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd, int i)
 	char		*real_path;
 	struct stat	t_stat;
 
-
 	paths = extract_path(list, comm);
 	aux_cmd = ft_strjoin("/", cmd);
-	while (paths[i])
+	while (paths[++i])
 	{
 		real_path = create_realpath(paths[i], aux_cmd);
 		comm->path.is_stat = lstat(real_path, &t_stat);
@@ -68,7 +67,6 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd, int i)
 			return (aux);
 		}
 		free(real_path);
-		i++;
 	}
 	free(paths);
 	free(aux_cmd);
