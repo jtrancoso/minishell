@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 12:24:38 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:49:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 
 	comm->redir.fdin = 0;
 	comm->redir.fdout = 0;
+	//test_list(*list, comm);
+	printf("word: %s pipe: %d\n", ((t_comm*)(*list)->content)->t_word, ((t_comm*)(*list)->content)->t_pipe);
 	str = NULL;
 	while ((((t_comm *)((*list)->content))->page) == comm->p_page)
 	{

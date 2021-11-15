@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 13:29:31 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:52:10 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argv, char **argc, char **envp)
 	t_comm	comm;
 	t_split	split;
 	int		i;  // se quita y se mete en la funcion de look_pages
-
+	
 	//atexit(miraleaks);
 	print_prompt(&comm);
 	check_env(&comm, envp);
@@ -63,7 +63,7 @@ int	main(int argv, char **argc, char **envp)
 		list = list->next;
 	}
 	split.errorcode = 0;
-	int	pars;//para gestionar el error de sintaxis y que no libere
+	int	pars; //para gestionar el error de sintaxis y que no libere
 	while (1)
 	{
 		signal(SIGINT, default_sigint);
@@ -154,13 +154,25 @@ int	main(int argv, char **argc, char **envp)
 		 * si hay pipe ambos laods -> se gestiona input y ouput
 		 * si hay ultimo pipe izq y fin o ; -> se esperan a los pipes anteriores
 		**/
-	
+		//comm.fd_read = 0;
+		int fd_read;
+		fd_read = 0;
+		comm.pipe_wait = 0;
 		while (list)
 		{
+			comm.last_pid = 0;
 			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0)
 				manage_redir(&list, &comm, &split);
-			else
-				printf("pillamos los pipes\n");
+			if (((t_comm *)list->content)->post_pipe == 1)
+			{
+				pipe(fd);
+				printf("output: %s\n", ((t_comm *)list->content)->t_word);
+				pipe_output(&list, &comm, &split, fd, &fd_read);
+			}
+			else if (((t_comm *)list->content)->prev_pipe == 1)
+				pipe_input(&list, &comm, &split, &fd_read);
+			if (comm.last_pid && (((t_comm *)list->content)->t_semi == 1 || !list->next))
+				wait_pipes(&comm, &split);
 			list = list->next;
 		}
 		if (!pars)

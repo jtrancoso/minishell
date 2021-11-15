@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 13:02:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:27:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/stat.h>
 # include <locale.h>
 # include <signal.h>
+# include <errno.h>
 
 typedef struct s_env
 {
@@ -121,6 +122,9 @@ typedef struct s_comm
 	int			fd;
 	int			page;
 	int			p_page;
+	int			fd_read;
+	int			pipe_wait;
+	int			last_pid;
 
 	t_export	export;
 	t_list		*env_head;
@@ -185,5 +189,8 @@ void			ctrl_d(t_split *split);
 void			galactic_env(t_comm *comm);
 void			our_read_line(t_comm *comm, t_split *split);
 void			fill_line(t_comm *comm, t_line *line);
+void			pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd, int *fd_read);
+void			pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd_read);
+void			wait_pipes(t_comm *comm, t_split *split);
 
 #endif

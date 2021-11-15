@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/15 13:02:58 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/11/15 18:31:36 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,14 +38,15 @@ SRCS		=	main.c \
 				./utils/utils.c \
 				./utils/prompt.c \
 				./utils/free_things.c \
-				./readline/readline.c 
+				./readline/readline.c \
+				./pipes/pipes.c
 
 
 OBJS		= ${SRCS:.c=.o}
 NAME		= minishell
 CC			= gcc
 RM			= rm -f
-CFLAGS		= -fsanitize=address -g3
+CFLAGS		= -Werror -Wall -Wextra
 
 .c.o:
 			${CC} -g3 -c $< -o ${<:.c=.o}
@@ -68,7 +69,6 @@ fclean : 	clean
 
 leaks:		${OBJS}
 			make -C ./libft
-			$(CC) -g -L libft/ -lft  ${OBJS} -o ${NAME}
 
 re:			fclean all
 
