@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comm_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 10:13:13 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 12:28:23 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ char	*point_path(t_split *split, char *cmd)
 	expand = ft_strjoin(aux, cmd + 1);
 	free (aux);
 	return (expand);
+}
+
+void	init_var_clean_quotes(t_list *list, t_comm *comm, t_split *split)
+{
+	split->s_quote = 0;
+	split->d_quote = 0;
+	split->k = 0;
+	split->i = 0;
+	split->j = 0;
+	split->str = NULL;
 }
 
 char	*glue_content(t_list *list, t_comm *comm, char **str, int i)

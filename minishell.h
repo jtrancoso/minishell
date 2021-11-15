@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 10:16:34 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 13:02:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		f_double;
 	int		errorcode;
 	int		ret;
-	int		i;
-	int		j;
-	int		k;
-	int		l;
+	int		i;			//para parse quote
+	int		j;			//para parse quote
+	int		k;			//para parse quote
+	int		l;			//para parse quote
 	int		s_quote;
 	int		d_quote;
-	char*	str;
+	char	*str;
 }				t_split;
 
 typedef struct s_comm
@@ -148,6 +148,8 @@ void			free_env(void *cont);
 void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
 void			clean_quotes(t_list *list, t_comm *comm, t_split *split);
+void			fill_str(t_list *list, t_comm *comm, t_split *split,
+					char **aux);
 char			*get_path(t_list *list, t_comm *comm, char *cmd, int i);
 void			*ft_malloc(size_t size);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
@@ -165,6 +167,8 @@ void			fill_list(t_list *list, t_comm *comm, t_list *new,
 					t_list *export);
 void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
 char			*point_path(t_split *split, char *cmd);
+void			init_var_clean_quotes(t_list *list, t_comm *comm,
+					t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);

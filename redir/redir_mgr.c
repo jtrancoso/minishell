@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_mgr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/13 10:08:30 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 12:24:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 	str = NULL;
 	while ((((t_comm *)((*list)->content))->page) == comm->p_page)
 	{
-		printf("page: %d\n", comm->p_page);
 		if (((t_comm *)((*list)->content))->t_word && !str)
 			str = ft_strdup(((t_comm *)((*list)->content))->t_word);
 		else if (!((t_comm *)((*list)->content))->t_word && str)
@@ -30,7 +29,8 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			aux = str;
 			if (((t_comm *)((*list)->content))->redir.rest)
 			{
-				str = ft_strjoin(str, ((t_comm *)((*list)->content))->redir.rest);
+				str = ft_strjoin(str, ((t_comm *)((*list)
+								->content))->redir.rest);
 				free (aux);
 			}
 			if (comm->redir.fdout)

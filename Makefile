@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/14 11:32:49 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/15 13:02:58 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS		=	main.c \
 				./parser/parser_error.c \
 				./command/parse_command.c \
 				./command/parse_command_quotes.c \
+				./command/parse_command_quotes2.c \
 				./command/comm_utils.c \
 				./command/paths.c \
 				./exec/exit.c \

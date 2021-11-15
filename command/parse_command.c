@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 10:14:01 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 12:20:02 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void	init_parse(t_list *list, t_comm *comm, t_split *split)
 {
-	comm->cmd.cmd = ft_splitshell(split, \
-		((t_comm *)list->content)->t_command, ' ');
-	//int i = 0; // Creo que esta parte se puede eliminar ver con Jesus
-	//while (comm->cmd.cmd[i])
-	//	i++;
+	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)
+			->t_command, ' ');
 	create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
 	clean_quotes(list, comm, split);
@@ -66,6 +63,8 @@ int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 	return (0);
 }
 
+/*line 87 = BLACKMAGIC*/
+
 void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
 {
 	int		status;
@@ -85,7 +84,7 @@ void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
 		else
 		{
 			wait(&status);
-			split->errorcode = status >> 8; //BRUJERIA
+			split->errorcode = status >> 8;
 		}
 	}	
 }

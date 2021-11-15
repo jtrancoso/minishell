@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/13 10:41:32 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 13:29:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void	check_env(t_comm *comm, char **envp)
 int	main(int argv, char **argc, char **envp)
 {
 	t_list	*list;
-	t_list	*new;
-	t_env	*env;
 	t_comm	comm;
 	t_split	split;
-	int		i;
+	int		i;  // se quita y se mete en la funcion de look_pages
 
 	//atexit(miraleaks);
 	print_prompt(&comm);
@@ -148,6 +146,15 @@ int	main(int argv, char **argc, char **envp)
 		list = comm.parse_head;
 		int fd[2]; //TODO: habra que meterlo en la funcion correspondiente
 		comm.p_page = 1;
+
+		/**
+		 * 4 casos:
+		 * si no hay pipe -> se hace comando simple
+		 * si hay pipe solo der -> se crea pipe y se gestiona el output
+		 * si hay pipe ambos laods -> se gestiona input y ouput
+		 * si hay ultimo pipe izq y fin o ; -> se esperan a los pipes anteriores
+		**/
+	
 		while (list)
 		{
 			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0)

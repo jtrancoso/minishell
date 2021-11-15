@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/13 08:00:57 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 13:18:48 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	ft_error(t_split *split, char *line, int error)
 	}
 	if (error == 7 || error == 8)
 		ft_error2(split, line, error);
-	split->errorcode = 1; //FIXME: ESTO ESTA EN TENGUERENGUE
+	split->errorcode = 1;
 	return (1);
 }
