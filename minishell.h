@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/14 11:34:20 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 10:16:34 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void			export_list(t_list *list, t_comm *comm, t_split *split);
 void			fill_list(t_list *list, t_comm *comm, t_list *new,
 					t_list *export);
 void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
+char			*point_path(t_split *split, char *cmd);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);

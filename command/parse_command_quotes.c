@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 11:30:22 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/14 11:42:55 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 09:46:22 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,21 @@ void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 	while (comm->cmd.cmd[i])
 	{
 		l = 0;
-		printf("--l1: %d\n", l);
+		//printf("--l1: %d\n", l);
 		split->k = 0;
 		aux[j] = ft_malloc(sizeof(char *) * (ft_strlen(comm->cmd.cmd[i])) + 1);
 		while (comm->cmd.cmd[i][split->k])
 		{
-			printf("--l3: %d\n", l);
+			//printf("--l3: %d\n", l);
 			if (split->s_quote % 2 == 0 && split->d_quote % 2 == 0)
 			{
 				if (comm->cmd.cmd[i][split->k] == '\\')
 				{
 					split->k++;
-					if (comm->cmd.cmd[i][split->k] == '\\' || comm->cmd.cmd[i][split->k] == '\'' || comm->cmd.cmd[i][split->k] == '\"' || comm->cmd.cmd[i][split->k] == '~')
+					if (comm->cmd.cmd[i][split->k] == '\\'
+						|| comm->cmd.cmd[i][split->k] == '\''
+						|| comm->cmd.cmd[i][split->k] == '\"'
+						|| comm->cmd.cmd[i][split->k] == '~')
 					{
 						aux[j][l++] = comm->cmd.cmd[i][split->k];
 						if (comm->cmd.cmd[i][split->k + 1] == '~')
@@ -97,12 +100,15 @@ void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 				if (comm->cmd.cmd[i][split->k] == '\\')
 				{
 					split->k++;
-					if (comm->cmd.cmd[i][split->k] == '\'' || (comm->cmd.cmd[i][split->k] != '\\' && comm->cmd.cmd[i][split->k] != '\"'))
+					if (comm->cmd.cmd[i][split->k] == '\''
+						|| (comm->cmd.cmd[i][split->k] != '\\'
+						&& comm->cmd.cmd[i][split->k] != '\"'))
 					{
 						aux[j][l++] = '\\';
 						aux[j][l++] = comm->cmd.cmd[i][split->k];
 					}
-					else if (comm->cmd.cmd[i][split->k] == '\\' || comm->cmd.cmd[i][split->k] == '\"')
+					else if (comm->cmd.cmd[i][split->k] == '\\'
+						|| comm->cmd.cmd[i][split->k] == '\"')
 						aux[j][l++] = comm->cmd.cmd[i][split->k];
 				}
 				else if (comm->cmd.cmd[i][split->k] == '\"')
@@ -115,9 +121,9 @@ void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		aux[j][l] = '\0';
 		i++;
 		j++;
-		printf("--l2: %d\n", l);
+		//printf("--l2: %d\n", l);
 	}
 	aux[j] = NULL;
-    fill_str(list, comm, split, aux);
+	fill_str(list, comm, split, aux);
 	ft_malloc_free(comm, aux, j);
 }

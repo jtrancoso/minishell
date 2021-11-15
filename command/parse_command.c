@@ -6,21 +6,22 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/14 11:31:46 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/15 10:14:01 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*point_path(t_split *split, char *cmd)
+void	init_parse(t_list *list, t_comm *comm, t_split *split)
 {
-	char	*aux;
-	char	*expand;
-
-	aux = getcwd(NULL, 0);
-	expand = ft_strjoin(aux, cmd + 1);
-	free (aux);
-	return (expand);
+	comm->cmd.cmd = ft_splitshell(split, \
+		((t_comm *)list->content)->t_command, ' ');
+	//int i = 0; // Creo que esta parte se puede eliminar ver con Jesus
+	//while (comm->cmd.cmd[i])
+	//	i++;
+	create_history(list, comm, split);
+	comm->cmd.env_array = ft_superglue(list, comm);
+	clean_quotes(list, comm, split);
 }
 
 int	check_path(char *cmd)
@@ -65,21 +66,37 @@ int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 	return (0);
 }
 
+void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
+{
+	int		status;
+	t_list	*env_list;
+
+	if (check_path(comm->cmd.cmd[0]) != 2)
+	{
+		status = 0;
+		env_list = comm->env_head;
+		list = comm->parse_head;
+		comm->pid = fork();
+		if (comm->pid == 0)
+		{
+			if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
+				exit(ft_error(split, comm->cmd.cmd[0], 4));
+		}
+		else
+		{
+			wait(&status);
+			split->errorcode = status >> 8; //BRUJERIA
+		}
+	}	
+}
+
 int	parse_command(t_list *list, t_comm *comm, t_split *split)
 {
-	t_list	*env_list;
-	int		status;
 	char	**cmd;
 	char	*path;
 	char	**env_array;
 
-	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)->t_command, ' ');
-	//int i = 0; // Creo que esta parte se puede eliminar ver con Jesus
-	//while (comm->cmd.cmd[i])
-	//	i++;
-	create_history(list, comm, split);
-	comm->cmd.env_array = ft_superglue(list, comm);
-	clean_quotes(list, comm, split);
+	init_parse(list, comm, split);
 	if (comm->cmd.cmd[0])
 	{
 		if (!check_path(comm->cmd.cmd[0]))
@@ -93,23 +110,7 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 			split->errorcode = exec_comm(list, comm, split);
 		}
-		if (check_path(comm->cmd.cmd[0]) != 2)
-		{
-			status = 0;
-			env_list = comm->env_head;
-			list = comm->parse_head;
-			comm->pid = fork();
-			if (comm->pid == 0)
-			{
-				if (execve(comm->cmd.path, comm->cmd.cmd, comm->cmd.env_array) != 0)
-					exit(ft_error(split, comm->cmd.cmd[0], 4));
-			}
-			else
-			{
-				wait(&status);
-				split->errorcode = status >> 8; //BRUJERIA
-			}
-		}
+		exec_made_function(list, comm, split);
 		free(comm->cmd.path);
 		ft_malloc_free(comm, comm->cmd.cmd, 0);
 		ft_malloc_free(comm, comm->cmd.env_array, 0);

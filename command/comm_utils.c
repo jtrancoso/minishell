@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   comm_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/12 14:15:05 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/15 10:13:13 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*point_path(t_split *split, char *cmd)
+{
+	char	*aux;
+	char	*expand;
+
+	aux = getcwd(NULL, 0);
+	expand = ft_strjoin(aux, cmd + 1);
+	free (aux);
+	return (expand);
+}
 
 char	*glue_content(t_list *list, t_comm *comm, char **str, int i)
 {
