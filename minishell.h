@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 10:21:53 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:08:04 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		s_quote;
 	int		d_quote;
 	char	*str;
+	int		fd_read;
+	int		pipe_wait;
+	int		last_pid;
 }				t_split;
 
 typedef struct s_comm
@@ -122,9 +125,7 @@ typedef struct s_comm
 	int			fd;
 	int			page;
 	int			p_page;
-	int			fd_read;
-	int			pipe_wait;
-	int			last_pid;
+	int			next_semi;
 
 	t_export	export;
 	t_list		*env_head;

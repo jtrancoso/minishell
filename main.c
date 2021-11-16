@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 10:47:49 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:21:37 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	main(int argv, char **argc, char **envp)
 			{
 				if (((t_comm *)list->next->content)->t_pipe == 1)
 					((t_comm *)list->content)->post_pipe = 1;
+				if (((t_comm *)list->next->content)->t_semi == 1)
+					((t_comm *)list->content)->next_semi = 1;
 			}
 			if (((t_comm *)list->content)->t_pipe == 1)
 			{
@@ -157,28 +159,33 @@ int	main(int argv, char **argc, char **envp)
 		//comm.fd_read = 0;
 		int fd_read;
 		fd_read = 0;
-		comm.pipe_wait = 0;
+		split.pipe_wait = 0;
 		while (list)
 		{
-			comm.last_pid = 0;
-			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0)
+			split.last_pid = 0;
+			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0 && ((t_comm *)list->content)->t_pipe == 0)
 			{
 				manage_redir(&list, &comm, &split);
 				printf("He llegado por aquí\n");
 			}
-			if (((t_comm *)list->content)->post_pipe == 1)
+			if (((t_comm *)list->content)->post_pipe == 1 && ((t_comm *)list->content)->t_word != NULL)
 			{
 				pipe(fd);
 				printf("output: %s\n", ((t_comm *)list->content)->t_word);
 				pipe_output(&list, &comm, &split, fd, &fd_read);
 			}
-			else if (((t_comm *)list->content)->prev_pipe == 1)
+			else if (((t_comm *)list->content)->prev_pipe == 1 && ((t_comm *)list->content)->t_word != NULL)
 			{
 				printf("He llegado a este otro punto\n");
+				printf("input: %s\n", ((t_comm *)list->content)->t_word);
 				pipe_input(&list, &comm, &split, &fd_read);
 			}
-			if (comm.last_pid && (((t_comm *)list->content)->t_semi == 1 || !list->next))
+			if (split.last_pid && (((t_comm *)list->content)->next_semi == 1 || !list->next))
+			{
+				printf("me espero\n");
 				wait_pipes(&comm, &split);
+			}
+			printf("avanzo lista\n");
 			list = list->next;
 		}
 		if (!pars)

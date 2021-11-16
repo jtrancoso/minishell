@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 19:49:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:09:18 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 	comm->redir.fdin = 0;
 	comm->redir.fdout = 0;
 	//test_list(*list, comm);
-	printf("word: %s pipe: %d\n", ((t_comm*)(*list)->content)->t_word, ((t_comm*)(*list)->content)->t_pipe);
+	printf("word: %s\n", ((t_comm*)(*list)->content)->t_word);
 	str = NULL;
 	while ((((t_comm *)((*list)->content))->page) == comm->p_page)
 	{
@@ -55,9 +55,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			if (comm->redir.fdin)
 				comm->redir.real_fdin = dup(0);
 		}
-		if ((((*list)->next)
-			&& ((((t_comm *)((*list)->next)->content)->t_semi) == 1))
-			|| !((*list)->next)) //FIXME: reevaluar uso de pages
+		if ((((*list)->next) && ((((t_comm *)((*list)->next)->content)->t_semi) == 1)) || !((*list)->next)) //FIXME: reevaluar uso de pages
 		{
 			((t_comm *)((*list)->content))->t_command = ft_strdup(str);
 			if (str)
