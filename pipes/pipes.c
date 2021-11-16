@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 14:00:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:01:11 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd, int *fd_r
 		close(fd[1]);
 		fprintf(stderr, "ejecutamos output\n");
 		fprintf(stderr, "fd out:%d\n", fd[1]);
-		manage_redir(list, ((t_comm *)(*list)->content), split);
+		manage_redir(list, comm, split);
 		exit(split->errorcode);
 	}
 	else if (pid < 0)
@@ -58,7 +58,7 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd_read)
 		close(*fd_read);
 		printf("ejecutamos input\n");
 		fprintf(stderr, "fd in:%d\n", *fd_read);
-		manage_redir(list, ((t_comm *)(*list)->content), split);
+		manage_redir(list, comm, split);
 		exit(split->errorcode);
 	}
 	else if (pid < 0)
@@ -78,9 +78,10 @@ void	wait_pipes(t_comm *comm, t_split *split)
 	printf("wait con %d\n", split->last_pid);
 	waitpid(split->last_pid, &status, 0);
 	split->errorcode = status >> 8;
+	printf("wait: %d\n", split->pipe_wait);
 	while (i < split->pipe_wait - 1)
 	{
-		printf("cerramos hijo\n");
+		printf("cerramos hijo %d\n", i);
 		wait(NULL);
 		i++;
 	}

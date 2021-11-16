@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 14:09:18 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:40:31 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 
 	comm->redir.fdin = 0;
 	comm->redir.fdout = 0;
-	//test_list(*list, comm);
-	printf("word: %s\n", ((t_comm*)(*list)->content)->t_word);
+	//test_list(list, comm);
+	fprintf(stderr, "word: %s\n", ((t_comm*)(*list)->content)->t_word);
 	str = NULL;
-	while ((((t_comm *)((*list)->content))->page) == comm->p_page)
+	//fprintf(stderr, "page: %d\n", split->p_page);
+	//fprintf(stderr, "list: %p\n", list);
+	while ((((t_comm *)((*list)->content))->page) == split->p_page)
 	{
+		//test_list(*list, comm);
+		//fprintf(stderr, "PREPARSE %s\n", ((t_comm*)(*list)->content)->t_word);
 		if (((t_comm *)((*list)->content))->t_word && !str)
 			str = ft_strdup(((t_comm *)((*list)->content))->t_word);
 		else if (!((t_comm *)((*list)->content))->t_word && str)
@@ -55,8 +59,9 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			if (comm->redir.fdin)
 				comm->redir.real_fdin = dup(0);
 		}
-		if ((((*list)->next) && ((((t_comm *)((*list)->next)->content)->t_semi) == 1)) || !((*list)->next)) //FIXME: reevaluar uso de pages
+		if ((((*list)->next) && ((((t_comm *)((*list)->next)->content)->t_semi) == 1 || (((t_comm *)((*list))->content)->post_pipe))) || !((*list)->next)) //FIXME: reevaluar uso de pages
 		{
+			//fprintf(stderr, "PARSEAMOS %s\n", ((t_comm*)(*list)->content)->t_word);
 			((t_comm *)((*list)->content))->t_command = ft_strdup(str);
 			if (str)
 				free(str);
@@ -78,7 +83,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				dup2(comm->redir.real_fdin, 0);
 				close(comm->redir.real_fdin);
 			}
-			comm->p_page++;
+			split->p_page++;
 			if (((*list)->next))
 				list = &((*list)->next);
 		}

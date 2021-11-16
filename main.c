@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 13:21:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:01:26 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	main(int argv, char **argc, char **envp)
 		//test_list(list, &comm);
 		list = comm.parse_head;
 		int fd[2]; //TODO: habra que meterlo en la funcion correspondiente
-		comm.p_page = 1;
+		split.p_page = 1;
 
 		/**
 		 * 4 casos:

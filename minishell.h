@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 13:08:04 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:02:40 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		fd_read;
 	int		pipe_wait;
 	int		last_pid;
+	int		p_page;
 }				t_split;
 
 typedef struct s_comm
