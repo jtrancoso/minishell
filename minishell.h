@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 19:27:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:21:53 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ char			**ft_splitshell(t_split *split, char const *s, char c);
 char			**ft_splitshellgt(t_split *split, char const *s, char c);
 char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split,
 					char *line);
+char			*ft_strcpy(char *str);
+char			*expand_dollar(t_comm *comm, char *aux_id);
+char			*ft_askdollar(t_comm *comm, t_split *split, char *aux_id);
 void			check_quote(t_split *split, const char *c);
 int				check_inverted_var(const char *c);
 void			test_list(t_list *list, t_comm *comm);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 19:52:10 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:47:49 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,10 @@ int	main(int argv, char **argc, char **envp)
 		{
 			comm.last_pid = 0;
 			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0)
+			{
 				manage_redir(&list, &comm, &split);
+				printf("He llegado por aquí\n");
+			}
 			if (((t_comm *)list->content)->post_pipe == 1)
 			{
 				pipe(fd);
@@ -170,7 +173,10 @@ int	main(int argv, char **argc, char **envp)
 				pipe_output(&list, &comm, &split, fd, &fd_read);
 			}
 			else if (((t_comm *)list->content)->prev_pipe == 1)
+			{
+				printf("He llegado a este otro punto\n");
 				pipe_input(&list, &comm, &split, &fd_read);
+			}
 			if (comm.last_pid && (((t_comm *)list->content)->t_semi == 1 || !list->next))
 				wait_pipes(&comm, &split);
 			list = list->next;
