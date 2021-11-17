@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 19:01:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:01:39 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int	main(int argv, char **argc, char **envp)
 		}*/
 		//test_list(list, &comm);
 		list = comm.parse_head;
-		int fd[2]; //TODO: habra que meterlo en la funcion correspondiente
+		int *fd; //TODO: habra que meterlo en la funcion correspondiente
 		split.p_page = 1;
 
 		/**
@@ -156,38 +156,17 @@ int	main(int argv, char **argc, char **envp)
 		 * si hay pipe ambos laods -> se gestiona input y ouput
 		 * si hay ultimo pipe izq y fin o ; -> se esperan a los pipes anteriores
 		**/
-		//comm.fd_read = 0;
-		int fd_read;
-		fd_read = 0;
+
 		split.pipe_wait = 0;
+		fd = ft_malloc(sizeof(int) * 2);
 		while (list)
 		{
 			split.last_pid = 0;
-			if (((t_comm *)list->content)->post_pipe == 0 && ((t_comm *)list->content)->prev_pipe == 0 && ((t_comm *)list->content)->t_pipe == 0)
-			{
-				manage_redir(&list, &comm, &split);
-				printf("He llegado por aquí\n");
-			}
-			if (((t_comm *)list->content)->post_pipe == 1 && ((t_comm *)list->content)->t_word != NULL)
-			{
-				pipe(fd);
-				printf("output: %s\n", ((t_comm *)list->content)->t_word);
-				pipe_output(&list, &comm, &split, fd, &fd_read);
-			}
-			else if (((t_comm *)list->content)->prev_pipe == 1 && ((t_comm *)list->content)->t_word != NULL)
-			{
-				printf("He llegado a este otro punto\n");
-				printf("input: %s\n", ((t_comm *)list->content)->t_word);
-				pipe_input(&list, &comm, &split, &fd_read);
-			}
-			if (split.last_pid && (((t_comm *)list->content)->next_semi == 1 || !list->next))
-			{
-				printf("me espero\n");
-				wait_pipes(&comm, &split);
-			}
+			execute_pipes(&list, &comm, &split, fd);
 			printf("avanzo lista\n");
 			list = list->next;
 		}
+		free(fd);
 		if (!pars)
 			ft_lstclear(&comm.parse_head, &free_list);
 		print_user(&comm);

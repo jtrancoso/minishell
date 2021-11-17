@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/17 09:46:14 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:03:41 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,12 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	char	*str;
 	int		fd_read;
 	int		pipe_wait;
+	int		pid;
 	int		last_pid;
 	int		p_page;
+	int		fd_out;
+	int		fd_in;
+	int		last_fd;
 }				t_split;
 
 typedef struct s_comm
@@ -196,8 +200,10 @@ void			ctrl_d(t_split *split);
 void			galactic_env(t_comm *comm);
 void			our_read_line(t_comm *comm, t_split *split);
 void			fill_line(t_comm *comm, t_line *line);
-void			pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd, int *fd_read);
-void			pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd_read);
+void			execute_pipes(t_list **list, t_comm *comm, t_split *split, int *fd);
+void			pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2]);
+void			pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2]);
+void			pipe_input_output(t_list **list, t_comm *comm, t_split *split, int *fd[2]);
 void			wait_pipes(t_comm *comm, t_split *split);
 
 #endif

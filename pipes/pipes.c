@@ -6,84 +6,105 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 19:01:11 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:42:49 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd, int *fd_read)
+void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 {
-	pid_t	pid;
+	pid_t pid;
 
 	pid = fork();
-	printf("he hecho fork output con %d\n", pid);
-	if (pid == 0)
+	fprintf(stderr, "he hecho fork out con %d\n", pid);
+	if (!pid)
 	{
-		if (*fd_read)
-		{
-			dup2(*fd_read, STDIN_FILENO);
-			close(*fd_read);
-		}
-		close(fd[0]);
-		printf("output dentro: %s\n", ((t_comm *)(*list)->content)->t_word);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		fprintf(stderr, "ejecutamos output\n");
-		fprintf(stderr, "fd out:%d\n", fd[1]);
+		close((*fd)[0]);
+		dup2((*fd)[1], 1);
+		close((*fd)[1]);
+		//parse_command(&list, comm, split);
+		fprintf(stderr, "hijo de output\n");
 		manage_redir(list, comm, split);
-		exit(split->errorcode);
+		exit(split->errorcode);  //TODO: comprobar exit code
 	}
-	else if (pid < 0)
-		ft_error(split, NULL, 9);
-	split->pipe_wait++;
-	if (*fd_read)
-		close(*fd_read);
-	*fd_read = fd[0];
-	close(fd[1]);
+	else
+	{
+		fprintf(stderr, "padre de output\n");
+		close((*fd)[1]);
+		split->last_fd = dup((*fd)[0]); //TODO: mirar si es necesario
+		fprintf(stderr, "last fd en out: %d\n", split->last_fd);
+		close((*fd)[0]);
+		split->pipe_wait++;
+	}
 }
 
-void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd_read)
+void	pipe_input_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 {
-	pid_t	pid;
+	pid_t pid;
 
-	printf("detro input\n");
 	pid = fork();
-	printf("he hecho fork input con %d\n", pid);
-	if (pid == 0)
+	if (!pid)
 	{
-		signal(SIGINT, fork_sigint);
-		signal(SIGQUIT, fork_sigquit);
-		dup2(*fd_read, STDIN_FILENO);
-		close(*fd_read);
-		printf("ejecutamos input\n");
-		fprintf(stderr, "fd in:%d\n", *fd_read);
+		close((*fd)[0]);
+		dup2(split->last_fd, 0);
+		close(split->last_fd);
+		dup2((*fd)[1], 1);
+		close ((*fd)[1]);
+		//parse_command(*list, comm, split);
 		manage_redir(list, comm, split);
-		exit(split->errorcode);
+		exit(split->errorcode);  //TODO: comprobar exit code
 	}
-	else if (pid < 0)
-		ft_error(split, NULL, 9);
-	split->pipe_wait++;
-	split->last_pid = pid;
-	close(*fd_read);
-	*fd_read = 0;
+	else
+	{
+		fprintf(stderr, "padre de output e input\n");
+		close((*fd)[1]);
+		split->last_fd = dup((*fd)[0]); //TODO: mirar si es necesario
+		close((*fd)[0]);
+		split->pipe_wait++;
+	}
+}
+
+void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
+{
+	pid_t pid;
+
+	(void)fd;
+	pid = fork();
+	fprintf(stderr, "he hecho fork input con %d\n", pid);
+	if (!pid)
+	{
+		signal(SIGINT, default_sigint);
+		signal(SIGQUIT, default_sigquit);
+		fprintf(stderr, "last fd en input: %d\n", split->last_fd);
+		dup2(split->last_fd, 0);
+		close(split->last_fd);
+		fprintf(stderr, "hijo de intput\n");
+		//parse_command(*list, comm, split);
+		manage_redir(list, comm, split);
+		exit(split->errorcode);  //TODO: comprobar exit code
+	}
+	else
+	{
+		fprintf(stderr, "padre de intput\n");
+		split->last_pid = pid;
+		close(split->last_fd);
+		split->pipe_wait++;
+	}
 }
 
 void	wait_pipes(t_comm *comm, t_split *split)
 {
-	int	status;
-	int	i;
-
-	i = 0;
-	printf("wait con %d\n", split->last_pid);
-	waitpid(split->last_pid, &status, 0);
-	split->errorcode = status >> 8;
-	printf("wait: %d\n", split->pipe_wait);
-	while (i < split->pipe_wait - 1)
+	int status;
+	int i;
+	
+	if (split->pipe_wait > 0)
 	{
-		printf("cerramos hijo %d\n", i);
-		wait(NULL);
-		i++;
+		fprintf(stderr, "esperamos a pid: %d\n", split->last_pid);
+		waitpid(split->last_pid, &status, 0);
+		i = 0;
+		while (++i < split->pipe_wait)
+			wait(NULL);
+		split->errorcode = status >> 8;
 	}
-	split->pipe_wait = 0;
 }

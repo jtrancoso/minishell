@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/16 10:16:35 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/17 13:08:41 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS		=	main.c \
 				./utils/prompt.c \
 				./utils/free_things.c \
 				./readline/readline.c \
+				./pipes/execute_pipes.c \
 				./pipes/pipes.c
 
 

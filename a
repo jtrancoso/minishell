@@ -1,5 +1,1 @@
-word: echo hola  pipe: 0 semi: 0 gtgt: 0 gt: 0 lt: 0, page: 1 file: (null) rest: (null) prev_pipe: 0 post_pipe 0
-word: (null) pipe: 0 semi: 0 gtgt: 0 gt: 1 lt: 0, page: 1 file: a rest: (null) prev_pipe: 0 post_pipe 0
-word:  a pipe: 0 semi: 0 gtgt: 0 gt: 0 lt: 0, page: 1 file: (null) rest: (null) prev_pipe: 0 post_pipe 0
-
 hola
