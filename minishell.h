@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/16 19:02:40 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:46:14 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ char			**ft_splitshell(t_split *split, char const *s, char c);
 char			**ft_splitshellgt(t_split *split, char const *s, char c);
 char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split,
 					char *line);
+int				ndollar(char *line);
+int				lenval(t_list *list, t_comm *comm);
 char			*ft_strcpy(char *str);
 char			*expand_dollar(t_comm *comm, char *aux_id);
 char			*ft_askdollar(t_comm *comm, t_split *split, char *aux_id);

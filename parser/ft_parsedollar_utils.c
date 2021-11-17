@@ -6,11 +6,44 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 10:15:58 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/16 10:37:53 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:46:14 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int		ndollar(char *line)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		if (line[i] == '$') //FIXME: si es dolar solo pues se pone 
+			j++;
+		i++;
+	}
+	return (j);
+}
+
+int		lenval(t_list *list, t_comm *comm)
+{
+	int	lmax;
+
+	list = comm->env_head;
+	while (list)
+	{
+		if (((t_env *)list->content)->value)
+		{
+			if (ft_strlen(((t_env *)list->content)->value) > lmax)
+				lmax = ft_strlen(((t_env *)list->content)->value);
+		}
+		list = list->next;
+	}
+	return (lmax);
+}
 
 char	*ft_strcpy(char *str) //TODO: Si al final de todo no se usa, ELIMINAR
 {
