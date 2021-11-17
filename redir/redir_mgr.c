@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/17 18:29:46 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:53:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 
 	comm->redir.fdin = 0;
 	comm->redir.fdout = 0;
-	//test_list(list, comm);
+	test_list(*list, comm);
 	fprintf(stderr, "word: %s\n", ((t_comm*)(*list)->content)->t_word);
 	str = NULL;
 	//fprintf(stderr, "page: %d\n", split->p_page);
@@ -69,6 +69,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				dup2(comm->redir.fdout, 1);
 			if (comm->redir.fdin)
 				dup2(comm->redir.fdin, 0);
+			fprintf(stderr, "te parseo el comando\n");
 			parse_command(*list, comm, split);
 			//test_list(list, &comm);
 			if (comm->redir.fdout)
@@ -85,7 +86,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			}
 			split->p_page++;
 			if (((*list)->next))
-				list = &((*list)->next);
+				list = &((*list)->next);  //FIXME: que no siga parseando todos los pipes, que entre de uno en uno
 		}
 		if (((*list)->next) || ((t_comm *)((*list)->content))->page == 0)
 		{
