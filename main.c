@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/17 19:01:39 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:50:49 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ int	main(int argv, char **argc, char **envp)
 				if (((t_comm *)list->next->content)->t_semi == 1)
 					((t_comm *)list->content)->next_semi = 1;
 			}
+			if (((t_comm *)list->content)->t_gt == 1 || ((t_comm *)list->content)->t_lt == 1 || ((t_comm *)list->content)->t_gtgt == 1)
+					((t_comm *)list->next->content)->prev_redir = 1;
 			if (((t_comm *)list->content)->t_pipe == 1)
 			{
 				if (((t_comm *)list->next->content)->t_word != NULL)
@@ -113,6 +115,7 @@ int	main(int argv, char **argc, char **envp)
 			}
 			list = list->next;
 		}
+		test_list(list, &comm);
 		/*int page;					//TODO: por lo que he estado viendo con mario esto no hace tanta falta porque los > | no cambian el fd
 		list = comm.parse_head;
 		while (list)
@@ -147,7 +150,7 @@ int	main(int argv, char **argc, char **envp)
 		//test_list(list, &comm);
 		list = comm.parse_head;
 		int *fd; //TODO: habra que meterlo en la funcion correspondiente
-		split.p_page = 1;
+		split.p_page = 1; 
 
 		/**
 		 * 4 casos:
@@ -163,7 +166,7 @@ int	main(int argv, char **argc, char **envp)
 		{
 			split.last_pid = 0;
 			execute_pipes(&list, &comm, &split, fd);
-			printf("avanzo lista\n");
+			//printf("avanzo lista\n");
 			list = list->next;
 		}
 		free(fd);

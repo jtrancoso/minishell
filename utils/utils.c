@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:37:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:52:01 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init_2(t_comm *comm)
 {
 	comm->prev_pipe = 0;
 	comm->post_pipe = 0;
+	comm->prev_redir = 0;
 	comm->redir.file = NULL;
 	comm->redir.rest = NULL;
 	comm->redir.last_fdin = 1;

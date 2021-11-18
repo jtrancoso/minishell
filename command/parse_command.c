@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/17 19:47:23 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:26:21 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 void	init_parse(t_list *list, t_comm *comm, t_split *split)
 {
+	//fprintf(stderr, "dentro: %s\n", ((t_comm *)list->content)->t_command);
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)
 			->t_command, ' ');
+	int i = 0;
+	while (comm->cmd.cmd[i])
+	{
+		//fprintf(stderr, "cmd: %s\n", comm->cmd.cmd[i]);
+		i++;
+	}
 	//create_history(list, comm, split);
 	comm->cmd.env_array = ft_superglue(list, comm);
 	clean_quotes(list, comm, split);
@@ -46,7 +53,7 @@ int	check_path(char *cmd)
 
 int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 {
-	//fprintf(stderr, "builtin: %s\n", comm->cmd.path);
+	////fprintf(stderr, "builtin: %s\n", comm->cmd.path);
 	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
 		return (ft_pwd(list, comm));
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
@@ -71,7 +78,7 @@ void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
 	int		status;
 	t_list	*env_list;
 
-	//fprintf(stderr, "comando: %s\n", comm->cmd.cmd[0]);
+	////fprintf(stderr, "comando: %s\n", comm->cmd.cmd[0]);
 	if (check_path(comm->cmd.cmd[0]) != 2)
 	{
 		status = 0;
@@ -97,7 +104,7 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 	char	*path;
 	char	**env_array;
 
-	fprintf(stderr, "word command: %s\n", ((t_comm*)list->content)->t_word);
+	//fprintf(stderr, "word command: %s\n", ((t_comm*)list->content)->t_command);
 	init_parse(list, comm, split);
 	if (comm->cmd.cmd[0])
 	{

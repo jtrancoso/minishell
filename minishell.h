@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/17 19:03:41 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:40:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_comm
 	int			pid;
 	int			prev_pipe;
 	int			post_pipe;
+	int			prev_redir;
 	char		*user;
 	char		*dir;
 	char		*home;
