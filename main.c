@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 13:50:49 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:42:24 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argv, char **argc, char **envp)
 	t_split	split;
 	int		i;  // se quita y se mete en la funcion de look_pages
 	
-	//atexit(miraleaks);
+	atexit(miraleaks);
 	print_prompt(&comm);
 	check_env(&comm, envp);
 	list = comm.env_head;
@@ -165,6 +165,7 @@ int	main(int argv, char **argc, char **envp)
 		while (list)
 		{
 			split.last_pid = 0;
+			fprintf(stderr, "ejecutamos pipes en main\n");
 			execute_pipes(&list, &comm, &split, fd);
 			//printf("avanzo lista\n");
 			list = list->next;

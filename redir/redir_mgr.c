@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 14:30:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:34:27 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 
 	comm->redir.fdin = 0;
 	comm->redir.fdout = 0;
-	fprintf(stderr, "ENTRAMOS\n");
+	fprintf(stderr, "ENTRAMOS a manage\n");
 	//test_list(*list, comm);
 	//fprintf(stderr, "list next: %p\n", ((*list)->next));
 	//fprintf(stderr, "word: %s page %d p_page: %d\n", ((t_comm*)(*list)->content)->t_word, ((t_comm*)(*list)->content)->page, split->p_page);
@@ -74,6 +74,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			fprintf(stderr, "STR: %s\n", str);
 			((t_comm *)((*list)->content))->t_command = ft_strdup(str);
 			fprintf(stderr, "PARSEAMOS %s\n", ((t_comm*)(*list)->content)->t_command);
+			fprintf(stderr, "ENTRAMOS CON %s\n", ((t_comm*)(*list)->content)->t_word);
 			if (str)
 				free(str);
 			if (comm->redir.fdout)
@@ -95,9 +96,11 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				dup2(comm->redir.real_fdin, 0);
 				close(comm->redir.real_fdin);
 			}
-			fprintf(stderr, "avanzamos lista con %s\n", ((t_comm *)((*list)->content))->t_word);
 			if (((*list)->next) && ((t_comm *)((*list)->content))->post_pipe == 0)
-				list = &((*list)->next);
+			{
+				fprintf(stderr, "avanzamos lista con %s\n", ((t_comm *)((*list)->content))->t_word);
+				*list = ((*list)->next);
+			}
 			else
 			{
 				fprintf(stderr, "rompemos\n");
@@ -111,7 +114,8 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				fprintf(stderr, "borro str %s\n", str);
 				str = NULL;
 			}
-			list = &((*list)->next);
+			fprintf(stderr, "avanzamos lista de parseo\n");
+			*list = ((*list)->next);
 		}
 		else
 		{

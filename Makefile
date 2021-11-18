@@ -6,7 +6,7 @@
 #    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/17 13:08:41 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/11/18 17:40:12 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ fclean : 	clean
 
 leaks:		${OBJS}
 			make -C ./libft
+			$(CC) -g -L libft/ -lft  ${OBJS} -o ${NAME}
 
 re:			fclean all
 
