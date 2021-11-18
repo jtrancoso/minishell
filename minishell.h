@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 13:40:35 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:10:52 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		pipe_wait;
 	int		pid;
 	int		last_pid;
-	int		p_page;
 	int		fd_out;
 	int		fd_in;
 	int		last_fd;
+	int		pars;
 }				t_split;
 
 typedef struct s_comm
@@ -129,8 +129,6 @@ typedef struct s_comm
 	int			f_s;
 	int			flag_n;
 	int			fd;
-	int			page;
-	int			p_page;
 	int			next_semi;
 
 	t_export	export;

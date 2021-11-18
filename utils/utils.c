@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 13:52:01 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:57:01 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_init(t_comm *comm)
 	comm->f_d = 0;
 	comm->f_s = 0;
 	comm->fd = 1;
-	comm->page = 1;
 	comm->export.ret = 0;
 	comm->export.f_valid = 0;
 	comm->export.f_exist = 0;

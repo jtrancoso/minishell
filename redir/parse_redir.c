@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:22:11 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/04 13:28:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:00:51 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,21 @@ void	parse_redir(t_list *list, t_comm *comm, t_split *split)
 	int		i;
 	char	*aux;
 
-	i = 0;
-	if (((t_comm *)list->content)->t_gt == 1
-		|| ((t_comm *)list->content)->t_gtgt == 1
-		|| ((t_comm *)list->content)->t_lt == 1)
+	list = comm->parse_head;
+	while (list)
 	{
-		while (ft_isspace(((t_comm *)list->next->content)->t_word[i]))
-			i++;
-		aux = ft_strdup(((t_comm *)list->next->content)->t_word + i);
-		get_file(list, comm, aux);
-		free (aux);
+		if (((t_comm*)list->content)->t_word == NULL)
+		i = 0;
+		if (((t_comm *)list->content)->t_gt == 1
+			|| ((t_comm *)list->content)->t_gtgt == 1
+			|| ((t_comm *)list->content)->t_lt == 1)
+		{
+			while (ft_isspace(((t_comm *)list->next->content)->t_word[i]))
+				i++;
+			aux = ft_strdup(((t_comm *)list->next->content)->t_word + i);
+			get_file(list, comm, aux);
+			free (aux);
+		}
+			list = list->next;
 	}
 }
