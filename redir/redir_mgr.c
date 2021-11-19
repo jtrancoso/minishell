@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_mgr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 18:50:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 09:23:22 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				dup2(comm->redir.fdout, 1);
 			if (comm->redir.fdin)
 				dup2(comm->redir.fdin, 0);
-			parse_command(*list, comm, split); 
+			parse_command(*list, comm, split);
 			if (comm->redir.fdout)
 			{
 				close(comm->redir.fdout);

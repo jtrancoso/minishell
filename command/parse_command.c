@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 13:26:21 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 09:13:54 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_parse(t_list *list, t_comm *comm, t_split *split)
 	//fprintf(stderr, "dentro: %s\n", ((t_comm *)list->content)->t_command);
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)
 			->t_command, ' ');
-	int i = 0;
+	int i = 0; // TODO: Creo que todo esto se puede borrar
 	while (comm->cmd.cmd[i])
 	{
 		//fprintf(stderr, "cmd: %s\n", comm->cmd.cmd[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 19:12:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 09:37:55 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	set_flags(t_list *list, t_comm *comm)
 			if (((t_comm *)list->next->content)->t_semi == 1)
 				((t_comm *)list->content)->next_semi = 1;
 		}
-		if (((t_comm *)list->content)->t_gt == 1 || ((t_comm *)list->content)->t_lt == 1 || ((t_comm *)list->content)->t_gtgt == 1)
+		if (((t_comm *)list->content)->t_gt == 1
+			|| ((t_comm *)list->content)->t_lt == 1
+			|| ((t_comm *)list->content)->t_gtgt == 1)
 			((t_comm *)list->next->content)->prev_redir = 1;
 		if (((t_comm *)list->content)->t_pipe == 1)
 		{
@@ -66,7 +68,7 @@ void	set_flags(t_list *list, t_comm *comm)
 	}
 }
 
-void	set_shlvl(t_list *list, t_comm *comm)
+void	set_shlvl(t_list *list, t_comm *comm, t_split *split)
 {
 	list = comm->env_head;
 	while (list)
@@ -106,7 +108,7 @@ int	main(int argv, char **argc, char **envp)
 	//atexit(miraleaks);
 	print_prompt(&comm);
 	check_env(&comm, envp);
-	set_shlvl(list, &comm);
+	set_shlvl(list, &comm, &split);
 	while (1)
 	{
 		signal(SIGINT, default_sigint);

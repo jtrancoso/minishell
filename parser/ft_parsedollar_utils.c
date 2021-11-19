@@ -6,13 +6,13 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 10:15:58 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/17 09:46:14 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/19 09:29:47 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ndollar(char *line)
+int	ndollar(char *line)
 {
 	int	i;
 	int	j;
@@ -28,7 +28,7 @@ int		ndollar(char *line)
 	return (j);
 }
 
-int		lenval(t_list *list, t_comm *comm)
+int	lenval(t_list *list, t_comm *comm)
 {
 	int	lmax;
 

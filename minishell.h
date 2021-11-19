@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 19:10:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 10:11:11 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_split //FIXME: meterlo en t_comm
 {
 	int		f_simple;
 	int		f_double;
+	int		n;
 	int		errorcode;
 	int		ret;
 	int		i;			//para parse quote
@@ -165,6 +166,7 @@ void			clean_quotes(t_list *list, t_comm *comm, t_split *split);
 void			fill_str(t_list *list, t_comm *comm, t_split *split,
 					char **aux);
 char			*get_path(t_list *list, t_comm *comm, char *cmd, int i);
+void			init_splitshell(t_split *split, int flag);
 void			*ft_malloc(size_t size);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error(t_comm *comm, t_split *split, char *line);
@@ -199,10 +201,14 @@ void			ctrl_d(t_split *split);
 void			galactic_env(t_comm *comm);
 void			our_read_line(t_comm *comm, t_split *split);
 void			fill_line(t_comm *comm, t_line *line);
-void			execute_pipes(t_list **list, t_comm *comm, t_split *split, int *fd);
-void			pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2]);
-void			pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2]);
-void			pipe_input_output(t_list **list, t_comm *comm, t_split *split, int *fd[2]);
+void			execute_pipes(t_list **list, t_comm *comm, t_split *split,
+					int *fd);
+void			pipe_output(t_list **list, t_comm *comm, t_split *split,
+					int *fd[2]);
+void			pipe_input(t_list **list, t_comm *comm, t_split *split,
+					int *fd[2]);
+void			pipe_input_output(t_list **list, t_comm *comm, t_split *split,
+					int *fd[2]);
 void			wait_pipes(t_comm *comm, t_split *split);
 
 #endif

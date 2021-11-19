@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 13:25:40 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 09:19:45 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	////fprintf(stderr, "he hecho fork out con %d\n", pid);
@@ -26,7 +26,7 @@ void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		////fprintf(stderr, "hijo de output\n");
 		//parse_command(*list, comm, split);
 		manage_redir(list, comm, split);
-		exit(split->errorcode);  //TODO: comprobar exit code
+		exit(split->errorcode);	//TODO: comprobar exit code
 	}
 	else
 	{
@@ -39,9 +39,10 @@ void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 	}
 }
 
-void	pipe_input_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
+void	pipe_input_output(t_list **list, t_comm *comm, t_split *split,
+	int *fd[2])
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (!pid)
@@ -53,7 +54,7 @@ void	pipe_input_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		close ((*fd)[1]);
 		//parse_command(*list, comm, split);
 		manage_redir(list, comm, split);
-		exit(split->errorcode);  //TODO: comprobar exit code
+		exit(split->errorcode);	//TODO: comprobar exit code
 	}
 	else
 	{
@@ -68,7 +69,7 @@ void	pipe_input_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 
 void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 {
-	pid_t pid;
+	pid_t	pid;
 
 	(void)fd;
 	pid = fork();
@@ -83,7 +84,7 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		//fprintf(stderr, "hijo de intput\n");
 		//parse_command(*list, comm, split);
 		manage_redir(list, comm, split);
-		exit(split->errorcode);  //TODO: comprobar exit code
+		exit(split->errorcode);	//TODO: comprobar exit code
 	}
 	else
 	{
@@ -98,7 +99,7 @@ void	wait_pipes(t_comm *comm, t_split *split)
 {
 	int status;
 	int i;
-	
+
 	if (split->pipe_wait > 0)
 	{
 		//fprintf(stderr, "esperamos a pid: %d\n", split->last_pid);

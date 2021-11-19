@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 15:22:11 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 19:00:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 09:21:59 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	parse_redir(t_list *list, t_comm *comm, t_split *split)
 	list = comm->parse_head;
 	while (list)
 	{
-		if (((t_comm*)list->content)->t_word == NULL)
-		i = 0;
+		if (((t_comm *)list->content)->t_word == NULL)
+			i = 0;
 		if (((t_comm *)list->content)->t_gt == 1
 			|| ((t_comm *)list->content)->t_gtgt == 1
 			|| ((t_comm *)list->content)->t_lt == 1)
@@ -51,6 +51,6 @@ void	parse_redir(t_list *list, t_comm *comm, t_split *split)
 			get_file(list, comm, aux);
 			free (aux);
 		}
-			list = list->next;
+		list = list->next;
 	}
 }
