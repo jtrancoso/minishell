@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/13 07:45:38 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/19 11:58:20 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,25 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd, int i)
 	struct stat	t_stat;
 
 	paths = extract_path(list, comm);
-	aux_cmd = ft_strjoin("/", cmd);
-	while (paths[++i])
+	if (paths)
 	{
-		real_path = create_realpath(paths[i], aux_cmd);
-		comm->path.is_stat = lstat(real_path, &t_stat);
-		if (comm->path.is_stat == 0)
+		aux_cmd = ft_strjoin("/", cmd);
+		while (paths[++i])
 		{
-			aux = ft_strdup(real_path);
+			real_path = create_realpath(paths[i], aux_cmd);
+			comm->path.is_stat = lstat(real_path, &t_stat);
+			if (comm->path.is_stat == 0)
+			{
+				aux = ft_strdup(real_path);
+				free(real_path);
+				free(aux_cmd);
+				ft_malloc_free(comm, paths, i + 1);
+				return (aux);
+			}
 			free(real_path);
-			free(aux_cmd);
-			ft_malloc_free(comm, paths, i + 1);
-			return (aux);
 		}
-		free(real_path);
+		free(paths);
+		free(aux_cmd);
 	}
-	free(paths);
-	free(aux_cmd);
 	return (NULL);
 }
