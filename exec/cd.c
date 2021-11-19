@@ -6,11 +6,18 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:49:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 19:59:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:14:14 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_cd_error(t_split *split, char *cmd, char *file)
+{
+	printf("galactic: %s: %s: No such file or directory\n", cmd, file);
+	split->errorcode = 1;
+	return (1);
+}
 
 int	cd_home(t_list *list, t_comm *comm, t_split *split)
 {
@@ -20,7 +27,7 @@ int	cd_home(t_list *list, t_comm *comm, t_split *split)
 	if (comm->cmd.cmd[1])
 	{
 		if (chdir(comm->cmd.cmd[1]) != 0)
-			return (ft_error(split, comm->cmd.cmd[0], 5));
+			return (ft_cd_error(split, comm->cmd.cmd[0], comm->cmd.cmd[1]));
 	}
 	else
 	{

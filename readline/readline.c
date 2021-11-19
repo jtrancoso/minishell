@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 18:55:45 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:57:20 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:05:09 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	our_read_line(t_comm *comm, t_split *split)
 {
 	t_line	line;
 
+	split->pars = 0;
 	line.i = 0;
 	line.join_line = NULL;
 	line.bit_read = read(0, line.char_read, 1);

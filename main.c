@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 12:01:01 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:28:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,13 @@ int	main(int argv, char **argc, char **envp)
 		split.pars = ft_parseline(&comm, &split, NULL);
 		free(comm.final_line);
 		comm.final_line = NULL;
-		parse_redir(list, &comm, &split);
-		set_flags(list, &comm);
-		execute_things(list, &comm, &split);
 		if (!split.pars)
+		{
+			parse_redir(list, &comm, &split);
+			set_flags(list, &comm);
+			execute_things(list, &comm, &split);
 			ft_lstclear(&comm.parse_head, &free_list);
+		}
 		print_user(&comm);
 	}
 	return (0);

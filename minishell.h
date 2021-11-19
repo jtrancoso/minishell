@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 10:11:11 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:20:14 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int				ft_parseline(t_comm *comm, t_split *split, char *line);
 int				ft_echo(t_list *list, t_comm *comm, t_split *split);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, char *line, int error);
+int				ft_error_syntax(t_split *split, char c);
 char			**ft_splitshell(t_split *split, char const *s, char c);
 char			**ft_splitshellgt(t_split *split, char const *s, char c);
 char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split,
@@ -175,6 +176,7 @@ int				ft_pwd(t_list *list, t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
 int				ft_env(t_list *list, t_comm *comm, t_split *split);
 int				ft_export(t_list *list, t_comm *comm, t_split *split);
+void			ft_export_error(t_split *split, char *cmd, char *var);
 size_t			export_len(char *s1, char *s2);
 void			swap_list(t_list *list, t_comm *comm);
 void			sort_list(t_list *list, t_comm *comm, int *swapped);

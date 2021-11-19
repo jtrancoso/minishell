@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:40:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/12 11:39:09 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:25:02 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_unset(t_list *list, t_comm *comm, t_split *split)
 		comm->export.f_valid = 0;
 		if (!check_unset(comm, i))
 		{
-			ft_error(split, NULL, 6);
+			ft_export_error(split, comm->cmd.cmd[0], comm->cmd.cmd[i]);
 			ret = 1;
 			comm->export.f_valid = 1;
 		}
