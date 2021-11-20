@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
+#    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/20 11:42:45 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/11/20 19:36:11 by isoria-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS		=	main.c \
 				./exec/unset.c \
 				./exec/echo.c \
 				./redir/parse_redir.c \
+				./redir/redir_mgr_utils.c \
 				./redir/redir_mgr.c \
 				./signal/signal.c \
 				./utils/utils.c \

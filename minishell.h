@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 18:37:37 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:36:11 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		fd_in;
 	int		last_fd;
 	int		pars;
+	char	*aux; // para redir_mgr.c
+	char	*stred; // para redir_mgr.c
 }				t_split;
 
 typedef struct s_comm
@@ -191,6 +193,7 @@ char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);
 void			manage_redir(t_list **list, t_comm *comm, t_split *split);
+void			init_redir_mgr(t_comm *comm, t_split *split);
 void			create_history(t_list *list, t_comm *comm, t_split *split);
 void			default_sigint(int bit);
 void			fork_sigint(int bit);
