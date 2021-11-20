@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 12:12:21 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:36:04 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,21 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			if (comm->redir.fdin)
 				close(comm->redir.fdin);
 			if (((t_comm *)((*list)->content))->t_gt)
+			{
 				comm->redir.fdout = \
 					open(((t_comm *)((*list)->content))->redir.file, O_RDWR
 						| O_TRUNC | O_CREAT, 0700);
+			}
 			if (((t_comm *)((*list)->content))->t_gtgt)
 				comm->redir.fdout = \
 					open(((t_comm *)((*list)->content))->redir.file, O_RDWR
 						| O_APPEND | O_CREAT, 0700);
-			if (comm->redir.fdout)
-				comm->redir.real_fdout = dup(1);
 			if (((t_comm *)((*list)->content))->t_lt)
 			{
-				comm->redir.fdin = 	open(((t_comm *)((*list)->content))->redir.file, O_RDONLY);
+				comm->redir.fdin = open(((t_comm *)((*list)->content))->redir.file, O_RDONLY);
 				if (comm->redir.fdin == -1)
 					ft_error(split, ((t_comm *)((*list)->content))->redir.file, 5);
 			}
-			if (comm->redir.fdin)
-				comm->redir.real_fdin = dup(0);
 		}
 		if ((((*list)->next) && ((((t_comm *)((*list)->next)->content)->t_semi) == 1 || (((t_comm *)((*list))->content)->post_pipe))) || ((*list)->next) == NULL ) //FIXME: reevaluar uso de pages
 		{
@@ -62,9 +60,15 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 			if (str)
 				free(str);
 			if (comm->redir.fdout)
+			{
+				comm->redir.real_fdout = dup(1);
 				dup2(comm->redir.fdout, 1);
+			}
 			if (comm->redir.fdin)
+			{
+				comm->redir.real_fdin = dup(0);
 				dup2(comm->redir.fdin, 0);
+			}
 			if (comm->redir.fdin >= 0)
 				parse_command(*list, comm, split);
 			if (comm->redir.fdout)
@@ -90,7 +94,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				str = NULL;
 			*list = ((*list)->next);
 		}
-		else
+		else //FIXME: esto no lo hace nunca
 			return ;
 	}
 }

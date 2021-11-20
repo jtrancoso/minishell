@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 14:38:37 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:18:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 	char	*path;
 	char	**env_array;
 
-	fprintf(stderr, "word command: %s\n", ((t_comm*)list->content)->t_command);
 	init_parse(list, comm, split);
 	if (comm->cmd.cmd[0])
 	{
