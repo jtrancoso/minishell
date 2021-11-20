@@ -6,11 +6,12 @@
 #    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/20 19:36:11 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/20 19:42:23 by isoria-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	main.c \
+				main_utils.c \
 				ft_error.c \
 				test_list.c \
 				./parser/parser.c \
