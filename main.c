@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 14:03:15 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 14:22:41 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 	t_comm	comm;
 	t_split	split;
 
-	atexit(miraleaks);
+	//atexit(miraleaks);
 	list = NULL;
 	init_main(&comm, argv, argc, envp);
 	set_shlvl(list, &comm, &split);
