@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 15:43:17 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 10:48:09 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,57 +282,6 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		list = list->next;
 	}
 	list = comm->parse_head;
-	/*while (list)
-	{
-		i = 0;
-		j = 0;
-		if (((t_comm*)list->content)->t_word)
-		{
-			splitltlt = ft_splitshellgt(split, ((t_comm*)list->content)->t_word, '<');
-			while (splitltlt[i])
-				i++;
-			h = 0;
-			if (i > 1)
-			{
-				while (j < i * 2 - 1 && list)
-				{
-					if (j == 0)
-					{
-						free(((t_comm*)list->content)->t_word);
-						((t_comm*)list->content)->t_word = NULL;
-						((t_comm*)list->content)->t_word = ft_strdup(splitltlt[h]);
-						h++;
-					}
-					else
-					{
-						new = ft_malloc(sizeof(t_list));
-						otro = ft_malloc(sizeof(t_comm));
-						new->content = otro;
-						ft_init(otro);
-						if (j % 2 == 0 && j != 0)
-						{
-							((t_comm*)new->content)->t_word = ft_strdup(splitltlt[h]);
-							h++;
-						}
-						else if (j % 2 != 0)
-							((t_comm*)new->content)->t_ltlt = 1;
-						ft_lstadd_middle(&list, &new);
-						list = list->next;
-					}
-					j++;
-				}
-			}
-			else
-			{
-				free(splitltlt[0]);
-				splitltlt[0] = NULL;
-			}
-			ft_malloc_free(comm, splitltlt, 0);
-		}
-		else
-			free(((t_comm*)list->content)->t_word);
-		list = list->next;
-	}*/
 	while (list)
 	{
 		i = 0;
