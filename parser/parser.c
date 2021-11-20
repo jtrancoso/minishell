@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 10:48:09 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 12:15:36 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		free(line);
 		return (1);
 	}
-	i = 0;
 	j = 0;
 	h = 0;
-	splitsemi = ft_splitshell(split, line, ';');
+	splitsemi = ft_splitshell(split, line + i, ';');
+	i = 0;
 	while (splitsemi[i])
 		i++;
 	comm->parse_head = NULL;

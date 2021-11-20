@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 09:13:54 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 13:07:07 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
 		return (ft_echo(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
-		ft_exit(list, comm, split);
+		check_exit(list, comm, split);
 	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)
 		return (ft_env(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
@@ -68,7 +68,7 @@ int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 		return (ft_unset(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "export", 6) == 0)
 		return (ft_export(list, comm, split));
-	return (0);
+	return (split->errorcode);
 }
 
 /*line 87 = BLACKMAGIC*/

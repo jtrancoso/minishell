@@ -6,13 +6,29 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:27:45 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 13:44:41 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 13:21:48 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(t_list *list, t_comm *comm, t_split *split)
+void	ft_error_exit(t_split *split, char *cmd, char *arg, int flag)
+{
+	if (flag == 1)
+	{
+		printf("exit\n");
+		printf("galactic: %s: %s: numeric argument required\n", cmd, arg);
+		split->errorcode = 255;
+	}
+	if (flag == 2)
+	{
+		printf("exit\n");
+		printf("galactic: %s: too many arguments\n", cmd);
+		split->errorcode = 1;
+	}
+}
+
+void	ft_exit(t_list *list, t_comm *comm, t_split *split, int flag)
 {
 	ft_lstclear(&comm->env_head, &free_env);
 	ft_lstclear(&comm->parse_head, &free_list);
@@ -21,6 +37,51 @@ void	ft_exit(t_list *list, t_comm *comm, t_split *split)
 	free(comm->dir);
 	ft_malloc_free(comm, comm->cmd.cmd, 0);
 	ft_malloc_free(comm, comm->cmd.env_array, 0);
-	printf("exit\n");
+	if (!flag)
+		printf("exit\n");
 	exit(split->errorcode);
+}
+
+int	check_exit_digit(t_list *list, t_comm *comm, t_split *split)
+{
+	int	j;
+
+	j = 0;
+	while (ft_isdigit(comm->cmd.cmd[1][j]))
+		j++;
+	if (j < ft_strlen(comm->cmd.cmd[1]))
+	{
+		ft_error_exit(split, "exit", comm->cmd.cmd[1], 1);
+		ft_exit(list, comm, split, 1);
+	}
+	return (j);
+}
+
+void	check_exit(t_list *list, t_comm *comm, t_split *split)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (comm->cmd.cmd[i])
+		i++;
+	if (i > 2)
+	{
+		j = check_exit_digit(list, comm, split);
+		if (i > 2 && j == ft_strlen(comm->cmd.cmd[1]))
+		{
+			ft_error_exit(split, "exit", comm->cmd.cmd[1], 2);
+			return ;
+		}
+	}
+	if (i == 2)
+	{
+		j = check_exit_digit(list, comm, split);
+		if (j == ft_strlen(comm->cmd.cmd[1]))
+		{
+			split->errorcode = ft_atoi(comm->cmd.cmd[1]);
+			ft_exit(list, comm, split, 0);
+		}
+	}
+	ft_exit(list, comm, split, 0);
 }

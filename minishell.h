@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 17:20:14 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 12:57:25 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void			init_splitshell(t_split *split, int flag);
 void			*ft_malloc(size_t size);
 void			ft_malloc_free(t_comm *comm, char **str, int i);
 int				parser_error(t_comm *comm, t_split *split, char *line);
-void			ft_exit(t_list *list, t_comm *comm, t_split *split);
+void			check_exit(t_list *list, t_comm *comm, t_split *split);
 int				ft_pwd(t_list *list, t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
 int				ft_env(t_list *list, t_comm *comm, t_split *split);

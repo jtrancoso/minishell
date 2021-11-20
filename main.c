@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 17:28:54 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 14:03:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,31 @@ void	execute_things(t_list *list, t_comm *comm, t_split *split)
 	free(fd);
 }
 
-int	main(int argv, char **argc, char **envp)
+void	init_main(t_comm *comm, char **argv, int argc, char **envp)
+{
+	(void)argv;
+	(void)argc;
+	print_prompt(comm);
+	check_env(comm, envp);
+}
+
+void	execute_loop(t_list *list, t_comm *comm, t_split *split)
+{
+	parse_redir(list, comm, split);
+	set_flags(list, comm);
+	execute_things(list, comm, split);
+	ft_lstclear(&comm->parse_head, &free_list);
+}
+
+int	main(int argc, char **argv, char **envp)
 {
 	t_list	*list;
 	t_comm	comm;
 	t_split	split;
 
-	//atexit(miraleaks);
-	print_prompt(&comm);
-	check_env(&comm, envp);
+	atexit(miraleaks);
+	list = NULL;
+	init_main(&comm, argv, argc, envp);
 	set_shlvl(list, &comm, &split);
 	while (1)
 	{
@@ -120,12 +136,7 @@ int	main(int argv, char **argc, char **envp)
 		free(comm.final_line);
 		comm.final_line = NULL;
 		if (!split.pars)
-		{
-			parse_redir(list, &comm, &split);
-			set_flags(list, &comm);
-			execute_things(list, &comm, &split);
-			ft_lstclear(&comm.parse_head, &free_list);
-		}
+			execute_loop(list, &comm, &split);
 		print_user(&comm);
 	}
 	return (0);

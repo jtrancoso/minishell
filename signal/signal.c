@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 16:25:18 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/11 18:09:57 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 13:36:37 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	default_sigquit(int bit)
 {
 	(void)bit;
 	write(1, "\b\b  \b\b", 6);
-	return ;
+	//return ;
 }
 
 void	fork_sigquit(int bit)
