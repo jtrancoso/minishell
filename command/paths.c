@@ -6,11 +6,27 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 18:37:06 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:19:03 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*dup_free_aux(char *real_path, char *aux_cmd)
+{
+	char	*str;
+
+	str = ft_strdup(real_path);
+	free(real_path);
+	free(aux_cmd);
+	return (str);
+}
+
+void	free_aux(char *aux_cmd, char **paths)
+{
+	free(paths);
+	free(aux_cmd);
+}
 
 char	*create_realpath(char *path, char *cmd)
 {
@@ -62,16 +78,13 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd, int i)
 			comm->path.is_stat = lstat(real_path, &t_stat);
 			if (comm->path.is_stat == 0)
 			{
-				aux = ft_strdup(real_path);
-				free(real_path);
-				free(aux_cmd);
+				aux = dup_free_aux(real_path, aux_cmd);
 				ft_malloc_free(comm, paths, i + 1);
 				return (aux);
 			}
 			free(real_path);
 		}
-		free(paths);
-		free(aux_cmd);
+		free_aux(aux_cmd, paths);
 	}
 	return (NULL);
 }

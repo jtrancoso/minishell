@@ -6,13 +6,13 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 10:10:34 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:49:47 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void init_splitshell(t_split *split, int flag)
+void	init_splitshell(t_split *split, int flag)
 {
 	split->i = 0;
 	split->j = 0;

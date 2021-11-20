@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 19:46:18 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:18:13 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	execute_loop(t_list *list, t_comm *comm, t_split *split)
 {
 	parse_redir(list, comm, split);
 	set_flags(list, comm);
-	//test_list(list, comm);
 	execute_things(list, comm, split);
 	ft_lstclear(&comm->parse_head, &free_list);
 }
