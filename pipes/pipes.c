@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 16:03:12 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:51:48 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	pipe_input_output(t_list **list, t_comm *comm, t_split *split,
 		close(split->last_fd);
 		dup2((*fd)[1], 1);
 		close ((*fd)[1]);
-		printf("str: %s prev: %d\n", ((t_comm *)(*list)->content)->t_word, ((t_comm *)(*list)->content)->prev_redir);
 		if (((t_comm *)(*list)->content)->prev_redir == 0)
 			manage_redir(list, comm, split);
 		exit(split->errorcode);
@@ -75,7 +74,6 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		signal(SIGQUIT, default_sigquit);
 		dup2(split->last_fd, 0);
 		close(split->last_fd);
-		printf("str: %s prev: %d\n", ((t_comm *)(*list)->content)->t_word, ((t_comm *)(*list)->content)->prev_redir);
 		if (((t_comm *)(*list)->content)->prev_redir == 0)
 			manage_redir(list, comm, split);
 		exit(split->errorcode);
