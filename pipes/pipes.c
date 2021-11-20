@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 17:51:48 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:40:49 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 
 void	wait_pipes(t_comm *comm, t_split *split)
 {
-	int status;
-	int i;
+	int	status;
+	int	i;
 
 	if (split->pipe_wait > 0)
 	{
