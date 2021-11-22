@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 15:41:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 10:06:27 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 {
-	int s_quote;
-	int d_quote;
-	int i;
+	int	s_quote;
+	int	d_quote;
+	int	i;
 
 	i = 0;
 	s_quote = 0;
@@ -33,12 +33,14 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 	}*/
 	while (line[i])
 	{
-		if (i == 0 && line[i] == '\\' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+		if (i == 0 && line[i] == '\\' && (line[i + 1] == '\"'
+				|| line[i + 1] == '\''))
 			i += 1;
 		else
 		{
-			if ((line[i] == '\\' && line[i + 1] == '\"') || (line[i] == '\\' && line[i + 1] == '\'' && s_quote % 2 == 0))
-				i+= 1;
+			if ((line[i] == '\\' && line[i + 1] == '\"') || (line[i] == '\\'
+					&& line[i + 1] == '\'' && s_quote % 2 == 0))
+				i += 1;
 			else if (line[i] == '\\' && line[i + 1] == '\'' && s_quote % 2 != 0)
 			{
 				i++;
@@ -52,69 +54,8 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 		i++;
 	}
 	if (s_quote % 2 != 0 || d_quote % 2 != 0)
-		return (ft_error(split, NULL , 1));
+		return (ft_error(split, NULL, 1));
 	return (0);
-}
-
-int ft_parse_bar(t_comm *comm, t_split *split, char *line)
-{
-	int i;
-	int bar; //Contador barras
-	int s_quote; //Contador comillas dobles
-	int d_quote; //Contador comillas simples
-
-	i = 0;
-	bar = 0;
-	s_quote = 0;
-	d_quote = 0;
-	while (line[i])
-	{
-		//printf("line[i]:%c i:%d\n", line[i], i);
-		if (i == 0)
-		{
-			//printf("line[i]: %c i:%d\n", line[i], i);
-			if (line[i] == '\'')
-			{
-				//printf("here1\n");
-				s_quote++;
-			}
-			else if (line[i] == '\"')
-			{
-				//printf("here2\n");
-				d_quote++;
-			}
-			else if (line[i] == '\\')
-			{
-				//printf("no entiendor\n");
-				if (line[i + 1] != '\0')
-					i++;
-				else
-					return (ft_error(split, NULL, 7));
-			}
-		}
-		else if (i > 0)
-		{
-			//printf("aqui\n");
-			if (d_quote % 2 != 0 && line[i] == '\"' && line[i - 1] != '\\')
-				d_quote++;
-			else if (d_quote % 2 != 0 && line[i] == '\"' && line[i - 1] == '\\')
-				i++;
-			else if (s_quote % 2 != 0)
-				s_quote++;
-			else if (line[i] == '\\' && line[i + 1])
-				i++;
-			else if (line[i] == '\\' && line[i + 1] == '\0')
-			{
-				//printf("hola\n");
-				return (ft_error(split, NULL, 7));
-			}
-		}
-		i++;
-	}
-	if (bar % 2 != 0)
-		return (ft_error(split, NULL, 7));
-	else
-		return (0);
 }
 
 int	ft_parseline(t_comm *comm, t_split *split, char *line)
@@ -122,15 +63,15 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	int		i;
 	int		j;
 	int		h;
-	t_list *list;
-	t_list *new;
-	t_comm *otro;
-	char **splitsemi;
-	char **splitpipe;
-	char **splitgtgt;
-	char **splitltlt;
-	char **splitgt;
-	char **splitlt;
+	t_list	*list;
+	t_list	*new;
+	t_comm	*otro;
+	char	**splitsemi;
+	char	**splitpipe;
+	char	**splitgtgt;
+	char	**splitltlt;
+	char	**splitgt;
+	char	**splitlt;
 
 	i = 0;
 	ft_init(comm); //TODO: no se si esto afecta en algo
@@ -165,14 +106,14 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		new = ft_malloc(sizeof(t_list));
 		otro = ft_malloc(sizeof(t_comm));
 		new->content = otro;
-		ft_init((t_comm*)new->content);   //TODO: comprobar si esto realmente funciona o podemos dejarlo como init(otro)
+		ft_init((t_comm *)new->content);//TODO: comprobar si esto realmente funciona o podemos dejarlo como init(otro)
 		if (j == 0 || j % 2 == 0)
 		{
-			((t_comm*)new->content)->t_word = ft_strdup(splitsemi[h]);
+			((t_comm *)new->content)->t_word = ft_strdup(splitsemi[h]);
 			h++;
 		}
 		if (j % 2 != 0)
-			((t_comm*)new->content)->t_semi = 1;
+			((t_comm *)new->content)->t_semi = 1;
 		ft_lstadd_back(&comm->parse_head, new);
 		j++;
 	}
@@ -182,9 +123,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	{
 		i = 0;
 		j = 0;
-		if (((t_comm*)list->content)->t_word)
+		if (((t_comm *)list->content)->t_word)
 		{
-			splitpipe = ft_splitshell(split, ((t_comm*)list->content)->t_word, '|');
+			splitpipe = ft_splitshell(split,
+					((t_comm *)list->content)->t_word, '|');
 			while (splitpipe[i])
 				i++;
 			h = 0;
@@ -194,9 +136,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				{
 					if (j == 0)
 					{
-						free(((t_comm*)list->content)->t_word);
-						((t_comm*)list->content)->t_word = NULL;
-						((t_comm*)list->content)->t_word = ft_strdup(splitpipe[h]);
+						free(((t_comm *)list->content)->t_word);
+						((t_comm *)list->content)->t_word = NULL;
+						((t_comm *)list->content)->t_word
+							= ft_strdup(splitpipe[h]);
 						h++;
 					}
 					else
@@ -204,14 +147,15 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init((t_comm*)new->content);
+						ft_init((t_comm *)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
-							((t_comm*)new->content)->t_word = ft_strdup(splitpipe[h]);
+							((t_comm *)new->content)->t_word
+								= ft_strdup(splitpipe[h]);
 							h++;
 						}
 						else if (j % 2 != 0)
-							((t_comm*)new->content)->t_pipe = 1;
+							((t_comm *)new->content)->t_pipe = 1;
 						ft_lstadd_middle(&list, &new);
 						list = list->next;
 					}
@@ -226,7 +170,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			ft_malloc_free(comm, splitpipe, 0);
 		}
 		else
-			free(((t_comm*)list->content)->t_word);
+			free(((t_comm *)list->content)->t_word);
 		list = list->next;
 	}
 	list = comm->parse_head;
@@ -234,9 +178,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	{
 		i = 0;
 		j = 0;
-		if (((t_comm*)list->content)->t_word)
+		if (((t_comm *)list->content)->t_word)
 		{
-			splitgtgt = ft_splitshellgt(split, ((t_comm*)list->content)->t_word, '>');
+			splitgtgt = ft_splitshellgt(split,
+					((t_comm *)list->content)->t_word, '>');
 			while (splitgtgt[i])
 				i++;
 			h = 0;
@@ -246,9 +191,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				{
 					if (j == 0)
 					{
-						free(((t_comm*)list->content)->t_word);
-						((t_comm*)list->content)->t_word = NULL;
-						((t_comm*)list->content)->t_word = ft_strdup(splitgtgt[h]);
+						free(((t_comm *)list->content)->t_word);
+						((t_comm *)list->content)->t_word = NULL;
+						((t_comm *)list->content)->t_word
+							= ft_strdup(splitgtgt[h]);
 						h++;
 					}
 					else
@@ -256,14 +202,15 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init((t_comm*)new->content);
+						ft_init((t_comm *)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
-							((t_comm*)new->content)->t_word = ft_strdup(splitgtgt[h]);
+							((t_comm *)new->content)->t_word
+								= ft_strdup(splitgtgt[h]);
 							h++;
 						}
 						else if (j % 2 != 0)
-							((t_comm*)new->content)->t_gtgt = 1;
+							((t_comm *)new->content)->t_gtgt = 1;
 						ft_lstadd_middle(&list, &new);
 						list = list->next;
 					}
@@ -278,7 +225,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			ft_malloc_free(comm, splitgtgt, 0);
 		}
 		else
-			free(((t_comm*)list->content)->t_word);
+			free(((t_comm *)list->content)->t_word);
 		list = list->next;
 	}
 	list = comm->parse_head;
@@ -286,9 +233,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	{
 		i = 0;
 		j = 0;
-		if (((t_comm*)list->content)->t_word)
+		if (((t_comm *)list->content)->t_word)
 		{
-			splitgt = ft_splitshell(split, ((t_comm*)list->content)->t_word, '>');
+			splitgt = ft_splitshell(split,
+					((t_comm *)list->content)->t_word, '>');
 			while (splitgt[i])
 				i++;
 			h = 0;
@@ -298,9 +246,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				{
 					if (j == 0)
 					{
-						free(((t_comm*)list->content)->t_word);
-						((t_comm*)list->content)->t_word = NULL;
-						((t_comm*)list->content)->t_word = ft_strdup(splitgt[h]);
+						free(((t_comm *)list->content)->t_word);
+						((t_comm *)list->content)->t_word = NULL;
+						((t_comm *)list->content)->t_word
+							= ft_strdup(splitgt[h]);
 						h++;
 					}
 					else
@@ -308,14 +257,15 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init((t_comm*)new->content);
+						ft_init((t_comm *)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
-							((t_comm*)new->content)->t_word = ft_strdup(splitgt[h]);
+							((t_comm *)new->content)->t_word
+								= ft_strdup(splitgt[h]);
 							h++;
 						}
 						else if (j % 2 != 0)
-							((t_comm*)new->content)->t_gt = 1;
+							((t_comm *)new->content)->t_gt = 1;
 						ft_lstadd_middle(&list, &new);
 						list = list->next;
 					}
@@ -330,7 +280,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			ft_malloc_free(comm, splitgt, 0);
 		}
 		else
-			free(((t_comm*)list->content)->t_word);
+			free(((t_comm *)list->content)->t_word);
 		list = list->next;
 	}
 	list = comm->parse_head;
@@ -338,9 +288,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	{
 		i = 0;
 		j = 0;
-		if (((t_comm*)list->content)->t_word)
+		if (((t_comm *)list->content)->t_word)
 		{
-			splitlt = ft_splitshell(split, ((t_comm*)list->content)->t_word, '<');
+			splitlt = ft_splitshell(split,
+					((t_comm *)list->content)->t_word, '<');
 			while (splitlt[i])
 				i++;
 			h = 0;
@@ -350,9 +301,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 				{
 					if (j == 0)
 					{
-						free(((t_comm*)list->content)->t_word);
-						((t_comm*)list->content)->t_word = NULL;
-						((t_comm*)list->content)->t_word = ft_strdup(splitlt[h]);
+						free(((t_comm *)list->content)->t_word);
+						((t_comm *)list->content)->t_word = NULL;
+						((t_comm *)list->content)->t_word
+							= ft_strdup(splitlt[h]);
 						h++;
 					}
 					else
@@ -360,14 +312,15 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						new = ft_malloc(sizeof(t_list));
 						otro = ft_malloc(sizeof(t_comm));
 						new->content = otro;
-						ft_init((t_comm*)new->content);
+						ft_init((t_comm *)new->content);
 						if (j % 2 == 0 && j != 0)
 						{
-							((t_comm*)new->content)->t_word = ft_strdup(splitlt[h]);
+							((t_comm *)new->content)->t_word
+								= ft_strdup(splitlt[h]);
 							h++;
 						}
 						else if (j % 2 != 0)
-							((t_comm*)new->content)->t_lt = 1;
+							((t_comm *)new->content)->t_lt = 1;
 						ft_lstadd_middle(&list, &new);
 						list = list->next;
 					}
@@ -382,23 +335,24 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			ft_malloc_free(comm, splitlt, 0);
 		}
 		else
-			free(((t_comm*)list->content)->t_word);
+			free(((t_comm *)list->content)->t_word);
 		list = list->next;
 	}
 	list = comm->parse_head;
 	//test_list(list, comm);
 	while (list)
 	{
-		char *dollar_id;
+		char	*dollar_id;
 		i = 0;
 		j = 0;
-		if (((t_comm*)list->content)->t_word)
+		if (((t_comm *)list->content)->t_word)
 		{
-			if (ft_strchr(((t_comm*)list->content)->t_word, '$'))
+			if (ft_strchr(((t_comm *)list->content)->t_word, '$'))
 			{
-				dollar_id = ft_parsedollar(list, comm, split, ((t_comm*)list->content)->t_word);
-				free(((t_comm*)list->content)->t_word);
-				((t_comm*)list->content)->t_word = ft_strdup(dollar_id);
+				dollar_id = ft_parsedollar(list, comm, split,
+						((t_comm *)list->content)->t_word);
+				free(((t_comm *)list->content)->t_word);
+				((t_comm *)list->content)->t_word = ft_strdup(dollar_id);
 				free(dollar_id);
 			}
 		}

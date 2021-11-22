@@ -6,7 +6,7 @@
 #    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/20 20:51:18 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/22 09:46:46 by isoria-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS		=	main.c \
 				ft_error.c \
 				test_list.c \
 				./parser/parser.c \
+				./parser/parserbar.c \
 				./parser/parser_utils.c \
 				./parser/ft_splitshell.c \
 				./parser/ft_splitshellgt.c \

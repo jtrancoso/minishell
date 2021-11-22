@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 20:54:19 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 09:51:18 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		l;			//para parse quote
 	int		s_quote;
 	int		d_quote;
+	int		bar;        //para parsebar
 	char	*str;
 	int		fd_read;
 	int		pipe_wait;
@@ -144,6 +145,7 @@ typedef struct s_comm
 }				t_comm;
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
+int				ft_parse_bar(t_comm *comm, t_split *split, char *line);
 int				ft_echo(t_list *list, t_comm *comm, t_split *split);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, char *line, int error);
