@@ -6,28 +6,73 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:16:44 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 17:30:50 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 14:43:04 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	parser_error_bis(t_comm *comm, t_split *split, char *line, int *i) //TODO: falta gestionar los errores que nos dijo ramon
+int	check_spaces(char *line, int *i)
+{
+	int	j;
+
+	if (line[*i] == '>' && (ft_isspace(line[*i + 1])))
+	{
+		j = *i + 1;
+		while (ft_isspace(line[j]))
+			j++;
+		if (line[j] == '<' || line[j] == '>')
+			return (1);
+	}
+	if (line[*i] == '<' && (ft_isspace(line[*i + 1])))
+	{
+		j = *i + 1;
+		while (ft_isspace(line[j]))
+			j++;
+		if (line[j] == '<' || line[j] == '>')
+			return (1);
+	}
+	return (0);
+}
+
+int	check_redir_syntax(char *line, int *i)
+{
+	int	j;
+	int	l;
+
+	j = 0;
+	l = *i;
+	while (line[l] == '>')
+	{
+		l++;
+		j++;
+	}
+	if (j > 2)
+		return (1);
+	if (check_spaces(line, i))
+		return (1);
+	if (line[*i] == '<' && line[*i + 1] == '<' && line[*i + 1] != '\0')
+		return (1);
+	else if (line[*i] == '<' && line[*i + 1] == '>' && line[*i + 1] != '\0')
+		return (1);
+	else if (line[*i] == '>' && line[*i + 1] == '<' && line[*i + 1] != '\0')
+		return (1);
+	else if (line[*i] == '>' && line[*i + 1] == '>' && line[*i + 2] == '\0')
+		return (1);
+	return (0);
+}
+
+int	parser_error_bis(t_comm *comm, t_split *split, char *line, int *i)
 {
 	if (line[*i] == '|' && line[*i + 1] == '|' && line[*i + 1] != '\0')
 		return (ft_error_syntax(split, line[*i]));
 	else if (line[*i] == '|' && line[*i + 1] == ';' && line[*i + 1] != '\0')
 		return (ft_error_syntax(split, line[*i + 1]));
-	else if (line[*i] == '<' && line[*i + 1] == '>' && line[*i + 1] != '\0')
-		return (ft_error_syntax(split, line[*i]));
-	else if (line[*i] == '>' && line[*i + 1] == '<' && line[*i + 1] != '\0')
-		return (ft_error_syntax(split, line[*i]));
-	else if (line[*i] == '<' && line[*i + 1] == '<' && line[*i + 1] != '\0')
-		return (ft_error_syntax(split, line[*i]));
-	else if (line[*i] == '>' && line[*i + 1] == '>' && line[*i + 2] == '\0')
-		return (ft_error_syntax(split, line[*i]));
-	/*else if (line[*i] == '>' && line[*i + 1] == '>' && line[*i + 2] == '>' && line[*i + 3] != '\0')
-		return (ft_error(split, NULL, 3));*/
+	else if (line[*i] == '<' || line[*i] == '>')
+	{
+		if (check_redir_syntax(line, i))
+			return (ft_error_syntax(split, line[*i]));
+	}
 	else if ((line[*i] == '|' || line[*i] == ';')
 		&& line[*i + 1] == ' ' && line[*i + 2])
 	{

@@ -3,29 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 20:19:03 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:50:47 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*dup_free_aux(char *real_path, char *aux_cmd)
+char	*point_path(t_split *split, char *cmd)
 {
-	char	*str;
+	char	*aux;
+	char	*expand;
 
-	str = ft_strdup(real_path);
-	free(real_path);
-	free(aux_cmd);
-	return (str);
+	aux = getcwd(NULL, 0);
+	expand = ft_strjoin(aux, cmd + 1);
+	free (aux);
+	return (expand);
 }
 
-void	free_aux(char *aux_cmd, char **paths)
+char	*relative_path(t_split *split, char *cmd)
 {
-	free(paths);
-	free(aux_cmd);
+	char *aux;
+	char *pwd;
+	char *expand;
+
+	pwd = getcwd(NULL, 0);
+	aux = ft_strjoin(pwd, "/");
+	free (pwd);
+	expand = ft_strjoin(aux, cmd);
+	free (aux);
+	return (expand);
 }
 
 char	*create_realpath(char *path, char *cmd)
