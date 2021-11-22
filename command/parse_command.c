@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 18:37:37 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:41:39 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	check_path(char *cmd)
 		return (1);
 	else if (cmd[0] == '.' && cmd[1] == '/')
 		return (3);
+	else if (ft_strchr(cmd, '/'))
+		return(4);
 	else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "pwd", 3) == 0)
 		return (2);
 	else if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "echo", 4) == 0)
@@ -85,7 +87,7 @@ void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
 			wait(&status);
 			split->errorcode = status >> 8;
 		}
-	}	
+	}
 }
 
 int	parse_command(t_list *list, t_comm *comm, t_split *split)
@@ -103,6 +105,8 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 		else if (check_path(comm->cmd.cmd[0]) == 3)
 			comm->cmd.path = point_path(split, comm->cmd.cmd[0]);
+		else if (check_path(comm->cmd.cmd[0]) == 4)
+			comm->cmd.path = relative_path(split, comm->cmd.cmd[0]);
 		else
 		{
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);

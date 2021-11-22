@@ -29,6 +29,7 @@ SRCS		=	main.c \
 				./command/parse_command_quotes2.c \
 				./command/comm_utils.c \
 				./command/paths.c \
+				./command/paths_utils.c \
 				./exec/exit.c \
 				./exec/pwd.c \
 				./exec/cd.c \

@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   comm_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 17:53:01 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:44:08 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*point_path(t_split *split, char *cmd)
-{
-	char	*aux;
-	char	*expand;
-
-	aux = getcwd(NULL, 0);
-	expand = ft_strjoin(aux, cmd + 1);
-	free (aux);
-	return (expand);
-}
 
 void	init_var_clean_quotes(t_list *list, t_comm *comm, t_split *split)
 {
