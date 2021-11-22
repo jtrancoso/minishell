@@ -3,24 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/22 14:23:11 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/22 20:25:06 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	main.c \
-				main_utils.c \
-				test_list.c \
 				./parser/parser.c \
-				./parser/parserbar.c \
-				./parser/parserpipe.c \
-				./parser/parserquotes.c \
+				./parser/parser_bar.c \
+				./parser/parser_semis.c \
+				./parser/parser_pipe.c \
+				./parser/parser_gt.c \
+				./parser/parser_gtgt.c \
+				./parser/parser_lt.c \
+				./parser/parser_quotes.c \
 				./parser/parser_utils.c \
 				./parser/ft_splitshell.c \
 				./parser/ft_splitshellgt.c \
 				./parser/ft_split_utils.c \
+				./parser/parser_split_utils.c \
+				./parser/check_dollar.c \
 				./parser/ft_parsedollar.c \
 				./parser/ft_parsedollar_utils.c \
 				./parser/parser_error.c \
@@ -36,12 +40,14 @@ SRCS		=	main.c \
 				./exec/env.c \
 				./exec/export.c \
 				./exec/export_utils.c \
+				./exec/export_value.c \
 				./exec/unset.c \
 				./exec/echo.c \
 				./redir/parse_redir.c \
 				./redir/redir_mgr_utils.c \
 				./redir/redir_mgr.c \
 				./signal/signal.c \
+				./utils/main_utils.c \
 				./utils/ft_error.c \
 				./utils/utils.c \
 				./utils/prompt.c \
@@ -59,6 +65,9 @@ CFLAGS		= -Werror -Wall -Wextra
 
 .c.o:
 			${CC} -g3 -c $< -o ${<:.c=.o}
+
+# SIN FLAGS ${CC} -g3 -c $< -o ${<:.c=.o}
+# CON FLAGS ${CC} ${CFLAGS} -g3 -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
 			make -C ./libft

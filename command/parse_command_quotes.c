@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 11:30:22 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/15 13:09:43 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 	}
 	aux[split->j] = NULL;
 	fill_str(list, comm, split, aux);
-	ft_malloc_free(comm, aux, split->j);
+	ft_malloc_free(aux, split->j);
 }

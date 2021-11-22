@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:27:45 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 13:21:48 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_exit(t_list *list, t_comm *comm, t_split *split, int flag)
 	free(comm->user);
 	free(comm->cmd.path);
 	free(comm->dir);
-	ft_malloc_free(comm, comm->cmd.cmd, 0);
-	ft_malloc_free(comm, comm->cmd.env_array, 0);
+	ft_malloc_free(comm->cmd.cmd, 0);
+	ft_malloc_free(comm->cmd.env_array, 0);
 	if (!flag)
 		printf("exit\n");
 	exit(split->errorcode);

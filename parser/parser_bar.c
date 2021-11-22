@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parserbar.c                                        :+:      :+:    :+:   */
+/*   parser_bar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 09:45:15 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/22 10:04:59 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:04:58 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_bars(t_split *split, char *line)
 	return (0);
 }
 
-int	ft_parse_bar(t_comm *comm, t_split *split, char *line)
+int	ft_parse_bar(t_split *split, char *line)
 {
 	init_bar(split);
 	while (line[split->i])

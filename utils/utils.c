@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 15:13:57 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/18 17:57:01 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void	galactic_env(t_comm *comm)
 	fix_env[4] = ft_strdup("OLDPWD= ");
 	fix_env[5] = NULL;
 	save_galactic_env(comm, fix_env);
-	ft_malloc_free(comm, fix_env, 0);
+	ft_malloc_free(fix_env, 0);
 	free(aux2);
 }

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 12:41:39 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	check_path(char *cmd)
 {
 	if (cmd[0] == '/')
 		return (1);
-	else if (cmd[0] == '.' && cmd[1] == '/')
-		return (3);
 	else if (ft_strchr(cmd, '/'))
-		return(4);
+		return (3);
 	else if (ft_strlen(cmd) == 3 && ft_strncmp(cmd, "pwd", 3) == 0)
 		return (2);
 	else if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "echo", 4) == 0)
@@ -104,8 +102,6 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 		else if (check_path(comm->cmd.cmd[0]) == 1)
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 		else if (check_path(comm->cmd.cmd[0]) == 3)
-			comm->cmd.path = point_path(split, comm->cmd.cmd[0]);
-		else if (check_path(comm->cmd.cmd[0]) == 4)
 			comm->cmd.path = relative_path(split, comm->cmd.cmd[0]);
 		else
 		{
@@ -114,8 +110,8 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 		}
 		exec_made_function(list, comm, split);
 		free(comm->cmd.path);
-		ft_malloc_free(comm, comm->cmd.cmd, 0);
-		ft_malloc_free(comm, comm->cmd.env_array, 0);
+		ft_malloc_free(comm->cmd.cmd, 0);
+		ft_malloc_free(comm->cmd.env_array, 0);
 	}
 	return (0);
 }

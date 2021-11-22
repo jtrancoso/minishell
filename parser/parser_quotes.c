@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parserquotes.c                                     :+:      :+:    :+:   */
+/*   parser_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 12:48:23 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/22 12:48:34 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:22:33 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_if_quotes(t_split *split, char *line)
 		split->s_quote++;
 }
 
-int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
+int	ft_parse_quote(t_split *split, char *line)
 {
 	init_parse_quote(split);
 	while (line[split->i])

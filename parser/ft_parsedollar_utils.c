@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsedollar_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 10:15:58 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/19 09:29:47 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 17:07:26 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ndollar(char *line)
 	j = 0;
 	while (line[i])
 	{
-		if (line[i] == '$') //FIXME: si es dolar solo pues se pone 
+		if (line[i] == '$')
 			j++;
 		i++;
 	}
@@ -43,24 +43,6 @@ int	lenval(t_list *list, t_comm *comm)
 		list = list->next;
 	}
 	return (lmax);
-}
-
-char	*ft_strcpy(char *str) //TODO: Si al final de todo no se usa, ELIMINAR
-{
-	int		i;
-	int		j;
-	char	*aux;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		aux[j] = str[i];
-		i++;
-		j++;
-	}
-	aux[j] = '\0';
-	return (aux);
 }
 
 char	*expand_dollar(t_comm *comm, char *aux_id)

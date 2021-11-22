@@ -6,29 +6,25 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 12:50:47 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*point_path(t_split *split, char *cmd)
-{
-	char	*aux;
-	char	*expand;
-
-	aux = getcwd(NULL, 0);
-	expand = ft_strjoin(aux, cmd + 1);
-	free (aux);
-	return (expand);
-}
-
 char	*relative_path(t_split *split, char *cmd)
 {
-	char *aux;
-	char *pwd;
-	char *expand;
+	char	*aux;
+	char	*pwd;
+	char	*expand;
 
+	if (cmd[0] == '.')
+	{
+		aux = getcwd(NULL, 0);
+		expand = ft_strjoin(aux, cmd + 1);
+		free (aux);
+		return (expand);
+	}
 	pwd = getcwd(NULL, 0);
 	aux = ft_strjoin(pwd, "/");
 	free (pwd);
@@ -88,7 +84,7 @@ char	*get_path(t_list *list, t_comm *comm, char *cmd, int i)
 			if (comm->path.is_stat == 0)
 			{
 				aux = dup_free_aux(real_path, aux_cmd);
-				ft_malloc_free(comm, paths, i + 1);
+				ft_malloc_free(paths, i + 1);
 				return (aux);
 			}
 			free(real_path);

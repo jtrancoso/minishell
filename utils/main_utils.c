@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 19:41:14 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/20 19:44:21 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 17:44:07 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	check_env(t_comm *comm, char **envp)
 {
@@ -30,9 +30,12 @@ void	check_env(t_comm *comm, char **envp)
 		env = ft_malloc(sizeof(t_env));
 		split_env = ft_split(envp[i], '=');
 		new->content = env;
-		((t_env *)new->content)->id = split_env[0];
-		((t_env *)new->content)->value = split_env[1];
-		ft_lstadd_back(&comm->env_head, new);
+		if (split_env[1])
+		{
+			((t_env *)new->content)->id = split_env[0];
+			((t_env *)new->content)->value = split_env[1];
+			ft_lstadd_back(&comm->env_head, new);
+		}
 		free(split_env);
 		i++;
 	}

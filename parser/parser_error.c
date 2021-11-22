@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:16:44 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 14:43:04 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:31:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int	parser_error(t_comm *comm, t_split *split, char *line)
 	while (line[i])
 	{
 		if (line[i] == ';' && line[i + 1] == ';' && line[i + 1] != '\0')
+			return (ft_error_syntax(split, line[i]));
+		else if (line[i] == ';' && i > 0 && (line[i - 1] == '<'
+				|| line[i - 1] == '>'))
 			return (ft_error_syntax(split, line[i]));
 		else if (line[i] == ';' && line[i + 1] == '|' && line[i + 1] != '\0')
 			return (ft_error_syntax(split, line[i]));

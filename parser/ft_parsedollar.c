@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsedollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/17 11:26:48 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:38:34 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	is_dollar2(t_comm *comm, t_split *split, char *aux, char *aux_id)
 				aux[split->j++] = aux2[split->k++];
 			free (aux2);
 		}
-		else//FIXME: a ver el lio de las lineas y los mallocs
+		else
 		{
 			while (content[split->k])
 				aux[split->j++] = content[split->k++];

@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 12:47:33 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:23:40 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,23 @@ typedef struct s_cmd
 	char	**env_array;
 }				t_cmd;
 
-typedef struct s_split //FIXME: meterlo en t_comm
+typedef struct s_split
 {
 	int		f_simple;
 	int		f_double;
 	int		n;
 	int		errorcode;
 	int		ret;
-	int		i;			//para parse quote
-	int		j;			//para parse quote
-	int		k;			//para parse quote
-	int		l;			//para parse quote
+	int		i;
+	int		j;
+	int		k;
+	int		l;
 	int		u;
 	int		v;
 	int		w;
 	int		s_quote;
 	int		d_quote;
-	int		bar;	//para parsebar
+	int		bar;
 	char	*str;
 	int		fd_read;
 	int		pipe_wait;
@@ -109,13 +109,13 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		fd_in;
 	int		last_fd;
 	int		pars;
-	char	*aux; // para redir_mgr.c
-	char	*stred; // para redir_mgr.c
+	char	*aux;
+	char	*stred;
 }				t_split;
 
 typedef struct s_comm
 {
-	char		*t_command; //TODO: comprobar uso y borrar si hace falta
+	char		*t_command;
 	char		*t_word;
 	char		*final_line;
 	int			t_pipe;
@@ -131,7 +131,7 @@ typedef struct s_comm
 	char		*user;
 	char		*dir;
 	char		*home;
-	int			f_verg; // flag para la vergulilla
+	int			f_verg;
 	int			f_d;
 	int			f_s;
 	int			flag_n;
@@ -148,9 +148,16 @@ typedef struct s_comm
 }				t_comm;
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
-int				ft_parse_bar(t_comm *comm, t_split *split, char *line);
-int				ft_parse_quote(t_comm *comm, t_split *split, char *line);
-void 			ft_splitpipe(t_list *list, t_comm *comm, t_split *split, char *line);
+int				ft_parse_bar(t_split *split, char *line);
+int				ft_parse_quote(t_split *split, char *line);
+void			ft_splitsemi(t_comm *comm, t_split *split, char **line);
+void			ft_splitpipe(t_list *list, t_comm *comm, t_split *split);
+void			ft_splitgt(t_list *list, t_comm *comm, t_split *split);
+void			ft_splitgtgt(t_list *list, t_comm *comm, t_split *split);
+void			ft_splitlt(t_list *list, t_comm *comm, t_split *split);
+void			free_words(t_comm *comm, char **aux);
+void			list_no_flag(t_list *list, t_comm *comm, t_split *split,
+					char **aux);
 int				ft_echo(t_list *list, t_comm *comm, t_split *split);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, char *line, int error);
@@ -158,6 +165,7 @@ int				ft_error_syntax(t_split *split, char c);
 int				check_condition(t_split *split, char const *s, char c);
 char			**ft_splitshell(t_split *split, char const *s, char c);
 char			**ft_splitshellgt(t_split *split, char const *s, char c);
+void			check_dollar(t_list *list, t_comm *comm, t_split *split);
 char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split,
 					char *line);
 int				ndollar(char *line);
@@ -167,7 +175,6 @@ char			*expand_dollar(t_comm *comm, char *aux_id);
 char			*ft_askdollar(t_comm *comm, t_split *split, char *aux_id);
 void			check_quote(t_split *split, const char *c);
 int				check_inverted_var(const char *c);
-void			test_list(t_list *list, t_comm *comm);
 void			clear_list(t_list *list, t_comm *comm);
 void			free_list(void *cont);
 void			free_env(void *cont);
@@ -179,13 +186,14 @@ void			fill_str(t_list *list, t_comm *comm, t_split *split,
 char			*get_path(t_list *list, t_comm *comm, char *cmd, int i);
 void			init_splitshell(t_split *split, int flag);
 void			*ft_malloc(size_t size);
-void			ft_malloc_free(t_comm *comm, char **str, int i);
+void			ft_malloc_free(char **str, int i);
 int				parser_error(t_comm *comm, t_split *split, char *line);
 void			check_exit(t_list *list, t_comm *comm, t_split *split);
 int				ft_pwd(t_list *list, t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
 int				ft_env(t_list *list, t_comm *comm, t_split *split);
 int				ft_export(t_list *list, t_comm *comm, t_split *split);
+void			export_value(t_list *list, t_comm *comm, int i);
 void			ft_export_error(t_split *split, char *cmd, char *var);
 size_t			export_len(char *s1, char *s2);
 void			swap_list(t_list *list, t_comm *comm);
@@ -194,7 +202,6 @@ void			export_list(t_list *list, t_comm *comm, t_split *split);
 void			fill_list(t_list *list, t_comm *comm, t_list *new,
 					t_list *export);
 void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
-char			*point_path(t_split *split, char *cmd);
 char			*relative_path(t_split *split, char *cmd);
 char			*dup_free_aux(char *real_path, char *aux_cmd);
 void			free_aux(char *aux_cmd, char **paths);

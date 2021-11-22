@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 13:55:41 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:49:32 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,34 +65,6 @@ void	export_print(t_list *list, t_comm *comm, t_split *split)
 	}
 }
 
-void	export_value(t_list *list, t_comm *comm, int i)
-{
-	if (ft_strchr(comm->cmd.cmd[i], '='))
-	{
-		comm->export.id = ft_substr(comm->cmd.cmd[i], 0,
-				ft_strchr(comm->cmd.cmd[i], '=')
-				- comm->cmd.cmd[i] + 1);
-		comm->export.value = ft_strdup(ft_strchr(comm->cmd.cmd[i],
-					'=') + 1);
-	}
-	else if (!ft_strchr(comm->cmd.cmd[i], '='))
-	{
-		comm->export.id = ft_strdup(comm->cmd.cmd[i]);
-		comm->export.value = NULL;
-	}
-	list = comm->env_head;
-	while (list)
-	{
-		if (ft_strncmp(comm->export.id, ((t_env *)list->content)->id,
-				ft_strlen(((t_env *)list->content)->id)) == 0)
-		{
-			((t_env *)list->content)->value = comm->export.value;
-			comm->export.f_exist = 1;
-		}
-		list = list->next;
-	}
-}
-
 void	export_new_var(t_comm *comm, t_list *new, t_env *env)
 {
 	new = ft_malloc(sizeof(t_list));
@@ -113,6 +85,7 @@ int	ft_export(t_list *list, t_comm *comm, t_split *split)
 	while (comm->cmd.cmd[i])
 	{
 		comm->export.f_valid = 0;
+		comm->export.f_exist = 0;
 		check_export(list, comm, split, i);
 		if (!comm->export.f_valid)
 		{

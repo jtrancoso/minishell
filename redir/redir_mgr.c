@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_mgr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 19:35:10 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:44:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 				split->str = NULL;
 			*list = ((*list)->next);
 		}
-		else //FIXME: esto no lo hace nunca
+		else
 			return ;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 14:22:33 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 19:49:47 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:23:35 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	init_splitshell(t_split *split, int flag)
 	}
 }
 
-//TODO: hacer el ft_malloc protegido
-
 void	*ft_malloc(size_t size)
 {
 	char	*aux;
@@ -39,7 +37,7 @@ void	*ft_malloc(size_t size)
 	return (aux);
 }
 
-void	ft_malloc_free(t_comm *comm, char **str, int i)
+void	ft_malloc_free(char **str, int i)
 {
 	while (str[i])
 	{

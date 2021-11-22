@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 12:44:08 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 17:50:08 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**ft_superglue(t_list *list, t_comm *comm)
 	return (str);
 }
 
-void	create_history(t_list *list, t_comm *comm, t_split *split)
+/*void	create_history(t_list *list, t_comm *comm, t_split *split)
 {
 	list = comm->env_head;
 	while (list)
@@ -88,4 +88,4 @@ void	create_history(t_list *list, t_comm *comm, t_split *split)
 		}
 		list = list->next;
 	}
-}
+}*/
