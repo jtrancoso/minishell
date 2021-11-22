@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
+#    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/22 12:48:02 by jtrancos         ###   ########.fr        #
+#    Updated: 2021/11/22 14:23:11 by isoria-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ SRCS		=	main.c \
 				test_list.c \
 				./parser/parser.c \
 				./parser/parserbar.c \
+				./parser/parserpipe.c \
+				./parser/parserquotes.c \
 				./parser/parser_utils.c \
 				./parser/ft_splitshell.c \
 				./parser/ft_splitshellgt.c \

@@ -94,9 +94,12 @@ typedef struct s_split //FIXME: meterlo en t_comm
 	int		j;			//para parse quote
 	int		k;			//para parse quote
 	int		l;			//para parse quote
+	int		u;
+	int		v;
+	int		w;
 	int		s_quote;
 	int		d_quote;
-	int		bar;        //para parsebar
+	int		bar;	//para parsebar
 	char	*str;
 	int		fd_read;
 	int		pipe_wait;
@@ -146,11 +149,13 @@ typedef struct s_comm
 
 int				ft_parseline(t_comm *comm, t_split *split, char *line);
 int				ft_parse_bar(t_comm *comm, t_split *split, char *line);
+int				ft_parse_quote(t_comm *comm, t_split *split, char *line);
+void 			ft_splitpipe(t_list *list, t_comm *comm, t_split *split, char *line);
 int				ft_echo(t_list *list, t_comm *comm, t_split *split);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, char *line, int error);
 int				ft_error_syntax(t_split *split, char c);
-int 			check_condition(t_split *split, char const *s, char c);
+int				check_condition(t_split *split, char const *s, char c);
 char			**ft_splitshell(t_split *split, char const *s, char c);
 char			**ft_splitshellgt(t_split *split, char const *s, char c);
 char			*ft_parsedollar(t_list *list, t_comm *comm, t_split *split,
