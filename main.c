@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 20:57:44 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:13:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int argc, char **argv, char **envp)
 	t_comm	comm;
 	t_split	split;
 
-	//atexit(miraleaks);
+	atexit(miraleaks);
 	list = NULL;
 	init_main(&comm, argv, argc, envp);
 	set_shlvl(list, &comm, &split);

@@ -6,11 +6,11 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 17:29:32 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:03:08 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_error_syntax(t_split *split, char c)
 {

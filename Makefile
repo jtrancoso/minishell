@@ -3,16 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/22 09:46:46 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/22 12:03:49 by jtrancos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	main.c \
 				main_utils.c \
-				ft_error.c \
 				test_list.c \
 				./parser/parser.c \
 				./parser/parserbar.c \
@@ -40,6 +39,7 @@ SRCS		=	main.c \
 				./redir/redir_mgr_utils.c \
 				./redir/redir_mgr.c \
 				./signal/signal.c \
+				./utils/ft_error.c \
 				./utils/utils.c \
 				./utils/prompt.c \
 				./utils/free_things.c \

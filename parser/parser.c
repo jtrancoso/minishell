@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 10:06:27 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:14:54 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ int	ft_parse_quote(t_comm *comm, t_split *split, char *line)
 	i = 0;
 	s_quote = 0;
 	d_quote = 0;
-	/*while (line[i])
-	{
-		if (line[i] == '\\' && (line[i + 1] == '\"' || line[i + 1] == '\''))
-			i += 2;
-		if (line[i] == '\"' && s_quote % 2 == 0)
-			d_quote++;
-		if (line[i] == '\'' && d_quote % 2 == 0)
-			s_quote++;
-		i++;
-	}*/
 	while (line[i])
 	{
 		if (i == 0 && line[i] == '\\' && (line[i + 1] == '\"'
@@ -66,7 +56,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	t_list	*list;
 	t_list	*new;
 	t_comm	*otro;
-	char	**splitsemi;
+	char	**splitsemi; //TODO: usar solo aux, adios a los splits
 	char	**splitpipe;
 	char	**splitgtgt;
 	char	**splitltlt;
@@ -125,9 +115,9 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 		j = 0;
 		if (((t_comm *)list->content)->t_word)
 		{
-			splitpipe = ft_splitshell(split,
+			splitsemi = ft_splitshell(split,
 					((t_comm *)list->content)->t_word, '|');
-			while (splitpipe[i])
+			while (splitsemi[i])
 				i++;
 			h = 0;
 			if (i > 1)
@@ -139,7 +129,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						free(((t_comm *)list->content)->t_word);
 						((t_comm *)list->content)->t_word = NULL;
 						((t_comm *)list->content)->t_word
-							= ft_strdup(splitpipe[h]);
+							= ft_strdup(splitsemi[h]);
 						h++;
 					}
 					else
@@ -151,7 +141,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 						if (j % 2 == 0 && j != 0)
 						{
 							((t_comm *)new->content)->t_word
-								= ft_strdup(splitpipe[h]);
+								= ft_strdup(splitsemi[h]);
 							h++;
 						}
 						else if (j % 2 != 0)
@@ -164,10 +154,10 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 			}
 			else
 			{
-				free(splitpipe[0]);
-				splitpipe[0] = NULL;
+				free(splitsemi[0]);
+				splitsemi[0] = NULL;
 			}
-			ft_malloc_free(comm, splitpipe, 0);
+			ft_malloc_free(comm, splitsemi, 0);
 		}
 		else
 			free(((t_comm *)list->content)->t_word);
