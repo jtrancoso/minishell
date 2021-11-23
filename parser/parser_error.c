@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:16:44 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 15:31:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:41:08 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_redir_syntax(char *line, int *i)
 	return (0);
 }
 
-int	parser_error_bis(t_comm *comm, t_split *split, char *line, int *i)
+int	parser_error_bis(t_split *split, char *line, int *i)
 {
 	if (line[*i] == '|' && line[*i + 1] == '|' && line[*i + 1] != '\0')
 		return (ft_error_syntax(split, line[*i]));
@@ -85,7 +85,7 @@ int	parser_error_bis(t_comm *comm, t_split *split, char *line, int *i)
 	return (0);
 }
 
-int	parser_error(t_comm *comm, t_split *split, char *line)
+int	parser_error(t_split *split, char *line)
 {
 	int	i;
 
@@ -101,7 +101,7 @@ int	parser_error(t_comm *comm, t_split *split, char *line)
 			return (ft_error_syntax(split, line[i]));
 		else if (line[i] == ';' && line[i + 1] == '|' && line[i + 1] != '\0')
 			return (ft_error_syntax(split, line[i]));
-		else if (parser_error_bis(comm, split, line, &i))
+		else if (parser_error_bis(split, line, &i))
 			return (1);
 		i++;
 	}

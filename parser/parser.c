@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 20:23:03 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:42:27 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	init_parser(t_split *split)
 	split->w = 0;
 }
 
-int	syntax_check(t_comm *comm, t_split *split, char *line)
+int	syntax_check(t_split *split, char *line)
 {
 	while (ft_isspace(line[split->u]))
 		split->u++;
-	if (parser_error(comm, split, line) != 0)
+	if (parser_error(split, line) != 0)
 	{
 		free(line);
 		return (1);
@@ -50,7 +50,7 @@ int	ft_parseline(t_comm *comm, t_split *split, char *line)
 	init_parser(split);
 	ft_init(comm);
 	line = ft_strtrim(comm->final_line, "\n");
-	if (syntax_check(comm, split, line))
+	if (syntax_check(split, line))
 		return (1);
 	aux = ft_splitshell(split, line + split->u, ';');
 	split->u = 0;

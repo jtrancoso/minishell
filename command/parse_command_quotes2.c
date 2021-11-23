@@ -6,13 +6,13 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 12:59:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/15 13:08:07 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:43:51 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	fill_str(t_list *list, t_comm *comm, t_split *split, char **aux)
+void	fill_str(t_comm *comm, t_split *split, char **aux)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 09:27:43 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:16:36 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_split
 	int		pars;
 	char	*aux;
 	char	*stred;
+	int		pipe_exist;
 }				t_split;
 
 typedef struct s_comm
@@ -171,7 +172,7 @@ int				ndollar(char *line);
 int				lenval(t_list *list, t_comm *comm);
 char			*ft_strcpy(char *str);
 char			*expand_dollar(t_comm *comm, char *aux_id);
-char			*ft_askdollar(t_comm *comm, t_split *split, char *aux_id);
+char			*ft_askdollar(t_split *split);
 void			check_quote(t_split *split, const char *c);
 int				check_inverted_var(const char *c);
 void			clear_list(t_list *list, t_comm *comm);
@@ -179,14 +180,13 @@ void			free_list(void *cont);
 void			free_env(void *cont);
 void			free_export(void *cont);
 int				parse_command(t_list *list, t_comm *comm, t_split *split);
-void			clean_quotes(t_list *list, t_comm *comm, t_split *split);
-void			fill_str(t_list *list, t_comm *comm, t_split *split,
-					char **aux);
+void			clean_quotes(t_comm *comm, t_split *split);
+void			fill_str(t_comm *comm, t_split *split, char **aux);
 char			*get_path(t_list *list, t_comm *comm, char *cmd, int i);
 void			init_splitshell(t_split *split, int flag);
 void			*ft_malloc(size_t size);
 void			ft_malloc_free(char **str, int i);
-int				parser_error(t_comm *comm, t_split *split, char *line);
+int				parser_error(t_split *split, char *line);
 void			check_exit(t_list *list, t_comm *comm, t_split *split);
 int				ft_pwd(t_list *list, t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
@@ -204,8 +204,7 @@ void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
 char			*relative_path(t_split *split, char *cmd);
 char			*dup_free_aux(char *real_path, char *aux_cmd);
 void			free_aux(char *aux_cmd, char **paths);
-void			init_var_clean_quotes(t_list *list, t_comm *comm,
-					t_split *split);
+void			init_var_clean_quotes(t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
 void			parse_redir(t_list *list, t_comm *comm, t_split *split);

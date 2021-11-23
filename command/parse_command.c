@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:45:42 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_parse(t_list *list, t_comm *comm, t_split *split)
 	comm->cmd.cmd = ft_splitshell(split, ((t_comm *)list->content)
 			->t_command, ' ');
 	comm->cmd.env_array = ft_superglue(list, comm);
-	clean_quotes(list, comm, split);
+	clean_quotes(comm, split);
 }
 
 int	check_path(char *cmd)
@@ -90,10 +90,6 @@ void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
 
 int	parse_command(t_list *list, t_comm *comm, t_split *split)
 {
-	char	**cmd;
-	char	*path;
-	char	**env_array;
-
 	init_parse(list, comm, split);
 	if (comm->cmd.cmd[0])
 	{

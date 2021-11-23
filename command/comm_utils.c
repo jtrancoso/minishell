@@ -6,13 +6,13 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:52:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 17:50:08 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:47:15 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	init_var_clean_quotes(t_list *list, t_comm *comm, t_split *split)
+void	init_var_clean_quotes(t_split *split)
 {
 	split->s_quote = 0;
 	split->d_quote = 0;
@@ -22,7 +22,7 @@ void	init_var_clean_quotes(t_list *list, t_comm *comm, t_split *split)
 	split->str = NULL;
 }
 
-char	*glue_content(t_list *list, t_comm *comm, char **str, int i)
+char	*glue_content(t_list *list, char **str, int i)
 {
 	char	*aux;
 
@@ -65,7 +65,7 @@ char	**ft_superglue(t_list *list, t_comm *comm)
 	i = 0;
 	while (list)
 	{	
-		str[i] = glue_content(list, comm, str, i);
+		str[i] = glue_content(list, str, i);
 		list = list->next;
 		i++;
 	}

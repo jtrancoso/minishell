@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 10:15:58 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/22 17:07:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:37:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ndollar(char *line)
 
 int	lenval(t_list *list, t_comm *comm)
 {
-	int	lmax;
+	size_t	lmax;
 
 	list = comm->env_head;
 	while (list)
@@ -67,7 +67,7 @@ char	*expand_dollar(t_comm *comm, char *aux_id)
 	return (content);
 }
 
-char	*ft_askdollar(t_comm *comm, t_split *split, char *aux_id)
+char	*ft_askdollar(t_split *split)
 {
 	char	*value;
 

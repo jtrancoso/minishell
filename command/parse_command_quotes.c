@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 11:30:22 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:45:59 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ void	quote_loop(t_comm *comm, t_split *split, char **aux)
 	split->k++;
 }
 
-void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
+void	clean_quotes(t_comm *comm, t_split *split)
 {
 	char	**aux;
 
-	init_var_clean_quotes(list, comm, split);
+	init_var_clean_quotes(split);
 	while (comm->cmd.cmd[split->i])
 		split->i++;
 	aux = ft_malloc(sizeof(char **) * (split->i + 1));
@@ -106,6 +106,6 @@ void	clean_quotes(t_list *list, t_comm *comm, t_split *split)
 		split->j++;
 	}
 	aux[split->j] = NULL;
-	fill_str(list, comm, split, aux);
+	fill_str(comm, split, aux);
 	ft_malloc_free(aux, split->j);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsedollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 09:48:05 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:37:55 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	is_dollar2(t_comm *comm, t_split *split, char *aux, char *aux_id)
 	char	*aux2;
 
 	if (aux_id[0] == '?')
-		content = ft_askdollar(comm, split, aux_id);
+		content = ft_askdollar(split);
 	else
 		content = expand_dollar(comm, aux_id);
 	split->k = 0;
