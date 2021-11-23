@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 20:23:40 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:27:43 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,8 @@ void			ft_splitpipe(t_list *list, t_comm *comm, t_split *split);
 void			ft_splitgt(t_list *list, t_comm *comm, t_split *split);
 void			ft_splitgtgt(t_list *list, t_comm *comm, t_split *split);
 void			ft_splitlt(t_list *list, t_comm *comm, t_split *split);
-void			free_words(t_comm *comm, char **aux);
-void			list_no_flag(t_list *list, t_comm *comm, t_split *split,
-					char **aux);
+void			free_words(char **aux);
+void			list_no_flag(t_list *list, t_split *split, char **aux);
 int				ft_echo(t_list *list, t_comm *comm, t_split *split);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, char *line, int error);

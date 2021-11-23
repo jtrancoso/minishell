@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsedollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 13:46:08 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 16:38:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:48:05 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	init_var_parsedollar(t_list *list, t_comm *comm, t_split *split)
+void	init_var_parsedollar(t_split *split)
 {
 	split->s_quote = 0;
 	split->d_quote = 0;
@@ -34,7 +34,7 @@ int	check_ifdollar(t_split *split, char *line)
 	return (0);
 }
 
-void	is_dollar1(t_comm *comm, t_split *split, char *line, char *aux_id)
+void	is_dollar1(t_split *split, char *line, char *aux_id)
 {
 	split->i++;
 	split->k = 0;
@@ -88,9 +88,8 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 {
 	char	*aux;
 	char	*aux_id;
-	char	*final_aux;
 
-	init_var_parsedollar(list, comm, split);
+	init_var_parsedollar(split);
 	aux = ft_malloc(sizeof(char *) * (lenval(list, comm) * ndollar(line)) + 1);
 	aux_id = ft_malloc(sizeof(char *) * (ft_strlen(line)));
 	while (line[split->i])
@@ -102,7 +101,7 @@ char	*ft_parsedollar(t_list *list, t_comm *comm, t_split *split, char *line)
 			aux[split->j++] = line[split->i];
 		else if (line[split->i] == '$')
 		{
-			is_dollar1(comm, split, line, aux_id);
+			is_dollar1(split, line, aux_id);
 			is_dollar2(comm, split, aux, aux_id);
 			split->i--;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:22:26 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:30:09 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	list_pipe_flag(t_list **list, t_split *split, char **aux)
 	*list = ((*list)->next);
 }
 
-void	pipe_flag_list(t_list *list, t_comm *comm, t_split *split, char **aux)
+void	pipe_flag_list(t_list *list, t_split *split, char **aux)
 {
 	while (split->v < split->u * 2 - 1 && list)
 	{
 		if (split->v == 0)
-			list_no_flag(list, comm, split, aux);
+			list_no_flag(list, split, aux);
 		else
 			list_pipe_flag(&list, split, aux);
 		split->v++;
@@ -60,9 +60,9 @@ void	ft_splitpipe(t_list *list, t_comm *comm, t_split *split)
 				split->u++;
 			split->w = 0;
 			if (split->u > 1)
-				pipe_flag_list(list, comm, split, aux);
+				pipe_flag_list(list, split, aux);
 			else
-				free_words(comm, aux);
+				free_words(aux);
 			ft_malloc_free(aux, 0);
 		}
 		else
