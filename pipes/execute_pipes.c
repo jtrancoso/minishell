@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:06:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 18:40:26 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:20:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	check_pipes(t_list *list, t_comm *comm)
+{
+	while (list)
+	{
+		if (((t_comm *)(list)->content)->post_pipe)
+			return (1);
+		list = (list)->next;
+	}
+	return (0);
+}
+
 void	execute_pipes(t_list **list, t_comm *comm, t_split *split, int *fd)
 {
-	if (((t_comm *)(*list)->content)->post_pipe)
+	if (check_pipes(*list, comm))
 		pipe(fd);
 	if (((t_comm *)(*list)->content)->post_pipe == 0
 		&& ((t_comm *)(*list)->content)->prev_pipe == 0
