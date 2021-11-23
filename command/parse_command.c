@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 13:45:42 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:10:49 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int	check_path(char *cmd)
 int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 {
 	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
-		return (ft_pwd(list, comm));
+		return (ft_pwd(comm));
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
 		return (ft_echo(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
-		check_exit(list, comm, split);
+		check_exit(comm, split);
 	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)
-		return (ft_env(list, comm, split));
+		return (ft_env(comm));
 	else if (ft_strncmp(comm->cmd.path, "cd", 2) == 0)
 		return (ft_cd(list, comm, split));
 	else if (ft_strncmp(comm->cmd.path, "unset", 5) == 0)
@@ -98,7 +98,7 @@ int	parse_command(t_list *list, t_comm *comm, t_split *split)
 		else if (check_path(comm->cmd.cmd[0]) == 1)
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);
 		else if (check_path(comm->cmd.cmd[0]) == 3)
-			comm->cmd.path = relative_path(split, comm->cmd.cmd[0]);
+			comm->cmd.path = relative_path(comm->cmd.cmd[0]);
 		else
 		{
 			comm->cmd.path = ft_strdup(comm->cmd.cmd[0]);

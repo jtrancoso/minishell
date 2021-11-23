@@ -6,13 +6,13 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:21:59 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 20:24:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:01:29 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*relative_path(t_split *split, char *cmd)
+char	*relative_path(char *cmd)
 {
 	char	*aux;
 	char	*pwd;

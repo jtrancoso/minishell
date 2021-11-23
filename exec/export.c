@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 19:49:32 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:14:52 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_list(t_list *list, t_comm *comm, int *swapped)
 	}
 }
 
-void	export_print(t_list *list, t_comm *comm, t_split *split)
+void	export_print(t_list *list, t_comm *comm)
 {
 	list = comm->export_head;
 	while (list)
@@ -65,8 +65,11 @@ void	export_print(t_list *list, t_comm *comm, t_split *split)
 	}
 }
 
-void	export_new_var(t_comm *comm, t_list *new, t_env *env)
+void	export_new_var(t_comm *comm)
 {
+	t_list	*new;
+	t_env	*env;
+
 	new = ft_malloc(sizeof(t_list));
 	env = ft_malloc(sizeof(t_env));
 	new->content = env;
@@ -77,8 +80,6 @@ void	export_new_var(t_comm *comm, t_list *new, t_env *env)
 
 int	ft_export(t_list *list, t_comm *comm, t_split *split)
 {
-	t_list	*new;
-	t_env	*env;
 	int		i;
 
 	i = 1;
@@ -91,14 +92,14 @@ int	ft_export(t_list *list, t_comm *comm, t_split *split)
 		{
 			export_value(list, comm, i);
 			if (!comm->export.f_exist)
-				export_new_var(comm, new, env);
+				export_new_var(comm);
 		}
 		i++;
 	}
 	if (comm->cmd.cmd[1] == NULL)
 	{
-		export_list(list, comm, split);
-		export_print(list, comm, split);
+		export_list(list, comm);
+		export_print(list, comm);
 		ft_lstclear(&comm->export_head, &free_export);
 	}
 	return (comm->export.ret);

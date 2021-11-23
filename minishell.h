@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 16:40:53 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:14:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,21 +187,21 @@ void			init_splitshell(t_split *split, int flag);
 void			*ft_malloc(size_t size);
 void			ft_malloc_free(char **str, int i);
 int				parser_error(t_split *split, char *line);
-void			check_exit(t_list *list, t_comm *comm, t_split *split);
-int				ft_pwd(t_list *list, t_comm *comm);
+void			check_exit(t_comm *comm, t_split *split);
+int				ft_pwd(t_comm *comm);
 int				ft_cd(t_list *list, t_comm *comm, t_split *split);
-int				ft_env(t_list *list, t_comm *comm, t_split *split);
+int				ft_env(t_comm *comm);
 int				ft_export(t_list *list, t_comm *comm, t_split *split);
 void			export_value(t_list *list, t_comm *comm, int i);
 void			ft_export_error(t_split *split, char *cmd, char *var);
 size_t			export_len(char *s1, char *s2);
 void			swap_list(t_list *list, t_comm *comm);
 void			sort_list(t_list *list, t_comm *comm, int *swapped);
-void			export_list(t_list *list, t_comm *comm, t_split *split);
+void			export_list(t_list *list, t_comm *comm);
 void			fill_list(t_list *list, t_comm *comm, t_list *new,
 					t_list *export);
 void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
-char			*relative_path(t_split *split, char *cmd);
+char			*relative_path(char *cmd);
 char			*dup_free_aux(char *real_path, char *aux_cmd);
 void			free_aux(char *aux_cmd, char **paths);
 void			init_var_clean_quotes(t_split *split);

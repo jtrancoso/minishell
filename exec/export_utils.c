@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:52:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 18:00:39 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:16:21 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ size_t	export_len(char *s1, char *s2)
 	return (len1);
 }
 
-void	export_list(t_list *list, t_comm *comm, t_split *split)
+void	export_list(t_list *list, t_comm *comm)
 {
 	t_list	*new;
 	t_list	*export;
-	int		i;
 	int		swapped;
 
+	export = NULL;
 	fill_list(list, comm, new, export);
 	list = comm->export_head;
 	while (list)
@@ -45,6 +45,7 @@ void	export_list(t_list *list, t_comm *comm, t_split *split)
 
 void	fill_list(t_list *list, t_comm *comm, t_list *new, t_list *export)
 {
+	new = NULL;
 	comm->export_head = NULL;
 	list = comm->env_head;
 	while (list)

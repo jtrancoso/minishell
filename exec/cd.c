@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:49:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/20 14:20:51 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:09:44 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	create_oldpwd(t_list *list, t_comm *comm)
 	t_env	*env;
 	t_list	*new;
 
+	new = NULL;
+	env = NULL;
 	i = 0;
 	list = comm->env_head;
 	while (list)
