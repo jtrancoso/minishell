@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 11:45:00 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 13:42:27 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:41:59 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_parser(t_split *split)
 	split->u = 0;
 	split->v = 0;
 	split->w = 0;
+	split->pipe_n = 0;
 }
 
 int	syntax_check(t_split *split, char *line)

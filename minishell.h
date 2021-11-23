@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 14:16:36 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:40:53 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_split
 	int		pars;
 	char	*aux;
 	char	*stred;
-	int		pipe_exist;
+	int		pipe_n;
 }				t_split;
 
 typedef struct s_comm

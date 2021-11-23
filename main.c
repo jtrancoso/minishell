@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 14:18:23 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:41:01 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	execute_things(t_list *list, t_comm *comm, t_split *split)
 
 	list = comm->parse_head;
 	split->pipe_wait = 0;
-	split->pipe_exist = 0;
 	fd = ft_malloc(sizeof(int) * 2);
 	while (list)
 	{

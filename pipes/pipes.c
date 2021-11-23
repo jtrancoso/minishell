@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 14:22:33 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:50:56 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	pipe_input_output(t_list **list, t_comm *comm, t_split *split,
 	else
 	{
 		close((*fd)[1]);
-		close(split->last_fd);
+		close(split->last_fd); 
 		split->last_fd = dup((*fd)[0]);
 		close((*fd)[0]);
 		split->pipe_wait++;

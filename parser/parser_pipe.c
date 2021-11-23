@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:22:26 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/23 09:30:09 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:47:07 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	list_pipe_flag(t_list **list, t_split *split, char **aux)
 		split->w++;
 	}
 	else if (split->v % 2 != 0)
+	{
 		((t_comm *)new->content)->t_pipe = 1;
+		split->pipe_n++;
+	}
 	ft_lstadd_middle(list, &new);
 	*list = ((*list)->next);
 }

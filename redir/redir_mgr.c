@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 13:23:34 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:51:21 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	check_fd(t_list **list, t_comm *comm, t_split *split)
 				ft_error(split,
 					((t_comm *)((*list)->content))->redir.file, 5);
 		}
-	}	
+	}
 }
 
 void	manage_redir(t_list **list, t_comm *comm, t_split *split)
