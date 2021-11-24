@@ -6,7 +6,7 @@
 #    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/24 09:16:49 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/24 10:22:35 by isoria-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,8 +54,8 @@ SRCS		=	main.c \
 				./utils/free_things.c \
 				./readline/readline.c \
 				./pipes/execute_pipes.c \
-				./pipes/pipes.c
-
+				./pipes/pipes.c \
+				./pipes/pipes_expansion.c
 
 OBJS		= ${SRCS:.c=.o}
 NAME		= minishell

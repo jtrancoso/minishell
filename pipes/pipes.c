@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:22:46 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 10:39:35 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 	if (!pid)
 	{
 		close((*fd)[0]);
-		if(comm->redir.fdout > 0)
+		if (comm->redir.fdout > 0)
 		{
 			dup2(comm->redir.fdout, 1);
 			close(comm->redir.fdout);
@@ -36,12 +36,7 @@ void	pipe_output(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		exit(split->errorcode);
 	}
 	else
-	{
-		close((*fd)[1]);
-		split->last_fd = dup((*fd)[0]);
-		close((*fd)[0]);
-		split->pipe_wait++;
-	}
+		father_pipe_output(split, fd);
 }
 
 void	pipe_input_output(t_list **list, t_comm *comm, t_split *split,
@@ -54,12 +49,7 @@ void	pipe_input_output(t_list **list, t_comm *comm, t_split *split,
 	{
 		close((*fd)[0]);
 		if (comm->redir.fdout > 0)
-		{
-			dup2(split->last_fd, 0);
-			dup2(comm->redir.fdout, 1);
-			close(comm->redir.fdout);
-			close(split->last_fd);
-		}
+			son_pipe_input_output(comm, split);
 		else
 		{
 			dup2(split->last_fd, 0);
@@ -72,13 +62,7 @@ void	pipe_input_output(t_list **list, t_comm *comm, t_split *split,
 		exit(split->errorcode);
 	}
 	else
-	{
-		close((*fd)[1]);
-		close(split->last_fd); 
-		split->last_fd = dup((*fd)[0]);
-		close((*fd)[0]);
-		split->pipe_wait++;
-	}
+		father_pipe_input_output(split, fd);
 }
 
 void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
@@ -92,12 +76,7 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		signal(SIGINT, default_sigint);
 		signal(SIGQUIT, default_sigquit);
 		if (comm->redir.fdout > 0)
-		{
-			dup2(split->last_fd, 0);
-			dup2(comm->redir.fdout, 1);
-			close(split->last_fd);
-			close(comm->redir.fdout);
-		}
+			son_pipe_input(comm, split);
 		else
 		{
 			dup2(split->last_fd, 0);
@@ -108,11 +87,7 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 		exit(split->errorcode);
 	}
 	else
-	{
-		split->last_pid = pid;
-		close(split->last_fd);
-		split->pipe_wait++;
-	}
+		father_pipe_input(split, pid);
 }
 
 void	wait_pipes(t_split *split)

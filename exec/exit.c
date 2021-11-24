@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:27:45 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:07:41 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:30:32 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_exit_digit(t_comm *comm, t_split *split)
 
 void	check_exit(t_comm *comm, t_split *split)
 {
-	int	i;
+	int		i;
 	size_t	j;
 
 	i = 0;

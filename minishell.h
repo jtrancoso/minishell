@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:22:46 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 10:39:35 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,11 @@ void			pipe_input(t_list **list, t_comm *comm, t_split *split,
 void			pipe_input_output(t_list **list, t_comm *comm, t_split *split,
 					int *fd[2]);
 void			wait_pipes(t_split *split);
+void			father_pipe_output(t_split *split, int *fd[2]);
+void			son_pipe_input_output(t_comm *comm, t_split *split);
+void			father_pipe_input_output(t_split *split, int *fd[2]);
+void			son_pipe_input(t_comm *comm, t_split *split);
+void			father_pipe_input(t_split *split, pid_t pid);
 void			check_env(t_comm *comm, char **envp);
 void			set_flags(t_list *list, t_comm *comm);
 void			set_shlvl(t_list *list, t_comm *comm, t_split *split);
