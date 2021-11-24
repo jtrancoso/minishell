@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:27:45 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:30:32 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 12:25:41 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,20 @@ void	ft_error_exit(t_split *split, char *cmd, char *arg, int flag)
 {
 	if (flag == 1)
 	{
-		printf("exit\n");
-		printf("galactic: %s: %s: numeric argument required\n", cmd, arg);
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("galactic: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		split->errorcode = 255;
 	}
 	if (flag == 2)
 	{
-		printf("exit\n");
-		printf("galactic: %s: too many arguments\n", cmd);
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("galactic: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": too many arguments\n", 2);
 		split->errorcode = 1;
 	}
 }
@@ -38,7 +44,7 @@ void	ft_exit(t_comm *comm, t_split *split, int flag)
 	ft_malloc_free(comm->cmd.cmd, 0);
 	ft_malloc_free(comm->cmd.env_array, 0);
 	if (!flag)
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 2);
 	exit(split->errorcode);
 }
 

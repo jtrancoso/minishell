@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:14:54 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 12:33:38 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 		return (ft_export(list, comm, split));
 	return (split->errorcode);
 }
-
-/*line 87 = BLACKMAGIC*/
 
 void	exec_made_function(t_list *list, t_comm *comm, t_split *split)
 {

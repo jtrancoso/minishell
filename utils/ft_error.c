@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 13:44:14 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/22 12:57:26 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 12:22:16 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,45 @@
 int	ft_error_syntax(t_split *split, char c)
 {
 	if (!c)
-		printf("galactic: syntax error near unexpected token 'newline'\n");
+		ft_putstr_fd("galactic: syntax error near unexpected token 'newline'\n",
+			2);
 	else
-		printf("galactic: syntax error near unexpected token '%c'\n", c);
+	{
+		ft_putstr_fd("galactic: syntax error near unexpected token '", 2);
+		ft_putchar_fd(c, 2);
+		ft_putstr_fd("'\n", 2);
+	}
 	split->errorcode = 1;
 	return (1);
 }
 
 void	ft_export_error(t_split *split, char *cmd, char *var)
 {
-	printf("galactic: %s: '%s': not a valid identifier\n", cmd, var);
+	ft_putstr_fd("galactic: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": '", 2);
+	ft_putstr_fd(var, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 	split->ret = 1;
 	split->errorcode = 1;
+}
+
+void	ft_error_bis(char *line, int error)
+{
+	if (error == 5)
+	{
+		ft_putstr_fd("galactic: ", 2);
+		ft_putstr_fd(line, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	if (error == 7)
+		ft_putstr_fd("galactic: uneven number of backslashes\n", 2);
+	if (error == 8)
+	{
+		ft_putstr_fd("galactic: ", 2);
+		ft_putstr_fd(line, 2);
+		ft_putstr_fd(": HOME not set\n", 2);
+	}
 }
 
 int	ft_error(t_split *split, char *line, int error)
@@ -37,17 +64,21 @@ int	ft_error(t_split *split, char *line, int error)
 	{
 		split->errorcode = 127;
 		if (ft_strchr(line, '/'))
-			printf("galactic: %s: No such file or directory\n", line);
+		{
+			ft_putstr_fd("galactic: ", 2);
+			ft_putstr_fd(line, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+		}
 		else
-			printf("galactic: %s: command not found\n", line);
+		{
+			ft_putstr_fd("galactic: ", 2);
+			ft_putstr_fd(line, 2);
+			ft_putstr_fd(": command not found\n", 2);
+		}
 		return (127);
 	}
-	if (error == 5)
-		printf("galactic: %s: No such file or directory\n", line);
-	if (error == 7)
-		ft_putstr_fd("galactic: uneven number of backslashes\n", 2);
-	if (error == 8)
-		printf("galactic: %s: HOME not set\n", line);
+	if (error > 5)
+		ft_error_bis(line, error);
 	split->errorcode = 1;
 	return (1);
 }

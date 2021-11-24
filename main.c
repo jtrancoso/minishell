@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:18:50 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:49:21 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	miraleaks(void)
-{
-	system("leaks minishell");
-}
 
 void	execute_things(t_list *list, t_comm *comm, t_split *split)
 {
@@ -60,7 +55,6 @@ int	main(int argc, char **argv, char **envp)
 	t_comm	comm;
 	t_split	split;
 
-	//atexit(miraleaks);
 	list = NULL;
 	init_main(&comm, argv, argc, envp);
 	set_shlvl(list, &comm, &split);

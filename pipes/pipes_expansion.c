@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 09:46:34 by isoria-g          #+#    #+#             */
-/*   Updated: 2021/11/24 10:47:21 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:38:33 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	son_pipe_input_output(t_comm *comm, t_split *split)
 void	father_pipe_input_output(t_split *split, int *fd[2])
 {
 	close((*fd)[1]);
-	close(split->last_fd); 
+	close(split->last_fd);
 	split->last_fd = dup((*fd)[0]);
 	close((*fd)[0]);
 	split->pipe_wait++;

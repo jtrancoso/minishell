@@ -6,7 +6,7 @@
 /*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 11:49:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:09:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 12:30:29 by jtrancos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 int	ft_cd_error(t_split *split, char *cmd, char *file)
 {
-	printf("galactic: %s: %s: No such file or directory\n", cmd, file);
+	ft_putstr_fd("galactic: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	split->errorcode = 1;
 	return (1);
 }
