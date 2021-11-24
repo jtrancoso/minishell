@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_mgr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:19:48 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 16:51:21 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:20:22 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	chek_if_fd(t_list **list, t_comm *comm, t_split *split)
+int	chek_if_fd(t_list **list)
 {
 	if ((((*list)->next)
 			&& ((((t_comm *)((*list)->next)->content)->t_semi) == 1
@@ -97,7 +97,7 @@ void	manage_redir(t_list **list, t_comm *comm, t_split *split)
 	while (*list)
 	{
 		check_fd(list, comm, split);
-		if (chek_if_fd(list, comm, split))
+		if (chek_if_fd(list))
 		{
 			((t_comm *)((*list)->content))->t_command = ft_strdup(split->str);
 			if (split->str)

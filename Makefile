@@ -6,7 +6,7 @@
 #    By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 12:59:06 by jtrancos          #+#    #+#              #
-#    Updated: 2021/11/24 09:15:14 by isoria-g         ###   ########.fr        #
+#    Updated: 2021/11/24 09:16:49 by isoria-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ RM			= rm -f
 CFLAGS		= -Werror -Wall -Wextra
 
 .c.o:
-			${CC} -g3 -c $< -o ${<:.c=.o}
+			${CC} ${CFLAGS} -g3 -c $< -o ${<:.c=.o}
 
 # SIN FLAGS ${CC} -g3 -c $< -o ${<:.c=.o}
 # CON FLAGS ${CC} ${CFLAGS} -g3 -c $< -o ${<:.c=.o}

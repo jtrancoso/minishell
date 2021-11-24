@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:53:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 16:50:56 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:22:46 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	pipe_input(t_list **list, t_comm *comm, t_split *split, int *fd[2])
 	}
 }
 
-void	wait_pipes(t_comm *comm, t_split *split)
+void	wait_pipes(t_split *split)
 {
 	int	status;
 	int	i;

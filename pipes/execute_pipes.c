@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:06:02 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 16:51:35 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:22:46 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_pipes(t_list *list, t_split *split, t_comm *comm)
+int	check_pipes(t_list *list)
 {
 	while (list)
 	{
@@ -25,7 +25,7 @@ int	check_pipes(t_list *list, t_split *split, t_comm *comm)
 
 void	execute_pipes(t_list **list, t_comm *comm, t_split *split, int *fd)
 {
-	if (split->pipe_n > 0 && (((t_comm *)(*list)->content)->post_pipe || check_pipes(*list, split, comm)))
+	if (split->pipe_n > 0 && (((t_comm *)(*list)->content)->post_pipe || check_pipes(*list)))
 	{
 		pipe(fd);
 		split->pipe_n--;
@@ -48,7 +48,7 @@ void	execute_pipes(t_list **list, t_comm *comm, t_split *split, int *fd)
 		&& ((t_comm *)(*list)->content)->t_word != NULL)
 	{
 		pipe_input(list, comm, split, &fd);
-		wait_pipes(comm, split);
+		wait_pipes(split);
 		split->pipe_wait = 0;
 	}
 }

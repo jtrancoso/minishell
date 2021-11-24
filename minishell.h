@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:14:54 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:22:46 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void			free_aux(char *aux_cmd, char **paths);
 void			init_var_clean_quotes(t_split *split);
 char			**ft_superglue(t_list *list, t_comm *comm);
 int				ft_unset(t_list *list, t_comm *comm, t_split *split);
-void			parse_redir(t_list *list, t_comm *comm, t_split *split);
+void			parse_redir(t_list *list, t_comm *comm);
 void			manage_redir(t_list **list, t_comm *comm, t_split *split);
 void			init_redir_mgr(t_comm *comm, t_split *split);
 void			create_history(t_list *list, t_comm *comm, t_split *split);
@@ -230,7 +230,7 @@ void			pipe_input(t_list **list, t_comm *comm, t_split *split,
 					int *fd[2]);
 void			pipe_input_output(t_list **list, t_comm *comm, t_split *split,
 					int *fd[2]);
-void			wait_pipes(t_comm *comm, t_split *split);
+void			wait_pipes(t_split *split);
 void			check_env(t_comm *comm, char **envp);
 void			set_flags(t_list *list, t_comm *comm);
 void			set_shlvl(t_list *list, t_comm *comm, t_split *split);

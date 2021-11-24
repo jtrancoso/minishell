@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 13:22:40 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:34:25 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:18:50 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_main(t_comm *comm, char **argv, int argc, char **envp)
 
 void	execute_loop(t_list *list, t_comm *comm, t_split *split)
 {
-	parse_redir(list, comm, split);
+	parse_redir(list, comm);
 	set_flags(list, comm);
 	execute_things(list, comm, split);
 	ft_lstclear(&comm->parse_head, &free_list);
