@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 14:52:52 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:16:21 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:07:24 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	export_list(t_list *list, t_comm *comm)
 	int		swapped;
 
 	export = NULL;
+	new = NULL;
 	fill_list(list, comm, new, export);
 	list = comm->export_head;
 	while (list)
 	{
-		sort_list(list, comm, &swapped);
+		sort_list(list, &swapped);
 		if (swapped == 1)
 			list = comm->export_head;
 		else
@@ -65,7 +66,7 @@ void	fill_list(t_list *list, t_comm *comm, t_list *new, t_list *export)
 	}
 }
 
-void	swap_list(t_list *list, t_comm *comm)
+void	swap_list(t_list *list)
 {
 	char	*aux_id;
 	char	*aux_value;
@@ -79,7 +80,7 @@ void	swap_list(t_list *list, t_comm *comm)
 	((t_export *)list->next->content)->value = aux_value;
 }
 
-void	check_export(t_list *list, t_comm *comm, t_split *split, int i)
+void	check_export(t_comm *comm, t_split *split, int i)
 {
 	int	j;
 

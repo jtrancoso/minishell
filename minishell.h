@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:14:44 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:07:24 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,12 +195,12 @@ int				ft_export(t_list *list, t_comm *comm, t_split *split);
 void			export_value(t_list *list, t_comm *comm, int i);
 void			ft_export_error(t_split *split, char *cmd, char *var);
 size_t			export_len(char *s1, char *s2);
-void			swap_list(t_list *list, t_comm *comm);
-void			sort_list(t_list *list, t_comm *comm, int *swapped);
+void			swap_list(t_list *list);
+void			sort_list(t_list *list, int *swapped);
 void			export_list(t_list *list, t_comm *comm);
 void			fill_list(t_list *list, t_comm *comm, t_list *new,
 					t_list *export);
-void			check_export(t_list *list, t_comm *comm, t_split *split, int i);
+void			check_export(t_comm *comm, t_split *split, int i);
 char			*relative_path(char *cmd);
 char			*dup_free_aux(char *real_path, char *aux_cmd);
 void			free_aux(char *aux_cmd, char **paths);

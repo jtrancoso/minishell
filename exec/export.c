@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 12:09:32 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:14:52 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:07:24 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	sort_list(t_list *list, t_comm *comm, int *swapped)
+void	sort_list(t_list *list, int *swapped)
 {	
 	if (list->next)
 	{
@@ -22,7 +22,7 @@ void	sort_list(t_list *list, t_comm *comm, int *swapped)
 				export_len(((t_export *)list->content)->id,
 					((t_export *)list->next->content)->id)) > 0)
 		{
-			swap_list(list, comm);
+			swap_list(list);
 			*swapped = 1;
 		}
 		if (ft_strncmp(((t_export *)list->content)->id,
@@ -33,7 +33,7 @@ void	sort_list(t_list *list, t_comm *comm, int *swapped)
 			if (ft_strlen(((t_export *)list->content)->id)
 				> ft_strlen(((t_export *)list->next->content)->id))
 			{
-				swap_list(list, comm);
+				swap_list(list);
 				*swapped = 1;
 			}
 		}
@@ -87,7 +87,7 @@ int	ft_export(t_list *list, t_comm *comm, t_split *split)
 	{
 		comm->export.f_valid = 0;
 		comm->export.f_exist = 0;
-		check_export(list, comm, split, i);
+		check_export(comm, split, i);
 		if (!comm->export.f_valid)
 		{
 			export_value(list, comm, i);
