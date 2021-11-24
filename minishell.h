@@ -6,7 +6,7 @@
 /*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:15:03 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/24 09:07:24 by isoria-g         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:14:54 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void			ft_splitgtgt(t_list *list, t_comm *comm, t_split *split);
 void			ft_splitlt(t_list *list, t_comm *comm, t_split *split);
 void			free_words(char **aux);
 void			list_no_flag(t_list *list, t_split *split, char **aux);
-int				ft_echo(t_list *list, t_comm *comm, t_split *split);
+int				ft_echo(t_list *list, t_comm *comm);
 void			ft_init(t_comm *comm);
 int				ft_error(t_split *split, char *line, int error);
 int				ft_error_syntax(t_split *split, char c);

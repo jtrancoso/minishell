@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:01:34 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/23 17:10:49 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:14:54 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exec_comm(t_list *list, t_comm *comm, t_split *split)
 	if (ft_strncmp(comm->cmd.path, "pwd", 3) == 0)
 		return (ft_pwd(comm));
 	else if (ft_strncmp(comm->cmd.path, "echo", 4) == 0)
-		return (ft_echo(list, comm, split));
+		return (ft_echo(list, comm));
 	else if (ft_strncmp(comm->cmd.path, "exit", 4) == 0)
 		check_exit(comm, split);
 	else if (ft_strncmp(comm->cmd.path, "env", 3) == 0)

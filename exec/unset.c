@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:40:30 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/19 17:25:02 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:11:44 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	unset_var(t_list *list, t_comm *comm, int *i)
 {
 	t_list	*aux;
 	t_list	*prev;
-	int		len;
+	size_t	len;
 
 	list = comm->env_head;
 	prev = list;
@@ -61,7 +61,6 @@ void	unset_var(t_list *list, t_comm *comm, int *i)
 int	ft_unset(t_list *list, t_comm *comm, t_split *split)
 {
 	int		i;
-	int		len;
 	int		ret;
 
 	i = 1;

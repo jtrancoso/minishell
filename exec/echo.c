@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtrancos <jtrancos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isoria-g <isoria-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 13:15:19 by jtrancos          #+#    #+#             */
-/*   Updated: 2021/11/08 13:43:31 by jtrancos         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:14:54 by isoria-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_printhome(t_list *list, t_comm *comm, t_split *split)
+char	*ft_printhome(t_list *list, t_comm *comm)
 {
 	comm->home = NULL;
 	list = comm->env_head;
@@ -25,7 +25,7 @@ char	*ft_printhome(t_list *list, t_comm *comm, t_split *split)
 	return (comm->home);
 }
 
-void	find_echon(t_comm *comm, int *i, int *j, int *l)
+void	find_echon(t_comm *comm, int *i, int *j, size_t *l)
 {
 	int	q;
 
@@ -51,7 +51,7 @@ void	find_echon(t_comm *comm, int *i, int *j, int *l)
 	}
 }
 
-void	print_echo(t_list *list, t_comm *comm, t_split *split, int *i)
+void	print_echo(t_list *list, t_comm *comm, int *i)
 {
 	int	j;
 
@@ -63,7 +63,7 @@ void	print_echo(t_list *list, t_comm *comm, t_split *split, int *i)
 			|| (j == 0 && comm->cmd.cmd[*i][j] == '~'
 			&& comm->cmd.cmd[*i][j + 1] == '\0' && comm->f_verg == 0))
 		{
-			ft_putstr_fd(ft_printhome(list, comm, split), 1);
+			ft_putstr_fd(ft_printhome(list, comm), 1);
 			free(comm->home);
 		}
 		else
@@ -74,18 +74,18 @@ void	print_echo(t_list *list, t_comm *comm, t_split *split, int *i)
 		ft_putchar_fd(' ', 1);
 }
 
-int	ft_echo(t_list *list, t_comm *comm, t_split *split)
+int	ft_echo(t_list *list, t_comm *comm)
 {
-	int	i;
-	int	j;
-	int	l;
+	int		i;
+	int		j;
+	size_t	l;
 
 	i = 1;
 	comm->flag_n = 0;
 	find_echon(comm, &i, &j, &l);
 	while (comm->cmd.cmd[i])
 	{
-		print_echo(list, comm, split, &i);
+		print_echo(list, comm, &i);
 		i++;
 	}
 	if (!comm->flag_n)
